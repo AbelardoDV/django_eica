@@ -1,5 +1,6 @@
-# from django.shortcuts import render
-# from django.http import HttpResponse
+from django.shortcuts import render
+from django.http import HttpResponse
 
-# def index(request):
-#     return HttpResponse("Home")
+def homepage_view(*args,**kwargs):
+    # return HttpResponse("Home")
+    return HttpResponse("<h1>Hola abe</h1>")

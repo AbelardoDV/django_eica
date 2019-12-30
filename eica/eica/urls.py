@@ -14,10 +14,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import url
-# from django.views import index
+
+from eica.views import homepage_view
 
 urlpatterns = [
+    path('',homepage_view,name='home'),
     path('admin/', admin.site.urls),
     # url(r'^$',admin.site.urls),
 ]
