@@ -15,8 +15,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from eica.views import homepage_view
+from eica.views import table_view
+
 
 urlpatterns = [
     path('', homepage_view, name='home'),
     path('admin/', admin.site.urls),
+    path('table/',table_view, name='table'),
 ]

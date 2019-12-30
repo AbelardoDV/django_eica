@@ -11,7 +11,12 @@ from django.contrib import admin
 class Personas(models.Model):
     nombre = models.CharField(max_length=255, blank=True, null=True)
     edad = models.SmallIntegerField(blank=True, null=True)
-
+    dni = models.CharField(max_length=255, blank=True, null=True)
+    
+    def __str__(self):
+        return self.nombre
+    
     class Meta:
-        managed = False
+        managed = True
         db_table = 'personas'
+        verbose_name_plural = 'personas'

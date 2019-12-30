@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'new_database',
         'USER': 'djangouser',
         'PASSWORD': 'guitarra',
-        'HOST': 'localhost',
+        'HOST': '192.168.1.7',
         'PORT': '',
     },
     'sqlite': {

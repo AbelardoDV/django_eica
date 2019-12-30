@@ -5,6 +5,8 @@ from eica.models import Personas
 
 def homepage_view(request, *args, **kwargs):
     # return HttpResponse("Home")
+    return render(request,'home.html',{})
+
+def table_view(request):
     personas = Personas.objects.all()
-           
-    return render(request,'home.html',locals())
+    return render(request,'table.html',locals())    

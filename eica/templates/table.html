@@ -1,0 +1,19 @@
+<head>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+    </tr>
+    {% for x in personas %}
+    <tr> 
+        <td>{{ x.nombre }}</td>
+ 
+        <td>{{ x.edad }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
