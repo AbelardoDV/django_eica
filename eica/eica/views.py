@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from eica.models import *
+# from django.http import HttpResponse
+from eica.models import Personas
 
-def homepage_view(request,*args,**kwargs):
+
+def homepage_view(request, *args, **kwargs):
     # return HttpResponse("Home")
     personas = Personas.objects.all()
            

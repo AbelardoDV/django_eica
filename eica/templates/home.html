@@ -1,23 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title> Titulo eica</title>
-  </head>
+{% extends 'base.html' %}
 
-<body>
-
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Age</th>
-    </tr>
-    {% for x in personas %}
-    <tr> 
-        <td>{{ x.nombre }}</td>
- 
-        <td>{{ x.edad }}</td>
-    </tr>
-    {% endfor %}
-</table>
-
-</body>
+{% block contenido %}
+<p>home.html</p>
+{% endblock contenido %}
