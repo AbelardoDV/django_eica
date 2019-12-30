@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from apps.eica.views import index
 from django.conf.urls import url
+from django.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^$',index),
+    url(r'^$',admin.site.urls),
 ]
