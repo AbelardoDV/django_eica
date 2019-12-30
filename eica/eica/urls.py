@@ -20,5 +20,4 @@ from eica.views import homepage_view
 urlpatterns = [
     path('',homepage_view,name='home'),
     path('admin/', admin.site.urls),
-    # url(r'^$',admin.site.urls),
 ]

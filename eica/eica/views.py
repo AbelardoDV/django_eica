@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-def homepage_view(*args,**kwargs):
+def homepage_view(request,*args,**kwargs):
     # return HttpResponse("Home")
-    return HttpResponse("<h1>Hola abe</h1>")
+    print(args,kwargs)
+    return render(request,"home.html",{})
