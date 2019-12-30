@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 
+{% load render_table from django_tables2 %}
+
+
 {% block contenido %}
 
 <h1>Home</h1>
 <p> This is a template</p>
+
+
 {% endblock %}
+
+        {% render_table personas %}

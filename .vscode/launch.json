@@ -9,7 +9,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/eica/manage.py",
-            "args" : ["runserver","192.168.1.7:8000"]
+            "args" : ["runserver","localhost:8000"]
         }
     ]
 }
