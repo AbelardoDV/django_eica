@@ -1,17 +1,76 @@
 <!-- templates/registration/login.html -->
 {% extends 'base.html' %}
 
+{% block cabecera %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+<!--Custom styles-->
+<link rel="stylesheet" type="text/css" href="styles.css">
+
+{% endblock cabecera %}
+
+
+
+<!-- 
+<h2>Iniciar sesion</h2>
+<form method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<button type="submit">Login</button>
+</form>
+
+ -->
+
+	
+
+
 {% block body %}
 
 
-      <h2>Iniciar sesion</h2>
-      <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-      </form>
+<div class="container">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card">
+			<div class="card-header">
+				<h3>Iniciar Sesion</h3>
+
+
+			</div>
+			<div class="card-body">
+				<form method="post">
+					{% csrf_token %}
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input name="username" type="text" class="form-control" placeholder="username">
+
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input name="password" type="password" class="form-control" placeholder="password">
+					</div>
+					<!-- <div class="row align-items-center remember">
+						<input type="checkbox">Remember Me
+					</div> -->
+					<div class="form-group">
+						<input type="submit" class="btn float-right login_btn">
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
 
 
 
 
 {% endblock body %}
+
+
+
