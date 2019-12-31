@@ -12,6 +12,7 @@ class Personas(models.Model):
     nombre = models.CharField(max_length=255, blank=True, null=True)
     edad = models.SmallIntegerField(blank=True, null=True)
     dni = models.CharField(max_length=255, blank=True, null=True)
+    fecha_creado=models.DateTimeField(auto_now=True,blank=True, null=True)
     
     def __str__(self):
         return self.nombre

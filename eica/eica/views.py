@@ -10,3 +10,9 @@ def homepage_view(request, *args, **kwargs):
 def table_view(request):
     personas = Personas.objects.all()
     return render(request,'table.html',locals())    
+
+
+def apinuevo(request):
+    personas = Personas.objects.all()
+    return render(request,'apinuevo.html',locals())    
+

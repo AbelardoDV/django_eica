@@ -16,10 +16,12 @@ from django.contrib import admin
 from django.urls import path
 from eica.views import homepage_view
 from eica.views import table_view
+from eica.views import apinuevo
 
 
 urlpatterns = [
     path('', homepage_view, name='home'),
     path('admin/', admin.site.urls),
     path('table/',table_view, name='table'),
+    path('apinuevo/',apinuevo, name='apinuevo'),
 ]
