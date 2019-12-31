@@ -9,10 +9,10 @@ from django.db import models
 from django.contrib import admin
 
 class Personas(models.Model):
-    nombre = models.CharField(max_length=255, blank=True, null=True)
-    edad = models.SmallIntegerField(blank=True, null=True)
-    dni = models.CharField(max_length=255, blank=True, null=True)
-    fecha_creado=models.DateTimeField(auto_now=True,blank=True, null=True)
+    nombre = models.CharField('Nombrex',max_length=255, blank=True, null=True)
+    edad = models.SmallIntegerField('EdadX',blank=True, null=True)
+    dni = models.CharField('DniX',max_length=100, blank=True, null=True)
+    # fecha_creado=models.DateTimeField('fecha creadoX',auto_now=True,blank=True, null=True)
     
     def __str__(self):
         return self.nombre
