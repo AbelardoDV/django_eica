@@ -1,12 +1,17 @@
 <!-- templates/registration/login.html -->
+{% extends 'base.html' %}
 
-<h2>Login</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
-</form>
+{% block body %}
 
-{% if user.is_authenticated == False%}
 
-{%endif%}
+      <h2>Iniciar sesion</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+      </form>
+
+
+
+
+{% endblock body %}
