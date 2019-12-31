@@ -10,7 +10,7 @@ def homepage_view(request, *args, **kwargs):
 @login_required(login_url='/accounts/login')
 def table_view(request):
     # personas = Personas.objects.all()
-    return render(request,'table.html',locals())    
+    return render(request,'index.html',locals())    
 
 
 @login_required(login_url='/accounts/login')
