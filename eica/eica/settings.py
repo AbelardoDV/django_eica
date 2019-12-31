@@ -138,5 +138,5 @@ print(STATICFILES_DIRS)
 
 #Para entender statics https://stackoverflow.com/questions/24022558/differences-between-staticfiles-dir-static-root-and-media-root
 
-LOGIN_REDIRECT_URL = '/table'
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/dashboard'
+LOGOUT_REDIRECT_URL = '/accounts/login'
