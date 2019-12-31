@@ -16,7 +16,8 @@ from django.contrib import admin
 from django.urls import path, include
 from eica.views import homepage_view
 from eica.views import table_view
-from eica.views import apinuevo
+# from eica.views import apinuevo
+
 
 
 urlpatterns = [
@@ -24,5 +25,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/',include('django.contrib.auth.urls')),
     path('table/',table_view, name='table'),
-    path('apinuevo/',apinuevo, name='apinuevo'),
-]
+    # path('apinuevo/',apinuevo, name='apinuevo'),
+    ]

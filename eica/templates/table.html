@@ -1,8 +1,8 @@
-<head>
-</head>
-<body>
+{% extends 'base.html' %}
 
-<table class="table ">
+{% block contenido %}
+<div class="container">
+<table class="table table-striped ">
      <thead>
     <tr>
         <th>Name</th>
@@ -11,7 +11,7 @@
     </tr>
      </thead>
      <tbody>
-    {% for x in personas %}
+    {% comment %} {% for x in personas %}
       
     <tr> 
         <td>{{ x.nombre }}</td>
@@ -26,10 +26,10 @@
 
 
 
-    {% endfor %}
+    {% endfor %} {% endcomment %}
     </tbody>
 </table>
-
+<
 <br> <br> <br>
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
@@ -46,4 +46,4 @@
   <a href="{% url 'login' %}">login</a>
 {% endif %}
 
-</body>
+{% endblock contenido %}
