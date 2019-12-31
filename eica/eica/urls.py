@@ -17,6 +17,8 @@ from django.urls import path, include
 from eica.views import homepage_view
 from eica.views import table_view
 from eica.views import ventas_view
+
+
 # from eica.views import apinuevo
 
 

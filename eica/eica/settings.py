@@ -128,9 +128,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/staticfiles/AdminLTE/' #Contiene el tema de administrador Dashboard llamado AdminLTE
-STATIC_ROOT = os.path.join(BASE_DIR, '/staticfiles/AdminLTE/')
+STATIC_URL = '/AdminLte3/' #Contiene el tema de administrador Dashboard llamado AdminLTE
 
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'AdminLte3'),]
+
+
+print(BASE_DIR)
+print(STATICFILES_DIRS)
+
+#Para entender statics https://stackoverflow.com/questions/24022558/differences-between-staticfiles-dir-static-root-and-media-root
 
 LOGIN_REDIRECT_URL = '/table'
 LOGOUT_REDIRECT_URL = '/'
