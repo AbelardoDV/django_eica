@@ -15,5 +15,14 @@ def table_view(request):
 
 def apinuevo(request):
     personas = Personas.objects.all()
-    return render(request,'apinuevo.html',locals())    
+    
+    if request.method=='POST':
+        form=PersonasForm(request.POST)
+        if form.is_valid():
+            form.save()
+        # return redirect('apinuevo:apinuevo')
+    else:
+        form=PersonasForm()
+    
+    return render(request,'apinuevo.html',{'p':personas,'form':form})    
 

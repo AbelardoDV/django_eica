@@ -1,13 +1,14 @@
-<head>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block contenido %}
+
 <h1>Mostrando tabla</h1>
 <table>
     <tr>
         <th>Name</th>
         <th>Age</th>
     </tr>
-    {% for x in personas %}
+    {% for x in p %}
     <tr> 
         <td>{{ x.nombre }}</td>
  
@@ -15,7 +16,22 @@
     </tr>
     {% endfor %}
 </table>
+{% endblock contenido %}
+
+>
+{% block contenido2 %}
 
 <h1>Mostrando formulario</h1>
+<form method="post">
+ {% csrf_token %}
+ {{form.as_p}}
 
-</body>
+<button type="submit">Guardar </button>
+
+</form>
+
+{% endblock contenido2 %}
+
+
+
+
