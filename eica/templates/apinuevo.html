@@ -3,7 +3,7 @@
 {% block contenido %}
 
 <h1>Mostrando tabla</h1>
-<table>
+<table class="table">
     <tr>
         <th>Name</th>
         <th>Age</th>
@@ -26,7 +26,7 @@
  {% csrf_token %}
  {{form.as_p}}
 
-<button type="submit">Guardar </button>
+<button type="submit" class="btn btn-success">Guardar </button>
 
 </form>
 

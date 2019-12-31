@@ -2,13 +2,17 @@
 </head>
 <body>
 
-<table>
+<table class="table table-striped ">
+     <thead>
     <tr>
         <th>Name</th>
         <th>Age</th>
         <th>Creado hace menos de un dia: </th>
     </tr>
+     </thead>
+     <tbody>
     {% for x in personas %}
+      
     <tr> 
         <td>{{ x.nombre }}</td>
  
@@ -23,6 +27,7 @@
 
 
     {% endfor %}
+    </tbody>
 </table>
 
 <br> <br> <br>
