@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'new_database',
         'USER': 'djangouser',
         'PASSWORD': 'guitarra',
-        'HOST': 'localhost',
+        'HOST': '192.168.1.7',
         'PORT': '',
     },
     'sqlite': {
@@ -116,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Lima'
 
 USE_I18N = True
 
@@ -129,3 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+LOGIN_REDIRECT_URL = '/table'
+LOGOUT_REDIRECT_URL = '/'

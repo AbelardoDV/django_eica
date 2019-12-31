@@ -6,14 +6,39 @@
     <tr>
         <th>Name</th>
         <th>Age</th>
+        <th>Creado hace menos de un dia: </th>
     </tr>
     {% for x in personas %}
     <tr> 
         <td>{{ x.nombre }}</td>
  
         <td>{{ x.edad }}</td>
+
+        <td>{{ x.fecha_creado}}</td>
+
+  
+
     </tr>
+
+
+
     {% endfor %}
 </table>
+
+<br> <br> <br>
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+{% endif %}
+
+{% if user.is_authenticated %}
+ 
+  <p><a href="{% url 'logout' %}">logout</a></p>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+{% endif %}
 
 </body>

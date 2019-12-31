@@ -13,7 +13,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from eica.views import homepage_view
 from eica.views import table_view
 from eica.views import apinuevo
@@ -22,6 +22,7 @@ from eica.views import apinuevo
 urlpatterns = [
     path('', homepage_view, name='home'),
     path('admin/', admin.site.urls),
+    path('accounts/',include('django.contrib.auth.urls')),
     path('table/',table_view, name='table'),
     path('apinuevo/',apinuevo, name='apinuevo'),
 ]
