@@ -13,6 +13,11 @@ def table_view(request):
     return render(request,'table.html',locals())    
 
 
+@login_required(login_url='/accounts/login')
+def ventas_view(request):
+    # personas = Personas.objects.all()
+    return render(request,'controlador/ventas.html',locals())    
+
 # def apinuevo(request):
 #     personas = Personas.objects.all()
     
