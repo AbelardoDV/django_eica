@@ -31,25 +31,10 @@ venv.bak/
 # mypy 
 .mypy_cache/ 
 
-# Sublime Text # 
-*.tmlanguage.cache 
-*.tmPreferences.cache 
-*.stTheme.cache 
-*.sublime-workspace 
-*.sublime-project 
-
-# sftp configuration file 
-sftp-config.json 
-
-# Package control specific files Package 
-Control.last-run 
-Control.ca-list 
-Control.ca-bundle 
-Control.system-ca-bundle 
-GitHub.sublime-settings 
 
 # Visual Studio Code # 
 .vscode/* 
+*.pyc
 
 !__pycache__/
 !.vscode/settings.json 
