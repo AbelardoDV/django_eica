@@ -27,7 +27,7 @@
           <div class="card-body">
             <!-- form start -->
             <form role="form">
-              <div class="card-body">
+              <div class="p-3 mb-2 bg-light text-dark">
                 <!-- Cliente -->
                 <div class="form-group">
                   <label for="exampleInputCliente1">Cliente</label>
@@ -35,7 +35,6 @@
                     <option value="">Seleccione cliente...</option>
                     <option value="1">One</option>
                   </select>
-                  <div class="invalid-feedback">Seleccione un cliente válido</div>
                 </div>
                 <!-- Tipo de pago -->
                 <div class="form-group">
@@ -49,14 +48,51 @@
 
                 <div class="custom-control custom-switch">
                   <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                  <label class="custom-control-label" for="customSwitch1">Recordar cliente y tipo de venta para varias entradas</label>
+                  <label class="custom-control-label" for="customSwitch1">Recordar cliente y tipo de venta para varias
+                    entradas</label>
                 </div>
-              </div>
-              <!-- /.card-body -->
 
-              <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Agregar venta</button>
               </div>
+
+              <div class="p-3 mb-2 bg-white text-dark">
+                <!-- Cliente -->
+                <div class="form-group">
+                  <label for="exampleInputCliente1">Plato:</label>
+                  <select class="form-control" required>
+                    <option value="">Seleccione plato...</option>
+                    <option value="1">One</option>
+                  </select>
+                </div>
+                <!-- Cantidad -->
+                <div class="form-group">
+                  <label for="exampleInputCliente1">Cantidad:</label>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Ingrese cantidad" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text">unidades</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Dinero con el que pagó -->
+                <div class="form-group">
+                  <label for="exampleInputCliente1">Pagó con:</label>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">S/.</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Dinero con el que paga el cliente" required>
+
+                  </div>
+                  *Usa puntos para los decimales
+                </div>
+
+              </div>
+              <div class='container'>
+                <button type="submit" class="btn btn-outline-success">Agregar venta</button>
+              </div>
+
+
+
             </form>
           </div>
           <!-- /.card-body -->
