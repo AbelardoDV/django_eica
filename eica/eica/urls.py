@@ -16,7 +16,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from eica.views import dashboard_view
-from eica.views import ventas_view
+from eica.views import ventas_restaurante_view
 
 
 # from eica.views import apinuevo
@@ -27,6 +27,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('dashboard/', dashboard_view, name='dashboard'),
-    path('ventas/', ventas_view, name='ventas'),
+    path('ventas_restaurante/', ventas_restaurante_view, name='ventas_restaurante'),
     # path('apinuevo/',apinuevo, name='apinuevo'),
 ]

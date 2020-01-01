@@ -14,7 +14,7 @@ def dashboard_view(request):
     return render(request,'dashboard.html',locals())    
 
 @login_required(login_url='/accounts/login')
-def ventas_view(request):
+def ventas_restaurante_view(request):
     nombre_vista = 'Ventas de Restaurante'
     ruta_vista = ['Ventas de Restaurante']
-    return render(request,'ventas.html',locals())  
+    return render(request,'ventas_restaurante.html',locals())  
