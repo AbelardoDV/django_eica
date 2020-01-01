@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 
+{%load static%}
+
+
 {% block cabecera %}
-<title>
-  Ventas
-</title>
+
+<!-- Select2 -->
+<link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
+
 {% endblock cabecera %}
 
 {% block contenido %}
@@ -27,15 +32,24 @@
           <div class="card-body">
             <!-- form start -->
             <form role="form">
+              <!-- Grupo 1 formulario -->
               <div class="p-3 mb-2 bg-light text-dark">
+
                 <!-- Cliente -->
+
                 <div class="form-group">
-                  <label for="exampleInputCliente1">Cliente</label>
-                  <select class="form-control" required>
-                    <option value="">Seleccione cliente...</option>
-                    <option value="1">One</option>
+                  <label>Minimal</label>
+                  <select class="form-control select2" style="width: 100%;" required>
+                    <option selected="selected">Alabama</option>
+                    <option>Alaska</option>
+                    <option>California</option>
+                    <option>Delaware</option>
+                    <option>Tennessee</option>
+                    <option>Texas</option>
+                    <option>Washington</option>
                   </select>
                 </div>
+
                 <!-- Tipo de pago -->
                 <div class="form-group">
                   <label for="exampleInputTipoVenta1">Tipo de venta</label>
@@ -53,6 +67,8 @@
                 </div>
 
               </div>
+
+              <!-- Grupo 2 formulario -->
 
               <div class="p-3 mb-2 bg-white text-dark">
                 <!-- Cliente -->
@@ -87,10 +103,7 @@
                 </div>
 
               </div>
-              <div class='container'>
-                <button type="submit" class="btn btn-outline-success">Agregar venta</button>
-              </div>
-
+              <button type="submit" class="btn btn-outline-success">Agregar venta</button>
 
 
             </form>
@@ -111,5 +124,23 @@
 
 
 {% block pie %}
+<!-- Select2 -->
+<script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
+
+
+<!-- Page script -->
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+
+    // Add here more scripts
+  })
+</script>
 
 {% endblock pie %}
