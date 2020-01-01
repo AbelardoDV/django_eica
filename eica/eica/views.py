@@ -11,3 +11,6 @@ def homepage_view(request, *args, **kwargs):
 def dashboard_view(request):
     return render(request,'dashboard.html',locals())    
 
+@login_required(login_url='/accounts/login')
+def ventas_view(request):
+    return render(request,'ventas.html',locals())  
