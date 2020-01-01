@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'restaurante',
         'USER': 'djangouser',
         'PASSWORD': 'guitarra',
-        'HOST': '192.168.1.4',
+        'HOST': 'localhost',
         'PORT': '',
     },
     'sqlite': {
