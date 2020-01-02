@@ -4,7 +4,6 @@
 
 
 {% block cabecera %}
-
 <!-- Select2 -->
 <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
 <link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
@@ -38,24 +37,19 @@
                 <!-- Cliente -->
 
                 <div class="form-group">
-                  <label>Minimal</label>
-                  <select class="form-control select2" style="width: 100%;" required>
-                    <option selected="selected">Alabama</option>
-                    <option>Alaska</option>
-                    <option>California</option>
-                    <option>Delaware</option>
-                    <option>Tennessee</option>
-                    <option>Texas</option>
-                    <option>Washington</option>
+                  <label>Cliente (*)</label>
+                  <select class="form-control select2bs4" style="width: 100%;">
+                    <option selected="selected">Cliente 1</option>
+                    <option>Cliente 2</option>
+                    <option>Cliente 3</option>
                   </select>
                 </div>
-
                 <!-- Tipo de pago -->
                 <div class="form-group">
-                  <label for="exampleInputTipoVenta1">Tipo de venta</label>
+                  <label for="exampleInputTipoVenta1">Tipo de venta (*)</label>
                   <select class="form-control" required>
                     <option value="">Seleccione tipo de venta...</option>
-                    <option value="1">One</option>
+                    <option value="1">Tipo de venta 1</option>
                   </select>
                   <div class="invalid-feedback">Seleccione un cliente válido</div>
                 </div>
@@ -73,7 +67,7 @@
               <div class="p-3 mb-2 bg-white text-dark">
                 <!-- Cliente -->
                 <div class="form-group">
-                  <label for="exampleInputCliente1">Plato:</label>
+                  <label for="exampleInputCliente1">Plato (*)</label>
                   <select class="form-control" required>
                     <option value="">Seleccione plato...</option>
                     <option value="1">One</option>
@@ -81,7 +75,7 @@
                 </div>
                 <!-- Cantidad -->
                 <div class="form-group">
-                  <label for="exampleInputCliente1">Cantidad:</label>
+                  <label for="exampleInputCliente1">Cantidad (*)</label>
                   <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Ingrese cantidad" required>
                     <div class="input-group-append">
@@ -91,7 +85,7 @@
                 </div>
                 <!-- Dinero con el que pagó -->
                 <div class="form-group">
-                  <label for="exampleInputCliente1">Pagó con:</label>
+                  <label for="exampleInputCliente1">Pagó con (**)</label>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text">S/.</span>
@@ -99,7 +93,10 @@
                     <input type="text" class="form-control" placeholder="Dinero con el que paga el cliente" required>
 
                   </div>
-                  *Usa puntos para los decimales
+                  *Obligatorio
+                  <p>
+                    ** Usar punto (.) para decimales
+                  </p>
                 </div>
 
               </div>
@@ -110,7 +107,7 @@
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
-            (RESTAURANTE) *Recuerda revisar los datos antes de ingresar.
+            (RESTAURANTE) *Recuerda revisar los datos.
           </div>
           <!-- /.card-footer-->
         </div>
