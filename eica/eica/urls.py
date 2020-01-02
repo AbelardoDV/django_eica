@@ -17,7 +17,7 @@ from django.urls import path, include
 
 from eica.views import dashboard_view
 from eica.views import ventas_restaurante_view
-
+from eica.views import compras_productos_view
 
 # from eica.views import apinuevo
 
@@ -28,5 +28,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('dashboard/', dashboard_view, name='dashboard'),
     path('ventas_restaurante/', ventas_restaurante_view, name='ventas_restaurante'),
+    path('compras_productos/', compras_productos_view, name='compras_productos'),
     # path('apinuevo/',apinuevo, name='apinuevo'),
 ]
