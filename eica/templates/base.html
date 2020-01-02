@@ -203,61 +203,124 @@
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+            {% if nombre_vista == 'Dashboard'  %}
+            <li class="nav-item has-treeview menu-open">
+              {% else  %}
             <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                  Dashboard
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href=" 'index.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard v1</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="  'index2.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard v2</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="  'index3.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard v3</p>
-                  </a>
-                </li>
-              </ul>
+              {% endif  %}
+              {% if nombre_vista == 'Dashboard'  %}
+              <a href="#" class="nav-link active">
+                {% else  %}
+                <a href="#" class="nav-link">
+                  {% endif  %}
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    Dashboard
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    {% if nombre_vista == 'Dashboard'  %}
+                    <a href="../dashboard" class="nav-link active">
+                      {% else  %}
+                      <a href="../dashboard" class="nav-link">
+                        {% endif  %}
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Dashboard v1</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="  'index2.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Dashboard v2</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="  'index3.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Dashboard v3</p>
+                    </a>
+                  </li>
+                </ul>
             </li>
             <!--Inicio Ventas-->
+            {% if nombre_vista == 'Ventas de Restaurante'  %}
+            <li class="nav-item has-treeview menu-open">
+              {% else %}
             <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-shopping-cart"></i>
-                <p>
-                  Ventas
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="/ventas_restaurante" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Restaurante</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Bodega</p>
-                  </a>
-                </li>
-              </ul>
+              {% endif %}
+              {% if nombre_vista == 'Ventas de Restaurante'  %}
+              <a href="#" class="nav-link active">
+                {% else %}
+                <a href="#" class="nav-link">
+                  {% endif %}
+                  <i class="nav-icon fas fa-shopping-cart"></i>
+                  <p>
+                    Ventas
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    {% if nombre_vista == 'Ventas de Restaurante'  %}
+                    <a href="/ventas_restaurante" class="nav-link active">
+                      {% else %}
+                      <a href="/ventas_restaurante" class="nav-link">
+                        {% endif %}
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Restaurante</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Bodega</p>
+                    </a>
+                  </li>
+                </ul>
             </li>
 
             <!-- Fin Ventas-->
+
+            <!--Inicio Compras-->
+            {% if nombre_vista == 'Compras de Productos'  %}
+            <li class="nav-item has-treeview menu-open">
+              {% else %}
+            <li class="nav-item has-treeview">
+              {% endif %}
+              {% if nombre_vista == 'Compras de Productos'  %}
+              <a href="#" class="nav-link active">
+                {% else %}
+                <a href="#" class="nav-link">
+                  {% endif %}
+                  <i class="nav-icon fas fa-shopping-cart"></i>
+                  <p>
+                    Compras
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    {% if nombre_vista == 'Compras de Productos'  %}
+                    <a href="/compras_productos" class="nav-link active">
+                      {% else %}
+                      <a href="/compras_productos" class="nav-link">
+                        {% endif %}
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Compras de Productos</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Bodega</p>
+                    </a>
+                  </li>
+                </ul>
+            </li>
+
+            <!-- Fin Compras-->
 
             <li class="nav-item">
               <a href="../widgets.html" class="nav-link">
@@ -268,8 +331,8 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item has-treeview menu-open">
-              <a href="#" class="nav-link active">
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
                   Layout Options
@@ -297,7 +360,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../layout/fixed-topnav.html" class="nav-link active">
+                  <a href="../layout/fixed-topnav.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Fixed Navbar</p>
                   </a>
