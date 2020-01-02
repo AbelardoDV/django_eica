@@ -17,8 +17,10 @@ from django.urls import path, include
 
 from eica.views import dashboard_view
 from eica.views import ventas_restaurante_view
+from eica.views import ventas_bodega_view
+from eica.views import ventas_historial_view
 from eica.views import compras_productos_view
-
+from eica.views import compras_historial_view
 # from eica.views import apinuevo
 
 
@@ -27,7 +29,17 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('dashboard/', dashboard_view, name='dashboard'),
+    
+    #-----------------Inicio seccion de ventas-----------------
     path('ventas_restaurante/', ventas_restaurante_view, name='ventas_restaurante'),
+    path('ventas_bodega/', ventas_bodega_view, name='ventas_bodega'),
+    path('ventas_historial/', ventas_historial_view, name='ventas_historial'),
+    #-----------------Fin seccion de ventas-----------------
+       
+    #-----------------Inicio seccion de Compra-----------------   
     path('compras_productos/', compras_productos_view, name='compras_productos'),
-    # path('apinuevo/',apinuevo, name='apinuevo'),
+    path('compras_historial/', compras_historial_view, name='compras_historial'),
+    #-----------------Inicio seccion de Compra-----------------
+    
+    
 ]
