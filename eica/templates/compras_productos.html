@@ -20,7 +20,7 @@
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">COMPRAS | Ingresar compra de producto</h3>
+                        <h3 class="card-title"><strong>COMPRAS</strong>   | Ingresar compra de producto</h3>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
@@ -118,62 +118,89 @@
                         (RESTAURANTE) *Recuerda revisar los datos.
                     </div>
                     <!-- /.card-footer-->
-                    
+
                 </div>
                 <!-- /.card -->
 
                 <div class="row">
                     <div class="col-12">
-                      <div class="card">
-                        <div class="card-header">
-                          <h3 class="card-title">COMPRAS | Últimas compras ingresadas al sistema</h3>
-          
-                          <div class="card-tools">
-                            <div class="input-group input-group-sm" style="width: 150px;">
-                              <input type="text" name="table_search" class="form-control float-right" placeholder="Buscar">
-          
-                              <div class="input-group-append">
-                                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                              </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title"> <strong>COMPRAS</strong>  | Últimas <strong>10</strong> ingresadas al sistema</h3>
+
+                                <div class="card-tools">
+                                    <div class="input-group input-group-sm" style="width: 150px;">
+                                        <input type="text" name="table_search" class="form-control float-right"
+                                            placeholder="Buscar">
+
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-default"><i
+                                                    class="fas fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
+                            <!-- /.card-header -->
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>N°</th>
+                                            <th>Producto</th>
+                                            <th>Fecha</th>
+                                            <th>Proveedor</th>
+                                            <th>Cantidad grupo</th>
+                                            <th>Cantidad unidad</th>
+                                            <th>Unidad</th>
+                                            <th>Precio</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>522</td>
+                                            <td>Papa huayro</td>
+                                            <td>11-7-2019</td>
+                                            <td><span class="tag tag-success">Approved</span></td>
+                                            <td>1</td>
+                                            <td>23</td>
+                                            <td>12</td>
+                                            <td>123</td>
+                                        </tr>
+                                        <tr>
+                                            <td>521</td>
+                                            <td>Trucha frita</td>
+                                            <td>11-7-2019</td>
+                                            <td><span class="tag tag-warning">Pending</span></td>
+                                            <td>1</td>
+                                            <td>34</td>
+                                            <td>12</td>
+                                            <td class="project-actions text-right">
+                                                <a class="btn btn-primary btn-sm" href="#">
+                                                    <i class="fas fa-folder">
+                                                    </i>
+                                                    View
+                                                </a>
+                                                <a class="btn btn-info btn-sm" href="#">
+                                                    <i class="fas fa-pencil-alt">
+                                                    </i>
+                                                    Edit
+                                                </a>
+                                                <a class="btn btn-danger btn-sm" href="#">
+                                                    <i class="fas fa-trash">
+                                                    </i>
+                                                    Delete
+                                                </a>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card-header -->
-                        <div class="card-body table-responsive p-0">
-                          <table class="table table-hover">
-                            <thead>
-                              <tr>
-                                <th>ID</th>
-                                <th>User</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                                <th>Reason</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>183</td>
-                                <td>John Doe</td>
-                                <td>11-7-2014</td>
-                                <td><span class="tag tag-success">Approved</span></td>
-                                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                              </tr>
-                              <tr>
-                                <td>219</td>
-                                <td>Alexander Pierce</td>
-                                <td>11-7-2014</td>
-                                <td><span class="tag tag-warning">Pending</span></td>
-                                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                              </tr>
-                              
-                            </tbody>
-                          </table>
-                        </div>
-                        <!-- /.card-body -->
-                      </div>
-                      <!-- /.card -->
+                        <!-- /.card -->
                     </div>
-                  </div>
+                </div>
             </div>
         </div>
     </div>
