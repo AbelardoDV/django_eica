@@ -1,1 +1,152 @@
 {% extends 'base.html' %}
+
+{%load static%}
+
+
+{% block cabecera %}
+<!-- Select2 -->
+<link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
+
+{% endblock cabecera %}
+
+{% block contenido %}
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <!-- Default box -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">BODEGA | Agregar venta</h3>
+
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                title="Collapse">
+                <i class="fas fa-minus"></i></button>
+              <!-- <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                <i class="fas fa-times"></i></button> -->
+            </div>
+          </div>
+
+          <!-- Aviso  -->
+          <div class="ribbon-wrapper ribbon-xl">
+            <div class="ribbon bg-warning text-lg">
+              En construcción
+            </div>
+          </div>
+
+
+          <div class="card-body">
+            <!-- form start -->
+            <form role="form">
+              <!-- Grupo 1 formulario -->
+              <div class="p-3 mb-2 bg-light text-dark">
+
+                <!-- Cliente -->
+
+                <div class="form-group">
+                  <label>Cliente (*)</label>
+                  <select class="form-control select2bs4" style="width: 100%;">
+                    <option selected="selected">Cliente 1</option>
+                    <option>Cliente 2</option>
+                    <option>Cliente 3</option>
+                  </select>
+                </div>
+                <!-- Tipo de pago -->
+                <div class="form-group">
+                  <label for="exampleInputTipoVenta1">Tipo de venta (*)</label>
+                  <select class="form-control" required>
+                    <option value="">Seleccione tipo de venta...</option>
+                    <option value="1">Tipo de venta 1</option>
+                  </select>
+                  <div class="invalid-feedback">Seleccione un cliente válido</div>
+                </div>
+
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                  <label class="custom-control-label" for="customSwitch1">Recordar cliente y tipo de venta para varias
+                    entradas</label>
+                </div>
+
+              </div>
+
+              <!-- Grupo 2 formulario -->
+
+              <div class="p-3 mb-2 bg-white text-dark">
+                <!-- Cliente -->
+                <div class="form-group">
+                  <label for="exampleInputCliente1">Plato (*)</label>
+                  <select class="form-control" required>
+                    <option value="">Seleccione plato...</option>
+                    <option value="1">One</option>
+                  </select>
+                </div>
+                <!-- Cantidad -->
+                <div class="form-group">
+                  <label for="exampleInputCliente1">Cantidad (*)</label>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Ingrese cantidad" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text">unidades</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Dinero con el que pagó -->
+                <div class="form-group">
+                  <label for="exampleInputCliente1">Pagó con (**)</label>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">S/.</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Dinero con el que paga el cliente" required>
+
+                  </div>
+                  *Obligatorio
+                  <p>
+                    ** Usar punto (.) para decimales
+                  </p>
+                </div>
+
+              </div>
+              <button type="submit" class="btn btn-outline-success">Agregar venta</button>
+
+
+            </form>
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer">
+            (BODEGA) *Recuerda revisar los datos.
+          </div>
+          <!-- /.card-footer-->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock contenido %}
+
+
+
+{% block pie %}
+<!-- Select2 -->
+<script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
+
+
+<!-- Page script -->
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+
+    // Add here more scripts
+  })
+</script>
+
+{% endblock pie %}

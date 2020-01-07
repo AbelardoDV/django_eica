@@ -17,16 +17,15 @@ from django.urls import path, include
 
 from eica.views import dashboard_view
 
-from eica.views import error_404_view
-from eica.views import error_500_view
-
 from eica.views import ventas_restaurante_view
 from eica.views import ventas_bodega_view
 from eica.views import ventas_historial_view
 from eica.views import compras_productos_view
 from eica.views import compras_historial_view
+from eica.views import agregar_plato_view
 
-
+from eica.views import error_404_view
+from eica.views import error_500_view
 
 urlpatterns = [
     path('', dashboard_view, name='login'),
@@ -52,6 +51,10 @@ urlpatterns = [
     path('compras_productos/', compras_productos_view, name='compras_productos'),
     path('compras_historial/', compras_historial_view, name='compras_historial'),
     # -----------------Inicio seccion de Compra-----------------
+
+    # -----------------Inicio seccion agregar plato-----------------
+    path('agregar_plato/', agregar_plato_view, name='agregar_plato'),
+    # -----------------Fin seccion agregar plato-----------------
 
 
 ]

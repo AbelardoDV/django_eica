@@ -67,3 +67,14 @@ def compras_historial_view(request):
     return render(request, 'compras_historial.html', locals())
 
 # ---------------------------------Fin Seccion Productos---------------------------------
+
+
+# ------------------------------Inicio Seccion Agregar---------------------------------
+@login_required(login_url='/accounts/login')
+def agregar_plato_view(request):
+    nombre_vista = 'Agregar plato'
+    ruta_vista = ['Agregar plato']
+    return render(request, 'agregar_plato.html', locals())
+
+# ------------------------------Fin Seccion Agregar---------------------------------
+
