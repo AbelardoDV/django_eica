@@ -119,7 +119,6 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'America/Lima'
 
 USE_I18N = True
-
 USE_L10N = True
 
 USE_TZ = True
@@ -133,8 +132,8 @@ STATIC_URL = '/AdminLte3/' #Contiene el tema de administrador Dashboard llamado 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'AdminLte3'),]
 
 
-print(BASE_DIR)
-print(STATICFILES_DIRS)
+# print(BASE_DIR)
+# print(STATICFILES_DIRS)
 
 #Para entender statics https://stackoverflow.com/questions/24022558/differences-between-staticfiles-dir-static-root-and-media-root
 
