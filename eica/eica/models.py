@@ -1,5 +1,3 @@
-/home/abe/eica/django-apps/eica
-['/home/abe/eica/django-apps/eica/AdminLte3']
 # This is an auto-generated Django model module.
 # You'll have to do the following manually to clean this up:
 #   * Rearrange models' order
@@ -165,7 +163,7 @@ class PlatoVenta(models.Model):
 
 
 class ProductoHijoCompra(models.Model):
-    id_producto_hijo_compra = models.AutoField()
+    id_producto_hijo_compra = models.AutoField(primary_key=True)
     precio_producto = models.FloatField()
     id_proveedor_proveedor = models.ForeignKey('Proveedor', models.DO_NOTHING, db_column='id_proveedor_proveedor', blank=True, null=True)
     cantidad_producto = models.FloatField(blank=True, null=True)
@@ -173,7 +171,7 @@ class ProductoHijoCompra(models.Model):
     id_producto_padre_producto_padre = models.ForeignKey('ProductoPadre', models.DO_NOTHING, db_column='id_producto_padre_producto_padre', blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'producto_hijo_compra'
 
 
