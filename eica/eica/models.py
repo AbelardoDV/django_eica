@@ -86,6 +86,8 @@ class BoletaCompra(models.Model):
         managed = False
         db_table = 'boleta_compra'
 
+    def __str__(self):
+        return '{}'.format(self.id_boleta_compra)
 
 class BoletaVentaRestaurante(models.Model):
     id_venta_restaurante = models.AutoField(primary_key=True)
@@ -98,6 +100,9 @@ class BoletaVentaRestaurante(models.Model):
     class Meta:
         managed = False
         db_table = 'boleta_venta_restaurante'
+        
+    def __str__(self):
+        return '{}'.format(self.id_venta_restaurante)
 
 
 class DjangoAdminLog(models.Model):
@@ -143,7 +148,7 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
-
+        
 
 class PlatoPadre(models.Model):
     id_plato_padre = models.AutoField(primary_key=True)
@@ -152,6 +157,10 @@ class PlatoPadre(models.Model):
     class Meta:
         managed = False
         db_table = 'plato_padre'
+
+    def __str__(self):
+        return '{}'.format(self.id_plato_padre)
+
 
 
 class PlatoVenta(models.Model):
@@ -166,6 +175,8 @@ class PlatoVenta(models.Model):
         managed = False
         db_table = 'plato_venta'
 
+    def __str__(self):
+        return '{}'.format(self.id_plato_venta)
 
 class ProductoHijoCompra(models.Model):
     id_producto_hijo_compra = models.AutoField(primary_key=True)
@@ -182,7 +193,8 @@ class ProductoHijoCompra(models.Model):
         managed = False
         db_table = 'producto_hijo_compra'
 
-    
+    def __str__(self):
+        return '{}'.format(self.id_producto_hijo_compra)
 
 class ProductoHijoVenta(models.Model):
     id_producto_hijo_venta = models.AutoField(primary_key=True)
@@ -197,7 +209,9 @@ class ProductoHijoVenta(models.Model):
     class Meta:
         managed = False
         db_table = 'producto_hijo_venta'
-
+        
+    def __str__(self):
+        return '{}'.format(self.id_producto_hijo_venta)
 
 class ProductoPadre(models.Model):
     nombre_producto = models.CharField(max_length=500, blank=True, null=True)
@@ -211,7 +225,7 @@ class ProductoPadre(models.Model):
         db_table = 'producto_padre'
 
     def __str__(self):
-        return 'id_producto_padre:{}'.format(self.id_producto_padre)
+        return '{}'.format(self.id_producto_padre)
 
 
 class ProductoPlato(models.Model):
@@ -226,6 +240,8 @@ class ProductoPlato(models.Model):
         managed = False
         db_table = 'producto_plato'
 
+    def __str__(self):
+        return '{}'.format(self.id_producto_padre_producto_padre)
 
 class Proveedor(models.Model):
     id_proveedor = models.AutoField(primary_key=True)
@@ -241,7 +257,7 @@ class Proveedor(models.Model):
         db_table = 'proveedor'
 
     def __str__(self):
-        return 'id_proveedor:{}'.format(self.id_proveedor)
+        return '{}'.format(self.id_proveedor)
 
 
 class VentaBodega(models.Model):
@@ -252,3 +268,6 @@ class VentaBodega(models.Model):
     class Meta:
         managed = False
         db_table = 'venta_bodega'
+
+    def __str__(self):
+        return '{}'.format(self.id_venta_bodega)
