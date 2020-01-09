@@ -2,18 +2,8 @@ from django.http import HttpResponse
 # from eica.models import Personas
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-
-# ---------------------------Inicio Páginas 404 y 500---------------------------
-
-def error_404_view(request, exception):
-    data = {"example": "text.com"}
-    return render(request, 'eica/404.html', data)
-
-def error_500_view(request, exception):
-    data = {"example": "text.com"}
-    return render(request, 'eica/500.html', data)
-
-# ---------------------------Fin Páginas 404 y 500---------------------------
+from .models import ProductoHijoCompra
+from .models import ProductoPadre
 
 # -------------------------Inicio Dashboard-------------------------
 
@@ -57,6 +47,8 @@ def ventas_historial_view(request):
 def compras_productos_view(request):
     nombre_vista = 'Compras de Productos'
     ruta_vista = ['Compras de Productos']
+    productoPadre = ProductoPadre.objects.all()
+    productoHijoCompra = ProductoHijoCompra.objects.all()
     return render(request, 'compras_productos.html', locals())
 
 
@@ -78,3 +70,14 @@ def agregar_plato_view(request):
 
 # ------------------------------Fin Seccion Agregar---------------------------------
 
+# ---------------------------Inicio Páginas 404 y 500---------------------------
+
+def error_404_view(request, exception):
+    data = {"example": "text.com"}
+    return render(request, 'eica/404.html', data)
+
+def error_500_view(request, exception):
+    data = {"example": "text.com"}
+    return render(request, 'eica/500.html', data)
+
+# ---------------------------Fin Páginas 404 y 500---------------------------
