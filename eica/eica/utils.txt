@@ -1,0 +1,4 @@
+MODELS
+
+def __str__(self):
+    return '{}'.format(self.id_venta_restaurante)

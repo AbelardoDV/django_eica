@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.1" last-position="0,0" last-zoom="0.55"
+<dbmodel pgmodeler-ver="0.9.1" last-position="0,329" last-zoom="0.95"
 	 default-schema="public" default-owner="postgres">
 <database name="restaurante" is-template="false" allow-conns="true">
 </database>
@@ -14,20 +14,20 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="proveedor" hide-ext-attribs="true">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="80" y="80"/>
-	<column name="id_proveedor" not-null="true">
+	<position x="60" y="224.211"/>
+	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
-	<column name="nombre_proveedor" not-null="true">
+	<column name="nombre" not-null="true">
 		<type name="varchar" length="200"/>
 	</column>
-	<column name="ruc_proveedor">
+	<column name="ruc">
 		<type name="bigint" length="0"/>
 	</column>
-	<column name="correo_proveedor">
+	<column name="correo">
 		<type name="varchar" length="50"/>
 	</column>
-	<column name="celular_proveedor">
+	<column name="celular">
 		<type name="bigint" length="0"/>
 	</column>
 	<column name="fecha_creado" not-null="true">
@@ -37,7 +37,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 	</column>
 	<constraint name="proveedores_pk" type="pk-constr" table="public.proveedor">
-		<columns names="id_proveedor" ref-type="src-columns"/>
+		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -45,23 +45,23 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="560" y="260"/>
-	<column name="id_producto_hijo_compra" not-null="true">
+	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
-	<column name="precio_producto" not-null="true">
+	<column name="precio" not-null="true">
 		<type name="real" length="0"/>
 	</column>
-	<column name="cantidad_producto">
+	<column name="cantidad">
 		<type name="real" length="0"/>
 	</column>
 	<constraint name="producto_hijo_compra_pk" type="pk-constr" table="public.producto_hijo_compra">
-		<columns names="id_producto_hijo_compra" ref-type="src-columns"/>
+		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="id_boleta_compra_boleta_compra" index="4"/>
-		<object name="id_producto_padre_producto_padre" index="5"/>
-		<object name="id_proveedor_proveedor" index="2"/>
+		<object name="id_boleta_compra" index="4"/>
+		<object name="id_producto_padre" index="5"/>
+		<object name="id_proveedor" index="3"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
@@ -74,15 +74,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="plato_padre">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1000" y="660"/>
-	<column name="id_plato_padre" not-null="true">
+	<position x="1069.47" y="681.053"/>
+	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
-	<column name="nombre_plato" not-null="true" default-value="'Sin correo'">
+	<column name="nombre" not-null="true" default-value="'Sin correo'">
 		<type name="varchar" length="500"/>
 	</column>
 	<constraint name="platos_pk" type="pk-constr" table="public.plato_padre">
-		<columns names="id_plato_padre" ref-type="src-columns"/>
+		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -93,16 +93,20 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 custom-color="#8aa9ef"
 	 src-table="public.proveedor"
 	 dst-table="public.producto_hijo_compra"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
 
 <table name="boleta_compra">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="100" y="440"/>
-	<column name="id_boleta_compra" not-null="true">
+	<position x="560" y="1114.74"/>
+	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
-	<column name="comentarios_compras">
+	<column name="comentario">
 		<type name="varchar" length="500"/>
 	</column>
 	<column name="fecha_compra">
@@ -115,18 +119,18 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 	</column>
 	<constraint name="compras_pk" type="pk-constr" table="public.boleta_compra">
-		<columns names="id_boleta_compra" ref-type="src-columns"/>
+		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
 <table name="boleta_venta_restaurante">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="20" y="900"/>
-	<column name="id_venta_restaurante" not-null="true">
+	<position x="1049.47" y="1105.26"/>
+	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
-	<column name="comentarios_venta_restaurante">
+	<column name="comentario">
 		<type name="varchar" length="500"/>
 	</column>
 	<column name="fecha_venta">
@@ -139,22 +143,22 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 	</column>
 	<constraint name="ventas_restaurante_pk" type="pk-constr" table="public.boleta_venta_restaurante">
-		<columns names="id_venta_restaurante" ref-type="src-columns"/>
+		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
 <table name="venta_bodega">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1880" y="480"/>
-	<column name="id_venta_bodega" not-null="true">
+	<position x="1446.32" y="1134.74"/>
+	<column name="id" not-null="true">
 		<type name="smallint" length="0"/>
 	</column>
-	<column name="comentarios_venta_bodega">
+	<column name="comentario">
 		<type name="varchar" length="500"/>
 	</column>
 	<constraint name="ventas_bodega_pk" type="pk-constr" table="public.venta_bodega">
-		<columns names="id_venta_bodega" ref-type="src-columns"/>
+		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -162,34 +166,38 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 custom-color="#3f6d19"
+	 custom-color="#0b835a"
 	 src-table="public.boleta_compra"
 	 dst-table="public.producto_hijo_compra"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
 
 <table name="producto_hijo_venta">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1400" y="240"/>
-	<column name="id_producto_hijo_venta" not-null="true">
+	<position x="1401.05" y="240"/>
+	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
-	<column name="precio_producto" not-null="true">
+	<column name="precio" not-null="true">
 		<type name="real" length="0"/>
 	</column>
-	<column name="cantidad_producto">
+	<column name="cantidad">
 		<type name="real" length="0"/>
 	</column>
 	<column name="cliente_name">
 		<type name="varchar" length="50"/>
 	</column>
 	<constraint name="productos_pk" type="pk-constr" table="public.producto_hijo_venta">
-		<columns names="id_producto_hijo_venta" ref-type="src-columns"/>
+		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="id_producto_padre_producto_padre" index="4"/>
-		<object name="id_venta_bodega_venta_bodega" index="3"/>
+		<object name="id_producto_padre" index="5"/>
+		<object name="id_venta_bodega" index="4"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
@@ -205,26 +213,30 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 custom-color="#719dcc"
 	 src-table="public.venta_bodega"
 	 dst-table="public.producto_hijo_venta"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
 
 <table name="producto_padre">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="980" y="60"/>
-	<column name="nombre_producto">
-		<type name="varchar" length="500"/>
-	</column>
-	<column name="descripcion_producto">
-		<type name="varchar" length="500"/>
-	</column>
-	<column name="unidad_producto">
-		<type name="varchar" length="20"/>
-	</column>
-	<column name="id_producto_padre" not-null="true">
+	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
+	<column name="nombre">
+		<type name="varchar" length="500"/>
+	</column>
+	<column name="descripcion">
+		<type name="varchar" length="500"/>
+	</column>
+	<column name="unidad">
+		<type name="varchar" length="20"/>
+	</column>
 	<constraint name="producto_padre_pk" type="pk-constr" table="public.producto_padre">
-		<columns names="id_producto_padre" ref-type="src-columns"/>
+		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -235,7 +247,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 custom-color="#2ba956"
 	 src-table="public.producto_padre"
 	 dst-table="public.producto_hijo_compra"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
 
 <relationship name="producto_padre_has_many_producto_hijo_venta" type="rel1n"
 	 src-col-pattern="{sc}_{st}"
@@ -244,27 +260,33 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 custom-color="#2faf3c"
 	 src-table="public.producto_padre"
 	 dst-table="public.producto_hijo_venta"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-54.114" y="-11.607"/>
+	</label>
+</relationship>
 
 <table name="producto_plato">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1500" y="880"/>
-	<column name="id_producto_plato" not-null="true">
+	<position x="1038.95" y="402.105"/>
+	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
-	<column name="cantidad_producto">
+	<column name="cantidad">
 		<type name="real" length="0"/>
 	</column>
 	<constraint name="producto_plato_pk" type="pk-constr" table="public.producto_plato">
-		<columns names="id_producto_plato" ref-type="src-columns"/>
+		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="id_producto_padre_producto_padre" index="0"/>
+		<object name="id_plato_padre" index="3"/>
+		<object name="id_producto_padre" index="2"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
+		<object name="plato_padre_fk" index="2"/>
 		<object name="producto_padre_fk" index="0"/>
 	</customidxs>
 </table>
@@ -290,16 +312,26 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="plato_venta">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="480" y="880"/>
-	<column name="id_plato_venta" not-null="true">
+	<position x="1027.37" y="858.947"/>
+	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
 	<column name="precio_venta">
 		<type name="real" length="0"/>
 	</column>
 	<constraint name="plato_venta_pk" type="pk-constr" table="public.plato_venta">
-		<columns names="id_plato_venta" ref-type="src-columns"/>
+		<columns names="id" ref-type="src-columns"/>
 	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_boleta_venta_restaurante" index="3"/>
+		<object name="id_plato_padre" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="boleta_venta_restaurante_fk" index="2"/>
+		<object name="plato_padre_fk" index="1"/>
+	</customidxs>
 </table>
 
 <relationship name="plato_has_many_plato_venta" type="rel1n"
@@ -318,6 +350,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 custom-color="#3d65d3"
 	 src-table="public.boleta_venta_restaurante"
 	 dst-table="public.plato_venta"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
 
 </dbmodel>

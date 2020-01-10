@@ -75,9 +75,7 @@ class AuthUserUserPermissions(models.Model):
 
 
 class BoletaCompra(models.Model):
-    id_boleta_compra = models.AutoField(primary_key=True)
-    comentarios_compras = models.CharField(
-        max_length=500, blank=True, null=True)
+    comentario = models.CharField(max_length=500, blank=True, null=True)
     fecha_compra = models.DateTimeField(blank=True, null=True)
     fecha_creado = models.DateTimeField(blank=True, null=True)
     fecha_modifcado = models.DateTimeField(blank=True, null=True)
@@ -85,14 +83,12 @@ class BoletaCompra(models.Model):
     class Meta:
         managed = False
         db_table = 'boleta_compra'
-
+        
     def __str__(self):
-        return '{}'.format(self.id_boleta_compra)
+        return '{}'.format(self.id)
 
 class BoletaVentaRestaurante(models.Model):
-    id_venta_restaurante = models.AutoField(primary_key=True)
-    comentarios_venta_restaurante = models.CharField(
-        max_length=500, blank=True, null=True)
+    comentario = models.CharField(max_length=500, blank=True, null=True)
     fecha_venta = models.DateTimeField(blank=True, null=True)
     fecha_creado = models.DateTimeField(blank=True, null=True)
     fecha_modificado = models.DateTimeField(blank=True, null=True)
@@ -100,10 +96,9 @@ class BoletaVentaRestaurante(models.Model):
     class Meta:
         managed = False
         db_table = 'boleta_venta_restaurante'
-        
-    def __str__(self):
-        return '{}'.format(self.id_venta_restaurante)
 
+    def __str__(self):
+        return '{}'.format(self.id)
 
 class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
@@ -111,8 +106,7 @@ class DjangoAdminLog(models.Model):
     object_repr = models.CharField(max_length=200)
     action_flag = models.SmallIntegerField()
     change_message = models.TextField()
-    content_type = models.ForeignKey(
-        'DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
     class Meta:
@@ -148,107 +142,87 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
-        
+
 
 class PlatoPadre(models.Model):
-    id_plato_padre = models.AutoField(primary_key=True)
-    nombre_plato = models.CharField(max_length=500)
+    nombre = models.CharField(max_length=500)
 
     class Meta:
         managed = False
         db_table = 'plato_padre'
 
     def __str__(self):
-        return '{}'.format(self.id_plato_padre)
-
-
+        return '{}'.format(self.id)
 
 class PlatoVenta(models.Model):
-    id_plato_venta = models.AutoField(primary_key=True)
     precio_venta = models.FloatField(blank=True, null=True)
-    id_plato_padre_plato_padre = models.ForeignKey(
-        PlatoPadre, models.DO_NOTHING, db_column='id_plato_padre_plato_padre', blank=True, null=True)
-    id_venta_restaurante_boleta_venta_restaurante = models.ForeignKey(
-        BoletaVentaRestaurante, models.DO_NOTHING, db_column='id_venta_restaurante_boleta_venta_restaurante', blank=True, null=True)
+    id_plato_padre = models.ForeignKey(PlatoPadre, models.DO_NOTHING, db_column='id_plato_padre', blank=True, null=True)
+    id_boleta_venta_restaurante = models.ForeignKey(BoletaVentaRestaurante, models.DO_NOTHING, db_column='id_boleta_venta_restaurante', blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'plato_venta'
 
     def __str__(self):
-        return '{}'.format(self.id_plato_venta)
+        return '{}'.format(self.id)
 
 class ProductoHijoCompra(models.Model):
-    id_producto_hijo_compra = models.AutoField(primary_key=True)
-    precio_producto = models.FloatField()
-    id_proveedor_proveedor = models.ForeignKey(
-        'Proveedor', models.DO_NOTHING, db_column='id_proveedor_proveedor', blank=True, null=True)
-    cantidad_producto = models.FloatField(blank=True, null=True)
-    id_boleta_compra_boleta_compra = models.ForeignKey(
-        BoletaCompra, models.DO_NOTHING, db_column='id_boleta_compra_boleta_compra', blank=True, null=True)
-    id_producto_padre_producto_padre = models.ForeignKey(
-        'ProductoPadre', models.DO_NOTHING, db_column='id_producto_padre_producto_padre', blank=True, null=True)
+    precio = models.FloatField()
+    cantidad = models.FloatField(blank=True, null=True)
+    id_proveedor = models.ForeignKey('Proveedor', models.DO_NOTHING, db_column='id_proveedor', blank=True, null=True)
+    id_boleta_compra = models.ForeignKey(BoletaCompra, models.DO_NOTHING, db_column='id_boleta_compra', blank=True, null=True)
+    id_producto_padre = models.ForeignKey('ProductoPadre', models.DO_NOTHING, db_column='id_producto_padre', blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'producto_hijo_compra'
 
     def __str__(self):
-        return '{}'.format(self.id_producto_hijo_compra)
+        return '{}'.format(self.id)
 
 class ProductoHijoVenta(models.Model):
-    id_producto_hijo_venta = models.AutoField(primary_key=True)
-    precio_producto = models.FloatField()
-    cantidad_producto = models.FloatField(blank=True, null=True)
-    id_venta_bodega_venta_bodega = models.ForeignKey(
-        'VentaBodega', models.DO_NOTHING, db_column='id_venta_bodega_venta_bodega', blank=True, null=True)
-    id_producto_padre_producto_padre = models.ForeignKey(
-        'ProductoPadre', models.DO_NOTHING, db_column='id_producto_padre_producto_padre', blank=True, null=True)
+    precio = models.FloatField()
+    cantidad = models.FloatField(blank=True, null=True)
     cliente_name = models.CharField(max_length=50, blank=True, null=True)
+    id_venta_bodega = models.ForeignKey('VentaBodega', models.DO_NOTHING, db_column='id_venta_bodega', blank=True, null=True)
+    id_producto_padre = models.ForeignKey('ProductoPadre', models.DO_NOTHING, db_column='id_producto_padre', blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'producto_hijo_venta'
-        
+
     def __str__(self):
-        return '{}'.format(self.id_producto_hijo_venta)
+        return '{}'.format(self.id)
 
 class ProductoPadre(models.Model):
-    nombre_producto = models.CharField(max_length=500, blank=True, null=True)
-    descripcion_producto = models.CharField(
-        max_length=500, blank=True, null=True)
-    unidad_producto = models.CharField(max_length=20, blank=True, null=True)
-    id_producto_padre = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=500, blank=True, null=True)
+    descripcion = models.CharField(max_length=500, blank=True, null=True)
+    unidad = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'producto_padre'
 
     def __str__(self):
-        return '{}'.format(self.id_producto_padre)
-
+        return '{}'.format(self.id)
 
 class ProductoPlato(models.Model):
-    id_producto_padre_producto_padre = models.ForeignKey(
-        ProductoPadre, models.DO_NOTHING, db_column='id_producto_padre_producto_padre', blank=True, null=True)
-    id_producto_plato = models.AutoField(primary_key=True)
-    cantidad_producto = models.FloatField(blank=True, null=True)
-    id_plato_padre_plato_padre = models.ForeignKey(
-        PlatoPadre, models.DO_NOTHING, db_column='id_plato_padre_plato_padre', blank=True, null=True)
+    cantidad = models.FloatField(blank=True, null=True)
+    id_producto_padre = models.ForeignKey(ProductoPadre, models.DO_NOTHING, db_column='id_producto_padre', blank=True, null=True)
+    id_plato_padre = models.ForeignKey(PlatoPadre, models.DO_NOTHING, db_column='id_plato_padre', blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'producto_plato'
 
     def __str__(self):
-        return '{}'.format(self.id_producto_padre_producto_padre)
+        return '{}'.format(self.id)
 
 class Proveedor(models.Model):
-    id_proveedor = models.AutoField(primary_key=True)
-    nombre_proveedor = models.CharField(max_length=200)
-    ruc_proveedor = models.BigIntegerField(blank=True, null=True)
-    correo_proveedor = models.CharField(max_length=50, blank=True, null=True)
-    celular_proveedor = models.BigIntegerField(blank=True, null=True)
+    nombre = models.CharField(max_length=200)
+    ruc = models.BigIntegerField(blank=True, null=True)
+    correo = models.CharField(max_length=50, blank=True, null=True)
+    celular = models.BigIntegerField(blank=True, null=True)
     fecha_creado = models.DateTimeField()
     fecha_modificado = models.DateTimeField(blank=True, null=True)
 
@@ -257,17 +231,15 @@ class Proveedor(models.Model):
         db_table = 'proveedor'
 
     def __str__(self):
-        return '{}'.format(self.id_proveedor)
-
+        return '{}'.format(self.id)
 
 class VentaBodega(models.Model):
-    id_venta_bodega = models.SmallIntegerField(primary_key=True)
-    comentarios_venta_bodega = models.CharField(
-        max_length=500, blank=True, null=True)
+    id = models.SmallIntegerField(primary_key=True)
+    comentario = models.CharField(max_length=500, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'venta_bodega'
 
     def __str__(self):
-        return '{}'.format(self.id_venta_bodega)
+        return '{}'.format(self.id)
