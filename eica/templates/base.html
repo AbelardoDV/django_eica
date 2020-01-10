@@ -5,9 +5,13 @@
 <html>
 
 <head>
+  
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Título de la página  -->
   <title>EICA | {{nombre_vista}}</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/png" href="{% static 'logo/favicon.ico' %}"/>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -181,8 +185,8 @@
     <aside class="main-sidebar elevation-4 sidebar-light-danger">
       <!-- Brand Logo -->
       <a href="/" class="brand-link elevation-4">
-      <img src=" {% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTE Logo"
-        class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src=" {% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTE Logo"
+          class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">EICA v1.0</span>
       </a>
 
@@ -200,7 +204,8 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+          <ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-child-indent" data-widget="treeview"
+            role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             {% if nombre_vista == 'Dashboard'  %}
@@ -230,7 +235,7 @@
                         <p>Resumen general</p>
                       </a>
                   </li>
- 
+
                 </ul>
             </li>
             <!--Inicio Ventas-->
@@ -254,9 +259,9 @@
                   <li class="nav-item">
                     {% if nombre_vista == 'Ventas de Restaurante'  %}
                     <a href="/ventas_restaurante" class="nav-link active">
-                    {% else %}
-                    <a href="/ventas_restaurante" class="nav-link">
-                    {% endif %}
+                      {% else %}
+                      <a href="/ventas_restaurante" class="nav-link">
+                        {% endif %}
                         <i class="far fa-circle nav-icon"></i>
                         <p>Ventas Restaurante</p>
                       </a>
@@ -264,22 +269,22 @@
                   <li class="nav-item">
                     {% if nombre_vista == 'Ventas de Bodega'  %}
                     <a href="/ventas_bodega" class="nav-link active">
-                    {% else %}
-                    <a href="/ventas_bodega" class="nav-link">
-                    {% endif %}
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Ventas Bodega</p>
-                    </a>
+                      {% else %}
+                      <a href="/ventas_bodega" class="nav-link">
+                        {% endif %}
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Ventas Bodega</p>
+                      </a>
                   </li>
                   <li class="nav-item">
                     {% if nombre_vista == 'Historial de Ventas'  %}
                     <a href="/ventas_historial" class="nav-link active">
-                    {% else %}
-                    <a href="/ventas_historial" class="nav-link">
-                    {% endif %}
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Historial de Ventas</p>
-                    </a>
+                      {% else %}
+                      <a href="/ventas_historial" class="nav-link">
+                        {% endif %}
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Historial de Ventas</p>
+                      </a>
                   </li>
                 </ul>
             </li>

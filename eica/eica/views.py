@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .models import ProductoHijoCompra
 from .models import ProductoPadre
 
+
 # -------------------------Inicio Dashboard-------------------------
 
 @login_required(login_url='/accounts/login')

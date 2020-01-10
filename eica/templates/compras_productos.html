@@ -1,17 +1,21 @@
-{% extends 'base.html' %}
-
-{%load static%}
-
-
-{% block cabecera %}
+{% extends 'base.html' %} {%load static%} {% block cabecera %}
 <!-- Select2 -->
-<link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
-<link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}" />
+<link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}" />
 
-{% endblock cabecera %}
+<!-- Font Awesome -->
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+<!-- Moment.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"
+    integrity="sha256-VBLiveTKyUZMEzJd6z2mhfxIqz3ZATCuVMawPZGzIfA=" crossorigin="anonymous"></script>
+<!-- Spanish setting local Moment.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/es.js"></script>
+<!-- Tempus Dominus Bootstrap 4 -->
 
-
-{% block contenido %}
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+{% endblock cabecera %} {% block contenido %}
 
 <section class="content">
     <div class="container-fluid">
@@ -21,12 +25,15 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title"><strong>COMPRAS</strong> | Ingresar compra de producto</h3>
+                        <h3 class="card-title">
+                            <strong>COMPRAS</strong> | Boleta nueva N°
+                        </h3>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
                                 title="Collapse">
-                                <i class="fas fa-minus"></i></button>
+                                <i class="fas fa-minus"></i>
+                            </button>
                             <!-- <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
                 <i class="fas fa-times"></i></button> -->
                             <!-- Botones para cerrar ventana -->
@@ -34,100 +41,206 @@
                     </div>
 
                     <!-- Aviso  -->
-                    <div class="ribbon-wrapper ribbon-xl">
+                    <!-- <div class="ribbon-wrapper ribbon-xl">
                         <div class="ribbon bg-warning text-lg">
                             En construcción
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="card-body">
                         <!-- form start -->
 
                         <form role="form">
-
                             <!-- Grupo 1 formulario -->
-                            <div class="p-3 mb-2 bg-light text-dark">
-
-                                <!-- Producto -->
-
-                                <div class="form-group">
-                                    <label>Producto (*)</label>
-                                    <select class="form-control select2bs4" style="width: 100%;">
-                                        <option selected="selected">Producto 1</option>
-                                        <option>Producto 2</option>
-                                        <option>Producto 3</option>
-                                    </select>
+                            <div class="invoice p-3 mb-3">
+                                <!-- title row -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4>
+                                            <i class="fas fa-globe"></i> <strong>COMPRAS</strong> | Empresa Isla de
+                                            Canrash
+                                            S.R.L.
+                                            <small class="float-right">
+                                                <p>BOLETA N°</p>
+                                                Fecha:
+                                                <div class="form-group">
+                                                    <div class="input-group date" id="datetimepicker4"
+                                                        data-target-input="nearest">
+                                                        <input type="text" class="form-control datetimepicker-input"
+                                                            data-target="#datetimepicker4" />
+                                                        <div class="input-group-append" data-target="#datetimepicker4"
+                                                            data-toggle="datetimepicker">
+                                                            <div class="input-group-text">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </small>
+                                        </h4>
+                                    </div>
+                                    <!-- /.col -->
                                 </div>
+                                <!-- info row -->
+                                <div class="row invoice-info">
+                                    <div class="col invoice-col">
+                                        <address>
+                                            <!-- Proveedor -->
+                                            <div class="form-group row">
+                                                <label for="inputProveedor"
+                                                    class="col-sm-2 col-form-label"><strong>Proveedor:</strong></label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-control select2bs4" style="width: 100%;">
+                                                        <option selected="selected">Proveedor 1</option>
+                                                        <option>Proveedor 2</option>
+                                                        <option>Proveedor 3</option>
+                                                    </select>
+                                                </div>
+                                            </div>
 
+                                            <!-- RUC -->
+                                            <div class="form-group row">
+                                                <label for="inputProveedor"
+                                                    class="col-sm-2 col-form-label"><strong>RUC:</strong></label>
+                                                <div class="col-sm-10">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i
+                                                                    class="far fa-building"></i></span>
+                                                        </div>
+                                                        <input type="text" class="form-control"
+                                                            data-inputmask='"mask":"9 9999 9999 9"' data-mask />
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                <!-- Proveedor -->
-                                <div class="form-group">
+                                            <!-- Celular -->
+                                            <div class="form-group row">
+                                                <label for="inputProveedor"
+                                                    class="col-sm-2 col-form-label"><strong>Celular:</strong></label>
+                                                <div class="col-sm-10">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i
+                                                                    class="fas fa-envelope"></i></span>
+                                                        </div>
+                                                        <input type="email" class="form-control"
+                                                            placeholder="Escribe aquí el correo electrónico.">
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                    <label>Proveedor (*)</label>
-                                    <select class="form-control select2bs4" style="width: 100%;">
-                                        <option selected="selected">Proveedor 1</option>
-                                        <option>Proveedor 2</option>
-                                        <option>Proveedor 3</option>
-                                    </select>
+                                            <!-- Celular -->
+                                            <div class="form-group row">
+                                                <label for="inputProveedor"
+                                                    class="col-sm-2 col-form-label"><strong>Correo:</strong></label>
+                                                <div class="col-sm-10">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i
+                                                                    class="fas fa-phone"></i></span>
+                                                        </div>
+                                                        <input type="text" class="form-control"
+                                                            data-inputmask='"mask":"999-999-999"' data-mask />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </address>
+                                    </div>
+                                    <!-- /.col -->
                                 </div>
+                                <!-- /.row -->
 
+                                <!-- Table row -->
+                                <div class="row">
+                                    <div class="col-12 table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Cantidad</th>
+                                                    <th>Producto</th>
+                                                    <th>P. Unit.</th>
+                                                    <th>Unidad</th>
+                                                    <th>Importe</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Call of Duty</td>
+                                                    <td>455-981-221</td>
+                                                    <td>
+                                                        El snort testosterone trophy driving gloves handsome
+                                                    </td>
+                                                    <td>$64.50</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
 
-                                <!-- Cantidad grupal -->
+                                <div class="row">
+                                    <!-- accepted payments column -->
+                                    <div class="col-6">
+                                        <p class="lead">Escanea el código QR:</p>
 
-                                <div class="form-group">
+                                        <img src="https://tctechcrunch2011.files.wordpress.com/2012/08/qr-code.png"
+                                            alt="qr code" width="100" height="100" />
+                                        <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                                            * Recuerda verificar la veracidad de la boleta con el
+                                            código qr
+                                        </p>
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-6">
+                                        <p class="lead">Resumen</p>
 
-                                    <div class="input-group mb-3">
-                                        <label>Cantidad grupal (*) </label>
-                                        <input type="text" class="form-control" required>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">grupos</span>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <!-- <tr>
+                                                    <th>Shipping:</th>
+                                                    <td>$5.80</td>
+                                                </tr> -->
+                                                <tr>
+                                                    <th  style="width:50%">Total:</th>
+                                                    <td>$265.24</td>
+                                                </tr>
+                                            </table>
                                         </div>
                                     </div>
+                                    <!-- /.col -->
                                 </div>
+                                <!-- /.row -->
 
-
-                                <!-- Cantidad unitaria -->
-
-                                <div class="form-group">
-
-                                    <div class="input-group mb-3">
-                                        <label>Cantidad unitaria(*) </label>
-                                        <input type="text" class="form-control" required>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">unidades</span>
-                                        </div>
+                                <!-- this row will not appear when printing -->
+                                <div class="row no-print">
+                                    <div class="col-12">
+                                        <a href="#" target="_blank" class="btn btn-default"><i
+                                                class="fas fa-print"></i> Imprimir ahora</a>
+                                        <button type="button" class="btn btn-success float-right">
+                                            <i class="far fa-credit-card"></i> Guardar <strong>boleta de compra</strong> 
+                                        </button>
+                                        <button type="button" class="btn btn-primary float-right"
+                                            style="margin-right: 5px;">
+                                            <i class="fas fa-download"></i> Generar <strong>PDF</strong>
+                                        </button>
                                     </div>
                                 </div>
-
-                                <!-- Unidad -->
-
-                                <div class="form-group">
-
-                                    <div class="input-group mb-3">
-                                        <label>Unidad(*) </label>
-                                        <input type="text" class="form-control" required>
-                                    </div>
-                                </div>
-
                             </div>
-
-                            <!-- Grupo 2 formulario -->
-
-                            <div class="p-3 mb-2 bg-white text-dark">
-
-
-                            </div>
-                            <button type="submit" class="btn btn-outline-success">Agregar venta</button>
-
-
+                            <!-- /.invoice -->
+                            <button type="submit" class="btn btn-outline-success">
+                                Agregar <strong>compras</strong> al sistema
+                            </button>
                         </form>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        (RESTAURANTE) *Recuerda revisar los datos.
+                        (RESTAURANTE) *Recuerda revisar los datos antes de imprimir. Imprime
+                        <strong>solo</strong> si es necesario.
                     </div>
                     <!-- /.card-footer-->
-
                 </div>
                 <!-- /.card -->
 
@@ -135,17 +248,20 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title"> <strong>COMPRAS</strong> | Últimas <strong>10</strong>
-                                    ingresadas al sistema</h3>
+                                <h3 class="card-title">
+                                    <strong>COMPRAS</strong> | Últimas
+                                    <strong>10</strong> ingresadas al sistema
+                                </h3>
 
                                 <div class="card-tools">
                                     <div class="input-group input-group-sm" style="width: 150px;">
                                         <input type="text" name="table_search" class="form-control float-right"
-                                            placeholder="Buscar">
+                                            placeholder="Buscar" />
 
                                         <div class="input-group-append">
-                                            <button type="submit" class="btn btn-default"><i
-                                                    class="fas fa-search"></i></button>
+                                            <button type="submit" class="btn btn-default">
+                                                <i class="fas fa-search"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -167,32 +283,31 @@
                                     <tbody>
                                         {% for producto in productoHijoCompra%}
                                         <tr>
-                                            <td><a href=# >#{{producto.id_boleta_compra.id}}</a></td>
-                                            <td><a href=# >{{producto.id_proveedor.nombre}}</a></td>
-                                            <td><a href=# >{{producto.id_producto_padre.nombre}}</a></td>
+                                            <td><a href="#">#{{producto.id_boleta_compra.id}}</a></td>
+                                            <td><a href="#">{{producto.id_proveedor.nombre}}</a></td>
+                                            <td>
+                                                <a href="#">{{producto.id_producto_padre.nombre}}</a>
+                                            </td>
                                             <td>{{producto.cantidad}}</td>
                                             <td>{{producto.id_producto_padre.unidad}}</td>
                                             <td>S/. {{producto.precio}}</td>
                                             <td>{{producto.id_boleta_compra.fecha_compra}}</td>
                                             <td class="project-actions text-right">
                                                 <a class="btn btn-primary btn-sm" href="#">
-                                                    <i class="fas fa-folder">
-                                                    </i>
+                                                    <i class="fas fa-folder"> </i>
                                                     View
                                                 </a>
                                                 <a class="btn btn-info btn-sm" href="#">
-                                                    <i class="fas fa-pencil-alt">
-                                                    </i>
+                                                    <i class="fas fa-pencil-alt"> </i>
                                                     Edit
                                                 </a>
                                                 <a class="btn btn-danger btn-sm" href="#">
-                                                    <i class="fas fa-trash">
-                                                    </i>
+                                                    <i class="fas fa-trash"> </i>
                                                     Delete
                                                 </a>
                                             </td>
                                         </tr>
-                                        {% endfor %}   
+                                        {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
@@ -205,30 +320,42 @@
         </div>
     </div>
 </section>
-{% endblock contenido %}
-
-
-{% block pie %}
+{% endblock contenido %} {% block pie %}
 
 <!-- Select2 -->
 <script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
-
+<!-- date-range-picker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
+    integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js">
+</script>
+<!-- InputMask -->
+<script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+<script src="{% static 'plugins/inputmask/min/jquery.inputmask.bundle.min.js' %}"></script>
 <!-- Add here more js -->
 
-
 <!-- Page script -->
-<script>
+<script type="text/javascript">
     $(function () {
         //Initialize Select2 Elements
-        $('.select2').select2()
+        $(".select2").select2({});
 
         //Initialize Select2 Elements
-        $('.select2bs4').select2({
-            theme: 'bootstrap4'
-        })
+        $(".select2bs4").select2({
+            theme: "bootstrap4"
+        });
+        // date picker
+        $("#datetimepicker4").datetimepicker({
+            locale: "es",
+            format: "L",
+            date: moment(), // Fecha de hoy predifinida
+            format: "DD/MM/YYYY"
+        });
 
-        // Add here more scripts
-    })
+        // date mask
+        $("[data-mask]").inputmask();
+    });
 </script>
 
 {% endblock pie %}
