@@ -152,7 +152,7 @@ class PlatoPadre(models.Model):
         db_table = 'plato_padre'
 
     def __str__(self):
-        return '{}'.format(self.id)
+        return '{}'.format(self.nombre)
 
 class PlatoVenta(models.Model):
     precio_venta = models.FloatField(blank=True, null=True)
@@ -204,7 +204,7 @@ class ProductoPadre(models.Model):
         db_table = 'producto_padre'
 
     def __str__(self):
-        return '{}'.format(self.id)
+        return '{}'.format(self.nombre)
 
 class ProductoPlato(models.Model):
     cantidad = models.FloatField(blank=True, null=True)
@@ -231,7 +231,7 @@ class Proveedor(models.Model):
         db_table = 'proveedor'
 
     def __str__(self):
-        return '{}'.format(self.id)
+        return '{}'.format(self.nombre)
 
 class VentaBodega(models.Model):
     id = models.SmallIntegerField(primary_key=True)
