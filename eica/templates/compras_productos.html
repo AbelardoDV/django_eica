@@ -147,7 +147,7 @@
                                                                     class="fas fa-envelope"></i></span>
                                                         </div>
                                                         <input id ="correo" readonly="readonly" type="text" class="form-control"
-                                                            placeholder="Escribe aquí el correo electrónico" />
+                                                            />
                                                     </div>
                                                 </div>
                                             </div>
@@ -438,12 +438,12 @@
 
     function cargar_datos(selectedValue) {
 
-        var json_proveedores ='{{ json_proveedores | safe}}';
-        console.log(json_proveedores);
-        //var data_filter = json_proveedores.filter(element => element.fields.nombre == selectedValue);
-        //console.log(data_filter);
-
-
+        var json_proveedores =JSON.parse('{{ json_proveedores | safe}}');
+        var data_filter = json_proveedores.filter(element => element.fields.nombre == selectedValue);
+        console.log(json_proveedores)
+        $('#ruc')[0].value=data_filter[0].fields.ruc;
+        $('#celular')[0].value=data_filter[0].fields.celular;
+        $('#correo')[0].value=data_filter[0].fields.correo;
     };
 </script>
 
