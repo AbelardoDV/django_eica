@@ -23,10 +23,10 @@
             <div class="col-12">
                 <!-- Default box -->
 
-                <div class="card">
+                <div class="card col-lg-8">
                     <div class="card-header">
                         <h3 class="card-title">
-                            <strong>COMPRAS</strong> | Boleta nueva N°
+                            <strong>Boleta nueva N°</strong>
                         </h3>
 
                         <div class="card-tools">
@@ -61,8 +61,8 @@
                                             Canrash
                                             S.R.L.
                                             <small class="float-right">
-                                                <p>BOLETA N°</p>
-                                                Fecha:
+
+
                                                 <div class="form-group">
                                                     <div class="input-group date" id="datetimepicker4"
                                                         data-target-input="nearest">
@@ -114,7 +114,7 @@
                                                 </div>
                                             </div>
 
-                                            <!-- Celular -->
+                                            <!-- Correo -->
                                             <div class="form-group row">
                                                 <label for="inputProveedor"
                                                     class="col-sm-2 col-form-label"><strong>Celular:</strong></label>
@@ -122,10 +122,10 @@
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i
-                                                                    class="fas fa-envelope"></i></span>
+                                                                    class="fas fa-phone"></i></span>
                                                         </div>
-                                                        <input type="email" class="form-control"
-                                                            placeholder="Escribe aquí el correo electrónico.">
+                                                        <input type="text" class="form-control"
+                                                            data-inputmask='"mask":"999-999-999"' data-mask />
                                                     </div>
                                                 </div>
                                             </div>
@@ -138,10 +138,10 @@
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i
-                                                                    class="fas fa-phone"></i></span>
+                                                                    class="fas fa-envelope"></i></span>
                                                         </div>
                                                         <input type="text" class="form-control"
-                                                            data-inputmask='"mask":"999-999-999"' data-mask />
+                                                            placeholder="Escribe aquí el correo electrónico" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -164,7 +164,7 @@
                                                     <th>Importe</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="tabla_compras">
                                                 <tr>
                                                     <td>1</td>
                                                     <td>Call of Duty</td>
@@ -176,14 +176,17 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <div class="text-center" ><a href="javascript:void(0);" > Añadir fila  <i  class="fas fa-plus-circle fa-lg"></i> </a> </div>
                                     </div>
+                                    
                                     <!-- /.col -->
                                 </div>
                                 <!-- /.row -->
-
+                                <hr style="width: 100%; color: rgb(233, 230, 230); height: 1px; background-color:rgb(233, 230, 230); " />
                                 <div class="row">
                                     <!-- accepted payments column -->
-                                    <div class="col-6">
+                                    <div class="col-6"> <br> </div>
+                                    <!--    <div class="col-6">
                                         <p class="lead">Escanea el código QR:</p>
 
                                         <img src="https://tctechcrunch2011.files.wordpress.com/2012/08/qr-code.png"
@@ -192,7 +195,7 @@
                                             * Recuerda verificar la veracidad de la boleta con el
                                             código qr
                                         </p>
-                                    </div>
+                                    </div> -->
                                     <!-- /.col -->
                                     <div class="col-6">
                                         <p class="lead">Resumen</p>
@@ -204,7 +207,7 @@
                                                     <td>$5.80</td>
                                                 </tr> -->
                                                 <tr>
-                                                    <th  style="width:50%">Total:</th>
+                                                    <th style="width:50%">Total:</th>
                                                     <td>$265.24</td>
                                                 </tr>
                                             </table>
@@ -213,44 +216,42 @@
                                     <!-- /.col -->
                                 </div>
                                 <!-- /.row -->
-
                                 <!-- this row will not appear when printing -->
                                 <div class="row no-print">
                                     <div class="col-12">
-                                        <a href="#" target="_blank" class="btn btn-default"><i
-                                                class="fas fa-print"></i> Imprimir ahora</a>
+                                        <!--   <a href="#" target="_blank" class="btn btn-default"><i
+                                                class="fas fa-print"></i> Imprimir ahora</a> -->
                                         <button type="button" class="btn btn-success float-right">
-                                            <i class="far fa-credit-card"></i> Guardar <strong>boleta de compra</strong> 
+                                            <i class="far fa-credit-card"></i> Guardar <strong>boleta de compra</strong>
                                         </button>
-                                        <button type="button" class="btn btn-primary float-right"
+                                        <!--       <button type="button" class="btn btn-primary float-right"
                                             style="margin-right: 5px;">
                                             <i class="fas fa-download"></i> Generar <strong>PDF</strong>
-                                        </button>
+                                        </button> -->
                                     </div>
                                 </div>
                             </div>
                             <!-- /.invoice -->
-                            <button type="submit" class="btn btn-outline-success">
+                            <!--    <button type="submit" class="btn btn-outline-success">
                                 Agregar <strong>compras</strong> al sistema
-                            </button>
+                            </button> -->
                         </form>
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer">
-                        (RESTAURANTE) *Recuerda revisar los datos antes de imprimir. Imprime
-                        <strong>solo</strong> si es necesario.
-                    </div>
+                    <!-- <div class="card-footer">
+                        Empresa EICA
+                    </div> -->
                     <!-- /.card-footer-->
                 </div>
                 <!-- /.card -->
+                <hr style="width: 100%; color: red; height: 1px; background-color:red;" />
 
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">
-                                    <strong>COMPRAS</strong> | Últimas
-                                    <strong>10</strong> ingresadas al sistema
+                                    <strong>COMPRAS</strong> | Se muestran las últimas 10
                                 </h3>
 
                                 <div class="card-tools">
@@ -320,7 +321,9 @@
         </div>
     </div>
 </section>
-{% endblock contenido %} {% block pie %}
+{% endblock contenido %}
+
+{% block pie %}
 
 <!-- Select2 -->
 <script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
@@ -355,7 +358,23 @@
 
         // date mask
         $("[data-mask]").inputmask();
+
+
     });
 </script>
+<script>
+    $('a').click(function () {
+        $('#tabla_compras').append('                                                <tr>                            \
+                                                    <td>1</td>                                                      \
+                                                    <td>Call of Duty</td>                                           \
+                                                    <td>455-981-221</td>                                            \
+                                                    <td>                                                            \
+                                                        El snort testosterone trophy driving gloves handsome        \
+                                                    </td>                                                           \
+                                                    <td>$64.50</td>                                                 \
+                                                </tr>');
+    });
+</script>
+
 
 {% endblock pie %}
