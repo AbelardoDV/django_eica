@@ -436,9 +436,33 @@
 <!-- Script to load data when proveedor is selected  -->
 <script type="text/javascript">
     function cargar_datos(selectedValue) {
-        console.log(selectedValue)
-        var ruc = "{{proveedores.selectedValue}}";
-        console.log(ruc)
+        console.log(selectedValue);
+        var json_proveedores = [{
+            "model": "eica.proveedor",
+            "pk": 2,
+            "fields": {
+                "nombre": "Mercado Central",
+                "ruc": 12312312312,
+                "correo": null,
+                "celular": null,
+                "fecha_creado": "2020-01-10T03:13:35Z",
+                "fecha_modificado": "2020-01-10T03:13:36Z"
+            }
+        }, {
+            "model": "eica.proveedor",
+            "pk": 1,
+            "fields": {
+                "nombre": "Av\\u00edcola jorge",
+                "ruc": 12312312332,
+                "correo": "gasfas@fasfs.csaf",
+                "celular": 123124,
+                "fecha_creado": "2020-01-09T20:39:47Z",
+                "fecha_modificado": "2020-01-09T20:39:49Z"
+            }
+        }];
+        var data_filter = json_proveedores.filter(element => element.fields == 'eica.proveedor');
+        console.log(data_filter);
+
 
     };
 </script>

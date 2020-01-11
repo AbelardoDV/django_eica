@@ -7,8 +7,7 @@ from .models import ProductoPadre
 from .models import Proveedor
 from.models import BoletaCompra
 
-import json
-
+from django.core import serializers
 # -------------------------Inicio Dashboard-------------------------
 
 @login_required(login_url='/accounts/login')
@@ -54,6 +53,7 @@ def compras_productos_view(request):
     productoPadre = ProductoPadre.objects.all()
     productoHijoCompra = ProductoHijoCompra.objects.all()
     proveedores = Proveedor.objects.all()
+    json_proveedores=str(serializers.serialize('json',proveedores))
     boletasCompra = BoletaCompra.objects.all()
     return render(request, 'compras_productos.html', locals())
 
