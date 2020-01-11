@@ -53,7 +53,7 @@ def compras_productos_view(request):
     productoPadre = ProductoPadre.objects.all()
     productoHijoCompra = ProductoHijoCompra.objects.all()
     proveedores = Proveedor.objects.all()
-    json_proveedores=serializers.serialize('json',proveedores)
+    json_proveedores=serializers.serialize("json",proveedores)
     boletasCompra = BoletaCompra.objects.all()
     return render(request, 'compras_productos.html', locals())
 
