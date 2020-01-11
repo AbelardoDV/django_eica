@@ -91,7 +91,8 @@
                                                 <label for="inputProveedor"
                                                     class="col-sm-2 col-form-label"><strong>Proveedor:</strong></label>
                                                 <div class="col-sm-10">
-                                                    <select class="form-control select2bs4" style="width: 100%;">
+                                                    <select class="form-control select2bs4" style="width: 100%;"
+                                                        onchange="cargar_datos(this.value)">
                                                         {% for proveedor in proveedores %}
                                                         {% if forloop.last %}
                                                         <option selected="selected">{{proveedor.nombre}}</option>
@@ -360,24 +361,38 @@
         });
         //Date mask
         $("[data-mask]").inputmask();
-        //Add here 
+
+
+        //Add here more functions
 
 
     });
 </script>
-<script>
+
+<!-- Script to add new row -->
+<script type="text/javascript">
     $('a').click(function () {
-        $('#tabla_compras').append('                                                <tr>                            \
-                                                    <td>1</td>                                                      \
-                                                    <td>Call of Duty</td>                                           \
-                                                    <td>455-981-221</td>                                            \
-                                                    <td>                                                            \
-                                                        El snort testosterone trophy driving gloves handsome        \
-                                                    </td>                                                           \
-                                                    <td>$64.50</td>                                                 \
-                                                </tr>');
+        $('#tabla_compras').append('<tr>                            \
+                                    <td>1</td>                                                      \
+                                    <td>Call of Duty</td>                                           \
+                                    <td>455-981-221</td>                                            \
+                                    <td>                                                            \
+                                    El snort testosterone trophy driving gloves handsome        \
+                                    </td>                                                           \
+                                    <td>$64.50</td>                                                 \
+                                    </tr>');
     });
 </script>
+<!-- Script to load data when proveedor is selected  -->
+<script type="text/javascript">
+    
 
+    function cargar_datos(selectedValue) {
+        console.log(selectedValue)
+        var ruc = "{{proveedores.selectedValue}}";
+        console.log(ruc)
+
+    };
+</script>
 
 {% endblock pie %}
