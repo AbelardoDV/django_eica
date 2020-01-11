@@ -167,19 +167,40 @@
                                                     <th>Cantidad</th>
                                                     <th>Unidad</th>
                                                     <th>Precio</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="tabla_compras">
-                                                <tr>
+                                                <tr id="fila_1">
+                                                    <td>
+                                                        <select class="form-control select2bs4" style="width: 100%;">
+                                                            {% for producto in productoPadre %}
+                                                            {% if forloop.last %}
+                                                            <option selected="selected">{{producto.nombre}}</option>
+                                                            {% else %}
+                                                            <option>{{producto.nombre}}</option>
+                                                            {% endif %}
+                                                            {% endfor %}</td>
+                                                    <td><input type="number" step="00.1" placeholder='00.0' value='00.0'
+                                                            min="0"> </td>
                                                     <td>Pollo</td>
-                                                    <td>2</td>
-                                                    <td>Pollo</td>
-                                                    <td>S/. 20</td>
+                                                    <td>S/. <input type="number" step="00.1" placeholder='00.0'
+                                                            value='00.0' min="0">
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-danger btn-sm" href="#"
+                                                            onclick="deleteRow(this)">
+                                                            <i class="fas fa-trash"> </i>
+                                                            Delete
+                                                        </a>
+                                                    </td>
+
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <div class="text-center"><a href="javascript:void(0);"> Añadir fila <i
-                                                    class="fas fa-plus-circle fa-lg"></i> </a> </div>
+                                        <div class="text-center"><a id="agregar_fila" href="javascript:void(0);">
+                                                Agregar fila
+                                                <i class="fas fa-plus-circle fa-lg"></i> </a> </div>
                                     </div>
 
                                     <!-- /.col -->
@@ -200,6 +221,7 @@
                                             código qr
                                         </p>
                                     </div> -->
+
                                     <!-- /.col -->
                                     <div class="col-6">
                                         <p class="lead">Resumen</p>
@@ -311,6 +333,7 @@
                                                     Delete
                                                 </a>
                                             </td>
+
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -369,21 +392,49 @@
     });
 </script>
 
-<!-- Script to add new row -->
+<!-- Script to add new row  and delete-->
 <script type="text/javascript">
-    $('a').click(function () {
-        $('#tabla_compras').append('                                                <tr>                            \
-                                                    <td>Papa</td>                                                      \
-                                                    <td>2</td>                                           \
-                                                    <td>Kg</td>                                            \
-                                                    <td>S/.40</td>                                                           \
-                                                </tr>');
+    /* ADD ROW*/
+    var cantidad_rows = 1;
+    $('#agregar_fila').click(function () {
+        var tablita = $('#tabla_compras')[0];
+        var rowCount = tablita.rows.length;
+        primera_fila = $('#fila_1')[0];
+        copia_primera_fila = primera_fila.cloneNode(true);
+        copia_primera_fila.id = "fila_" + (cantidad_rows + 1);
+        cantidad_rows++;
+        $('#tabla_compras')[0].append(copia_primera_fila);
+
     });
+    /* DELETE ROW*/
+    function deleteRow(currentRow) {
+        try {
+            var tablita = $('#tabla_compras')[0];
+            var rowCount = tablita.rows.length;
+            console.log(rowCount);
+            for (var i = 0; i < rowCount; i++) {
+                var row = tablita.rows[i];
+                /*var chkbox = row.cells[0].childNodes[0];*/
+                /*if (null != chkbox && true == chkbox.checked)*/
+
+                if (row == currentRow.parentNode.parentNode) {
+                    if (rowCount <= 1) {
+                        alert("No se pueden borrar todas las filas!");
+                        break;
+                    }
+                    tablita.deleteRow(i);
+                    rowCount--;
+                    i--;
+                }
+            }
+        } catch (e) {
+            alert(e);
+        }
+        //getValues();
+    }
 </script>
 <!-- Script to load data when proveedor is selected  -->
 <script type="text/javascript">
-    
-
     function cargar_datos(selectedValue) {
         console.log(selectedValue)
         var ruc = "{{proveedores.selectedValue}}";
