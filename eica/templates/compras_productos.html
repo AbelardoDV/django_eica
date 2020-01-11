@@ -93,9 +93,13 @@
                                                     <select class="form-control select2bs4" style="width: 100%;">
                                                         {% for proveedor in proveedores %}
                                                         {% if forloop.last %}
-                                                        <option selected="selected">{{provedor.nombre}}</option>
-                                                        {% endif %}
                                                         <option selected="selected">{{proveedor.nombre}}</option>
+                                                        {% else %}
+                                                        <option>{{proveedor.nombre}}</option>
+                                                       
+                                                            
+                                                        {% endif %}
+                                                            
                                                         {% endfor %}
                                                         
                                                     </select>
