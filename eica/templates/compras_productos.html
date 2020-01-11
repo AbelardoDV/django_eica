@@ -436,7 +436,6 @@
 <!-- Script to load data when proveedor is selected  -->
 <script type="text/javascript">
     function cargar_datos(selectedValue) {
-        console.log(selectedValue);
         var json_proveedores = [{
             "model": "eica.proveedor",
             "pk": 2,
@@ -452,7 +451,7 @@
             "model": "eica.proveedor",
             "pk": 1,
             "fields": {
-                "nombre": "Av\\u00edcola jorge",
+                "nombre": "Avícola jorge",
                 "ruc": 12312312332,
                 "correo": "gasfas@fasfs.csaf",
                 "celular": 123124,
@@ -460,7 +459,7 @@
                 "fecha_modificado": "2020-01-09T20:39:49Z"
             }
         }];
-        var data_filter = json_proveedores.filter(element => element.fields == 'eica.proveedor');
+        var data_filter = json_proveedores.filter(element => element.fields.nombre == selectedValue);
         console.log(data_filter);
 
 

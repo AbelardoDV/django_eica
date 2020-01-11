@@ -53,7 +53,7 @@ def compras_productos_view(request):
     productoPadre = ProductoPadre.objects.all()
     productoHijoCompra = ProductoHijoCompra.objects.all()
     proveedores = Proveedor.objects.all()
-    json_proveedores=str(serializers.serialize('json',proveedores))
+    json_proveedores=serializers.serialize('json',proveedores)
     boletasCompra = BoletaCompra.objects.all()
     return render(request, 'compras_productos.html', locals())
 
@@ -87,3 +87,6 @@ def error_500_view(request, exception):
     return render(request, 'eica/500.html', data)
 
 # ---------------------------Fin Páginas 404 y 500---------------------------
+
+
+#----------------------
