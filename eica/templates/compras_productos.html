@@ -114,8 +114,9 @@
                                                             <span class="input-group-text"><i
                                                                     class="far fa-building"></i></span>
                                                         </div>
-                                                        <input  id ="ruc" readonly="readonly"  type="text" class="form-control"
-                                                            data-inputmask='"mask":"9 9999 9999 9"' data-mask />
+                                                        <input id="ruc" readonly="readonly" type="text"
+                                                            class="form-control" data-inputmask='"mask":"9 9999 9999 9"'
+                                                            data-mask />
                                                     </div>
                                                 </div>
                                             </div>
@@ -130,8 +131,9 @@
                                                             <span class="input-group-text"><i
                                                                     class="fas fa-phone"></i></span>
                                                         </div>
-                                                        <input id ="celular" readonly="readonly" type="text" class="form-control"
-                                                            data-inputmask='"mask":"999-999-999"' data-mask />
+                                                        <input id="celular" readonly="readonly" type="text"
+                                                            class="form-control" data-inputmask='"mask":"999-999-999"'
+                                                            data-mask />
                                                     </div>
                                                 </div>
                                             </div>
@@ -146,8 +148,8 @@
                                                             <span class="input-group-text"><i
                                                                     class="fas fa-envelope"></i></span>
                                                         </div>
-                                                        <input id ="correo" readonly="readonly" type="text" class="form-control"
-                                                            />
+                                                        <input id="correo" readonly="readonly" type="text"
+                                                            class="form-control" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -196,6 +198,7 @@
                                                     </td>
 
                                                 </tr>
+
                                             </tbody>
                                         </table>
                                         <div class="text-center"><a id="agregar_fila" href="javascript:void(0);">
@@ -400,10 +403,15 @@
         var tablita = $('#tabla_compras')[0];
         var rowCount = tablita.rows.length;
         primera_fila = $('#fila_1')[0];
+        
+        $('#fila_1').children(":first").children("select").select2("destroy");
+
         copia_primera_fila = primera_fila.cloneNode(true);
-        copia_primera_fila.id = "fila_" + (cantidad_rows + 1);
-        cantidad_rows++;
+        copia_primera_fila.id = "fila_" + (cantidad_rows + 1);        cantidad_rows++;
         $('#tabla_compras')[0].append(copia_primera_fila);
+        $('#fila_1').children(":first").children("select").select2({
+            theme: "bootstrap4"
+        });
 
     });
     /* DELETE ROW*/
@@ -435,15 +443,23 @@
 </script>
 <!-- Script to load data when proveedor is selected  -->
 <script type="text/javascript">
+    $(document).ready(function () {
+        var json_proveedores = JSON.parse('{{ json_proveedores | safe}}');
+        var data_filter = json_proveedores.filter(element => element.pk == 1);
+        console.log(json_proveedores)
+        $('#ruc')[0].value = data_filter[0].fields.ruc;
+        $('#celular')[0].value = data_filter[0].fields.celular;
+        $('#correo')[0].value = data_filter[0].fields.correo;
+    });
 
     function cargar_datos(selectedValue) {
 
-        var json_proveedores =JSON.parse('{{ json_proveedores | safe}}');
+        var json_proveedores = JSON.parse('{{ json_proveedores | safe}}');
         var data_filter = json_proveedores.filter(element => element.fields.nombre == selectedValue);
         console.log(json_proveedores)
-        $('#ruc')[0].value=data_filter[0].fields.ruc;
-        $('#celular')[0].value=data_filter[0].fields.celular;
-        $('#correo')[0].value=data_filter[0].fields.correo;
+        $('#ruc')[0].value = data_filter[0].fields.ruc;
+        $('#celular')[0].value = data_filter[0].fields.celular;
+        $('#correo')[0].value = data_filter[0].fields.correo;
     };
 </script>
 
