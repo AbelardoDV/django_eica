@@ -4,7 +4,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import ProductoHijoCompra
 from .models import ProductoPadre
-
+from .models import Proveedor
+from.models import BoletaCompra
 
 # -------------------------Inicio Dashboard-------------------------
 
@@ -50,6 +51,8 @@ def compras_productos_view(request):
     ruta_vista = ['Compras de Productos']
     productoPadre = ProductoPadre.objects.all()
     productoHijoCompra = ProductoHijoCompra.objects.all()
+    proveedores = Proveedor.objects.all()
+    boletasCompra = BoletaCompra.objects.all()
     return render(request, 'compras_productos.html', locals())
 
 

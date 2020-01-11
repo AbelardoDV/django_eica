@@ -20,14 +20,16 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 ">
                 <!-- Default box -->
 
                 <div class="card col-lg-8">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            <strong>Boleta nueva N°</strong>
-                        </h3>
+                    <div class="card-header ">
+                        <h4 class="card-title">
+                            <strong><strong>COMPRAS</strong> | Empresa Isla de
+                            Canrash
+                            S.R.L.</strong>
+                        </h4>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
@@ -56,10 +58,8 @@
                                 <!-- title row -->
                                 <div class="row">
                                     <div class="col-12">
-                                        <h4>
-                                            <i class="fas fa-globe"></i> <strong>COMPRAS</strong> | Empresa Isla de
-                                            Canrash
-                                            S.R.L.
+                                        <h5>
+                                            <i class="fas fa-globe"></i> Boleta nueva N° {{ boletasCompra.last.id |add:"1"  }}
                                             <small class="float-right">
 
 
@@ -77,7 +77,7 @@
                                                     </div>
                                                 </div>
                                             </small>
-                                        </h4>
+                                        </h5>
                                     </div>
                                     <!-- /.col -->
                                 </div>
@@ -91,9 +91,13 @@
                                                     class="col-sm-2 col-form-label"><strong>Proveedor:</strong></label>
                                                 <div class="col-sm-10">
                                                     <select class="form-control select2bs4" style="width: 100%;">
-                                                        <option selected="selected">Proveedor 1</option>
-                                                        <option>Proveedor 2</option>
-                                                        <option>Proveedor 3</option>
+                                                        {% for proveedor in proveedores %}
+                                                        {% if forloop.last %}
+                                                        <option selected="selected">{{provedor.nombre}}</option>
+                                                        {% endif %}
+                                                        <option selected="selected">{{proveedor.nombre}}</option>
+                                                        {% endfor %}
+                                                        
                                                     </select>
                                                 </div>
                                             </div>
@@ -108,7 +112,7 @@
                                                             <span class="input-group-text"><i
                                                                     class="far fa-building"></i></span>
                                                         </div>
-                                                        <input type="text" class="form-control"
+                                                        <input type="text" class="form-control" 
                                                             data-inputmask='"mask":"9 9999 9999 9"' data-mask />
                                                     </div>
                                                 </div>
@@ -157,22 +161,18 @@
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>Cantidad</th>
                                                     <th>Producto</th>
-                                                    <th>P. Unit.</th>
+                                                    <th>Cantidad</th>
                                                     <th>Unidad</th>
-                                                    <th>Importe</th>
+                                                    <th>Precio</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="tabla_compras">
                                                 <tr>
-                                                    <td>1</td>
-                                                    <td>Call of Duty</td>
-                                                    <td>455-981-221</td>
-                                                    <td>
-                                                        El snort testosterone trophy driving gloves handsome
-                                                    </td>
-                                                    <td>$64.50</td>
+                                                    <td>Pollo</td>
+                                                    <td>2</td>                                                   
+                                                    <td>Pollo</td>
+                                                    <td>S/. 20</td>
                                                 </tr>
                                             </tbody>
                                         </table>
