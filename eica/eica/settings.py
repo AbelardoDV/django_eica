@@ -85,6 +85,14 @@ DATABASES = {
         'HOST': '192.168.255.3',
         'PORT': '',
     },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'restaurante',
+    #     'USER': 'djangouser',
+    #     'PASSWORD': 'guitarra',
+    #     'HOST': 'localhost',
+    #     'PORT': '',
+    # },
     'sqlite': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
