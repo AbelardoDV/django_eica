@@ -1,0 +1,224 @@
+-- Database generated with pgModeler (PostgreSQL Database Modeler).
+-- pgModeler  version: 0.9.1
+-- PostgreSQL version: 10.0
+-- Project Site: pgmodeler.io
+-- Model Author: ---
+
+
+-- Database creation must be done outside a multicommand file.
+-- These commands were put in this file only as a convenience.
+-- -- object: restaurante | type: DATABASE --
+-- -- DROP DATABASE IF EXISTS restaurante;
+-- CREATE DATABASE restaurante;
+-- -- ddl-end --
+-- 
+
+-- object: public.proveedor | type: TABLE --
+-- DROP TABLE IF EXISTS public.proveedor CASCADE;
+CREATE TABLE public.proveedor(
+	id serial NOT NULL,
+	nombre varchar(200) NOT NULL,
+	ruc bigint,
+	correo varchar(50),
+	celular bigint,
+	fecha_creado timestamp with time zone NOT NULL,
+	fecha_modificado timestamp with time zone,
+	CONSTRAINT proveedores_pk PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE public.proveedor OWNER TO dmxdloulgkqyqq;
+-- ddl-end --
+
+-- object: public.producto_hijo_compra | type: TABLE --
+-- DROP TABLE IF EXISTS public.producto_hijo_compra CASCADE;
+CREATE TABLE public.producto_hijo_compra(
+	id serial NOT NULL,
+	precio real NOT NULL,
+	cantidad real,
+	id_proveedor integer,
+	id_boleta_compra integer,
+	id_producto_padre integer,
+	CONSTRAINT producto_hijo_compra_pk PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE public.producto_hijo_compra OWNER TO dmxdloulgkqyqq;
+-- ddl-end --
+
+-- object: public.plato_padre | type: TABLE --
+-- DROP TABLE IF EXISTS public.plato_padre CASCADE;
+CREATE TABLE public.plato_padre(
+	id serial NOT NULL,
+	nombre varchar(500) NOT NULL DEFAULT 'Sin correo',
+	CONSTRAINT platos_pk PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE public.plato_padre OWNER TO dmxdloulgkqyqq;
+-- ddl-end --
+
+-- object: proveedor_fk | type: CONSTRAINT --
+-- ALTER TABLE public.producto_hijo_compra DROP CONSTRAINT IF EXISTS proveedor_fk CASCADE;
+ALTER TABLE public.producto_hijo_compra ADD CONSTRAINT proveedor_fk FOREIGN KEY (id_proveedor)
+REFERENCES public.proveedor (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: public.boleta_compra | type: TABLE --
+-- DROP TABLE IF EXISTS public.boleta_compra CASCADE;
+CREATE TABLE public.boleta_compra(
+	id serial NOT NULL,
+	comentario varchar(500),
+	fecha_compra timestamp with time zone,
+	fecha_creado timestamp with time zone,
+	fecha_modifcado timestamp with time zone,
+	CONSTRAINT compras_pk PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE public.boleta_compra OWNER TO dmxdloulgkqyqq;
+-- ddl-end --
+
+-- object: public.boleta_venta_restaurante | type: TABLE --
+-- DROP TABLE IF EXISTS public.boleta_venta_restaurante CASCADE;
+CREATE TABLE public.boleta_venta_restaurante(
+	id serial NOT NULL,
+	comentario varchar(500),
+	fecha_venta timestamp with time zone,
+	fecha_creado timestamp with time zone,
+	fecha_modificado timestamp with time zone,
+	CONSTRAINT ventas_restaurante_pk PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE public.boleta_venta_restaurante OWNER TO dmxdloulgkqyqq;
+-- ddl-end --
+
+-- object: public.venta_bodega | type: TABLE --
+-- DROP TABLE IF EXISTS public.venta_bodega CASCADE;
+CREATE TABLE public.venta_bodega(
+	id smallint NOT NULL,
+	comentario varchar(500),
+	CONSTRAINT ventas_bodega_pk PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE public.venta_bodega OWNER TO dmxdloulgkqyqq;
+-- ddl-end --
+
+-- object: boleta_compra_fk | type: CONSTRAINT --
+-- ALTER TABLE public.producto_hijo_compra DROP CONSTRAINT IF EXISTS boleta_compra_fk CASCADE;
+ALTER TABLE public.producto_hijo_compra ADD CONSTRAINT boleta_compra_fk FOREIGN KEY (id_boleta_compra)
+REFERENCES public.boleta_compra (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: public.producto_hijo_venta | type: TABLE --
+-- DROP TABLE IF EXISTS public.producto_hijo_venta CASCADE;
+CREATE TABLE public.producto_hijo_venta(
+	id serial NOT NULL,
+	precio real NOT NULL,
+	cantidad real,
+	cliente_name varchar(50),
+	id_venta_bodega smallint,
+	id_producto_padre integer,
+	CONSTRAINT productos_pk PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE public.producto_hijo_venta OWNER TO dmxdloulgkqyqq;
+-- ddl-end --
+
+-- object: venta_bodega_fk | type: CONSTRAINT --
+-- ALTER TABLE public.producto_hijo_venta DROP CONSTRAINT IF EXISTS venta_bodega_fk CASCADE;
+ALTER TABLE public.producto_hijo_venta ADD CONSTRAINT venta_bodega_fk FOREIGN KEY (id_venta_bodega)
+REFERENCES public.venta_bodega (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: public.producto_padre | type: TABLE --
+-- DROP TABLE IF EXISTS public.producto_padre CASCADE;
+CREATE TABLE public.producto_padre(
+	id serial NOT NULL,
+	nombre varchar(500),
+	descripcion varchar(500),
+	unidad varchar(20),
+	CONSTRAINT producto_padre_pk PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE public.producto_padre OWNER TO dmxdloulgkqyqq;
+-- ddl-end --
+
+-- object: producto_padre_fk | type: CONSTRAINT --
+-- ALTER TABLE public.producto_hijo_compra DROP CONSTRAINT IF EXISTS producto_padre_fk CASCADE;
+ALTER TABLE public.producto_hijo_compra ADD CONSTRAINT producto_padre_fk FOREIGN KEY (id_producto_padre)
+REFERENCES public.producto_padre (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: producto_padre_fk | type: CONSTRAINT --
+-- ALTER TABLE public.producto_hijo_venta DROP CONSTRAINT IF EXISTS producto_padre_fk CASCADE;
+ALTER TABLE public.producto_hijo_venta ADD CONSTRAINT producto_padre_fk FOREIGN KEY (id_producto_padre)
+REFERENCES public.producto_padre (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: public.producto_plato | type: TABLE --
+-- DROP TABLE IF EXISTS public.producto_plato CASCADE;
+CREATE TABLE public.producto_plato(
+	id serial NOT NULL,
+	cantidad real,
+	id_producto_padre integer,
+	id_plato_padre integer,
+	CONSTRAINT producto_plato_pk PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE public.producto_plato OWNER TO dmxdloulgkqyqq;
+-- ddl-end --
+
+-- object: producto_padre_fk | type: CONSTRAINT --
+-- ALTER TABLE public.producto_plato DROP CONSTRAINT IF EXISTS producto_padre_fk CASCADE;
+ALTER TABLE public.producto_plato ADD CONSTRAINT producto_padre_fk FOREIGN KEY (id_producto_padre)
+REFERENCES public.producto_padre (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: plato_padre_fk | type: CONSTRAINT --
+-- ALTER TABLE public.producto_plato DROP CONSTRAINT IF EXISTS plato_padre_fk CASCADE;
+ALTER TABLE public.producto_plato ADD CONSTRAINT plato_padre_fk FOREIGN KEY (id_plato_padre)
+REFERENCES public.plato_padre (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: public.plato_venta | type: TABLE --
+-- DROP TABLE IF EXISTS public.plato_venta CASCADE;
+CREATE TABLE public.plato_venta(
+	id serial NOT NULL,
+	precio_venta real,
+	id_plato_padre integer,
+	id_boleta_venta_restaurante integer,
+	CONSTRAINT plato_venta_pk PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE public.plato_venta OWNER TO dmxdloulgkqyqq;
+-- ddl-end --
+
+-- object: plato_padre_fk | type: CONSTRAINT --
+-- ALTER TABLE public.plato_venta DROP CONSTRAINT IF EXISTS plato_padre_fk CASCADE;
+ALTER TABLE public.plato_venta ADD CONSTRAINT plato_padre_fk FOREIGN KEY (id_plato_padre)
+REFERENCES public.plato_padre (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: boleta_venta_restaurante_fk | type: CONSTRAINT --
+-- ALTER TABLE public.plato_venta DROP CONSTRAINT IF EXISTS boleta_venta_restaurante_fk CASCADE;
+ALTER TABLE public.plato_venta ADD CONSTRAINT boleta_venta_restaurante_fk FOREIGN KEY (id_boleta_venta_restaurante)
+REFERENCES public.boleta_venta_restaurante (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+

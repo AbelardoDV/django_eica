@@ -79,10 +79,10 @@ WSGI_APPLICATION = 'eica.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'restaurante',
-        'USER': 'djangouser',
-        'PASSWORD': 'guitarra',
-        'HOST': '192.168.255.3',
+        'NAME': 'd5efc61prtdh5e',
+        'USER': 'dmxdloulgkqyqq',
+        'PASSWORD': 'f08d27057f6bbe9d02d50540000fd7d48da862651220087b78ecbca4e2db3a21',
+        'HOST': 'ec2-54-83-1-101.compute-1.amazonaws.com',
         'PORT': '',
     },
     # 'default': {
