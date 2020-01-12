@@ -53,8 +53,12 @@ def compras_productos_view(request):
     productoPadre = ProductoPadre.objects.all()
     productoHijoCompra = ProductoHijoCompra.objects.all()
     proveedores = Proveedor.objects.all()
-    json_proveedores=serializers.serialize("json",proveedores)
     boletasCompra = BoletaCompra.objects.all()
+    
+    json_proveedores=serializers.serialize("json",proveedores) # Usado para autocompletado
+    json_producto_hijo=serializers.serialize("json",productoHijoCompra) # Usado para autocompletado
+    json_producto_padre=serializers.serialize("json",productoPadre) # Usado para autocompletado
+    
     return render(request, 'compras_productos.html', locals())
 
 

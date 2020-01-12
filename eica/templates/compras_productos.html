@@ -175,7 +175,8 @@
                                             <tbody id="tabla_compras">
                                                 <tr id="fila_1">
                                                     <td>
-                                                        <select class="form-control select2bs4" style="width: 100%;" onchange="cargar_producto(this.value)">
+                                                        <select class="form-control select2bs4" style="width: 100%;"
+                                                            onchange="cargar_producto(this.value)">
                                                             {% for producto in productoPadre %}
                                                             {% if forloop.last %}
                                                             <option selected="selected">{{producto.nombre}}</option>
@@ -185,7 +186,10 @@
                                                             {% endfor %}</td>
                                                     <td><input type="number" step="00.1" placeholder='00.0' value='00.0'
                                                             min="0"> </td>
-                                                    <td>Pollo</td>
+                                                    <td>
+                                                        <input id="unidad" readonly="readonly" type="text"
+                                                            class="form-control">
+                                                    </td>
                                                     <td>S/. <input type="number" step="00.1" placeholder='00.0'
                                                             value='00.0' min="0">
                                                     </td>
@@ -408,7 +412,8 @@
         $('#fila_1').children(":first").children("select").select2("destroy");
 
         copia_primera_fila = primera_fila.cloneNode(true);
-        copia_primera_fila.id = "fila_" + (cantidad_rows + 1);        cantidad_rows++;
+        copia_primera_fila.id = "fila_" + (cantidad_rows + 1);
+        cantidad_rows++;
         $('#tabla_compras')[0].append(copia_primera_fila);
         $('#fila_1').children(":first").children("select").select2({
             theme: "bootstrap4"
@@ -464,8 +469,14 @@
         $('#correo')[0].value = data_filter[0].fields.correo;
     };
 
-    function cargar_producto(){
+    function cargar_producto(selectedValue) {
 
+        var json_producto_hijo = JSON.parse('{{  json_producto_hijo | safe }}');
+        var json_producto_padre = JSON.parse('{{  json_producto_padre | safe }}');
+
+        var json_producto_padre_filtrado = json_producto_padre.filter(p => p.fields.nombre == selectedValue);
+
+        $('#unidad')[0].value = json_producto_padre_filtrado[0].fields.unidad;
     };
 </script>
 
