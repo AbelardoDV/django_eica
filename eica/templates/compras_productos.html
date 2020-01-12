@@ -92,7 +92,7 @@
                                                     class="col-sm-2 col-form-label"><strong>Proveedor:</strong></label>
                                                 <div class="col-sm-10">
                                                     <select class="form-control select2bs4" style="width: 100%;"
-                                                        onchange="cargar_datos(this.value)">
+                                                        onchange="cargar_proveedor(this.value)">
                                                         {% for proveedor in proveedores %}
                                                         {% if forloop.last %}
                                                         <option selected="selected">{{proveedor.nombre}}</option>
@@ -175,7 +175,7 @@
                                             <tbody id="tabla_compras">
                                                 <tr id="fila_1">
                                                     <td>
-                                                        <select class="form-control select2bs4" style="width: 100%;">
+                                                        <select class="form-control select2bs4" style="width: 100%;" onchange="cargar_producto(this.value)">
                                                             {% for producto in productoPadre %}
                                                             {% if forloop.last %}
                                                             <option selected="selected">{{producto.nombre}}</option>
@@ -455,13 +455,17 @@
         $('#correo')[0].value = data_filter[0].fields.correo;
     });
 
-    function cargar_datos(selectedValue) {
+    function cargar_proveedor(selectedValue) {
 
         var json_proveedores = JSON.parse('{{ json_proveedores | safe}}');
         var data_filter = json_proveedores.filter(element => element.fields.nombre == selectedValue);
         $('#ruc')[0].value = data_filter[0].fields.ruc;
         $('#celular')[0].value = data_filter[0].fields.celular;
         $('#correo')[0].value = data_filter[0].fields.correo;
+    };
+
+    function cargar_producto(){
+
     };
 </script>
 
