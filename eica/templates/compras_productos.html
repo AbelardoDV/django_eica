@@ -403,14 +403,21 @@
         /* Se cpñ*/
         var tablita = $('#tabla_compras')[0];
         var rowCount = tablita.rows.length;
-        primera_fila = $('#fila_1')[0];
+        objeto_primera_fila=$('#fila_1')
+        primera_fila = objeto_primera_fila[0];
 
-        $('#fila_1').children(":first").children("select").select2("destroy");
+        objeto_primera_fila.children(":first").children("select").select2("destroy");
 
         copia_primera_fila = primera_fila.cloneNode(true);
+
+        objeto_primera_fila.children(":first").children("select").select2({
+            theme: "bootstrap4"
+        });
+
         copia_primera_fila.id = "fila_" + (cantidad_rows + 1);        cantidad_rows++;
-        $('#tabla_compras')[0].append(copia_primera_fila);
-        $('#fila_1').children(":first").children("select").select2({
+        tablita.append(copia_primera_fila);
+
+        $('#fila_'+cantidad_rows).children(":first").children("select").select2({
             theme: "bootstrap4"
         });
 
