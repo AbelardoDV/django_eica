@@ -100,6 +100,13 @@ def compras_historial_view(request):
 def editar_plato_view(request):
     nombre_vista = 'Editar platos'
     ruta_vista = ['Editar platos']
+    
+    platoVenta=PlatoVenta.objects.all()
+    platoPadre=PlatoPadre.objects.all()
+    
+    json_platoVenta = serializers.serialize("json", platoVenta)  # Usado para autocompletado
+    json_platoPadre = serializers.serialize("json", platoPadre)  # Usado para autocompletado
+    
     return render(request, 'editar_platos.html', locals())
 
 # ---------------------------------Fin Editar---------------------------------

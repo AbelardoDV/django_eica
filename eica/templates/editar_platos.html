@@ -1,16 +1,343 @@
 {% extends 'base.html' %}
+{%load static%}
 
 
 {% block cabecera %}
 
+
+<!-- Select2 -->
+<link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}" />
+<link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}" />
+
+<!-- Font Awesome -->
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+<!-- Moment.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"
+    integrity="sha256-VBLiveTKyUZMEzJd6z2mhfxIqz3ZATCuVMawPZGzIfA=" crossorigin="anonymous"></script>
+<!-- Spanish setting local Moment.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/es.js"></script>
+<!-- Tempus Dominus Bootstrap 4 -->
+
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
 {% endblock cabecera %}
+
 
 
 {% block contenido %}
 
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 ">
+                <!-- Default box -->
+                <div class="card col-lg-8">
+                    <div class="card-header ">
+                        <h4 class="card-title">
+                            <strong>AGREGAR | ELIMINAR | EDITAR platos</strong>
+                        </h4>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <!-- <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+              <i class="fas fa-times"></i></button> -->
+                            <!-- Botones para cerrar ventana -->
+                        </div>
+                    </div>
+
+                    <!-- Aviso  -->
+                    <!-- <div class="ribbon-wrapper ribbon-xl">
+                      <div class="ribbon bg-warning text-lg">
+                          En construcción
+                      </div>
+                  </div> -->
+
+                    <div class="card-body">
+                        <!-- form start -->
+                        <form role="form">
+                            <!-- Grupo 1 formulario -->
+                            <div class="invoice p-3 mb-3">
+                                <!-- title row -->
+                                <div class="row">
+                                    <div class="col-xs-2">
+                                        <h5>
+                                            <i class="fas fa-utensils">
+                                            </i>
+                                            Plato N°
+                                        </h5>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <input id="numero_plato_input" readonly type="text" class="form-control">
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- info row -->
+
+                                <div class="container">
+                                    <p></p>
+                                </div>
+                                <!-- info row -->
+
+                                <div class="row invoice-info">
+                                    <div class="col invoice-col">
+                                        <address>
+                                            <!-- Nombre de plato -->
+                                            <div class="form-group row">
+                                                <label for="inputCliente" class="col-sm-2 col-form-label"><strong>Nombre
+                                                        de plato:</strong></label>
+                                                <div class="col-sm-10">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="fas fa-drumstick-bite"></i>
+                                                            </span>
+                                                        </div>
+                                                        <div class="input-group-prepend">
+                                                            <select class="form-control select2bs4" style="width: 100%;"
+                                                                onchange="cargar_plato(this.value)">
+                                                                {% for plato in platoVenta %}
+                                                                {% if forloop.last %}
+                                                                <option selected="selected">
+                                                                    {{plato.id_plato_padre.nombre}}
+                                                                </option>
+                                                                {% else %}
+                                                                <option>{{plato.id_plato_padre.nombre}}</option>
+                                                                {% endif %}
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </address>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+
+                                <!-- Table row -->
+                                <div class="row">
+                                    <div class="col-12 table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Producto</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Unidad</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tabla_compras">
+                                                <tr id="fila_1">
+                                                    <td>
+                                                        <select class="form-control select2bs4" style="width: 100%;"
+                                                            onchange="">
+                                                            <!-- {% for plato in platoPadre %}
+                                                            {% if forloop.last %}
+                                                            <option selected="selected">{{plato.nombre}}</option>
+                                                            {% else %}
+                                                            <option>{{plato.nombre}}</option>
+                                                            {% endif %}
+                                                            {% endfor %}</td> -->
+                                                    <td>
+                                                        <input type="number" step="1" placeholder='0' value='0' min="0"
+                                                           class="form-control">
+                                                    </td>
+                                                    <td>
+                                                        <input id="precio_unitario" readonly="readonly" type="text"
+                                                            class="form-control">
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-danger btn-sm" href="#"
+                                                            onclick="deleteRow(this)">
+                                                            <i class="fas fa-trash"> </i>
+                                                            Borrar
+                                                        </a>
+                                                    </td>
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                        <div class="text-center"><a id="agregar_fila" href="javascript:void(0);">
+                                                Agregar fila
+                                                <i class="fas fa-plus-circle fa-lg"></i> </a> </div>
+                                    </div>
+
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                                <hr
+                                    style="width: 100%; color: rgb(233, 230, 230); height: 1px; background-color:rgb(233, 230, 230); " />
+                                <!-- /.row -->
+
+                                <!-- this row will not appear when printing -->
+                                <div class="row no-print">
+                                    <div class="col-12">
+                                        <!--   <a href="#" target="_blank" class="btn btn-default"><i
+                            class="fas fa-print"></i> Imprimir ahora</a> -->
+                                        <button type="button" class="btn btn-success float-right">
+                                            <i class="far fa-credit-card"></i>
+                                            Guardar <strong>plato</strong>
+                                        </button>
+                                        <!--       <button type="button" class="btn btn-primary float-right"
+                                style="margin-right: 5px;">
+                                <i class="fas fa-download"></i> Generar <strong>PDF</strong>
+                                </button> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.invoice -->
+                            <!--    <button type="submit" class="btn btn-outline-success">
+                        Agregar <strong>compras</strong> al sistema
+                        </button> -->
+                        </form>
+                    </div>
+                    <!-- /.card-body -->
+                    <!-- <div class="card-footer">
+                      Empresa EICA
+                  </div> -->
+                    <!-- /.card-footer-->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+
 {% endblock contenido %}
 
-
 {% block pie %}
+
+<!-- Select2 -->
+<script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
+<!-- date-range-picker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
+    integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js">
+</script>
+<!-- InputMask -->
+<script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+<script src="{% static 'plugins/inputmask/min/jquery.inputmask.bundle.min.js' %}"></script>
+<!-- Add here more js -->
+
+<!-- Page script -->
+<script type="text/javascript">
+    $(function () {
+        //Initialize Select2 Elements
+        $(".select2").select2({});
+
+        //Initialize Select2 Elements
+        $(".select2bs4").select2({
+            theme: "bootstrap4"
+        });
+        //Date picker
+        $("#datetimepicker4").datetimepicker({
+            locale: "es",
+            format: "L",
+            date: moment(), // Fecha de hoy predifinida
+            format: "DD/MM/YYYY"
+        });
+        //Date mask
+        $("[data-mask]").inputmask();
+
+        //Add here more functions
+
+
+    });
+</script>
+
+<!-- Script to add new row  and delete-->
+<script type="text/javascript">
+    /* ADD ROW*/
+    var cantidad_rows = 1;
+    $('#agregar_fila').click(function () {
+        /* Se cpñ*/
+        var tablita = $('#tabla_compras')[0];
+        var rowCount = tablita.rows.length;
+        objeto_primera_fila = $('#fila_1')
+        primera_fila = objeto_primera_fila[0];
+
+        objeto_primera_fila.children(":first").children("select").select2("destroy");
+
+        copia_primera_fila = primera_fila.cloneNode(true);
+
+        objeto_primera_fila.children(":first").children("select").select2({
+            theme: "bootstrap4"
+        });
+
+        copia_primera_fila.id = "fila_" + (cantidad_rows + 1);
+        cantidad_rows++;
+        tablita.append(copia_primera_fila);
+
+        $('#fila_' + cantidad_rows).children(":first").children("select").select2({
+            theme: "bootstrap4"
+        });
+
+    });
+    /* DELETE ROW*/
+    function deleteRow(currentRow) {
+        try {
+            var tablita = $('#tabla_compras')[0];
+            var rowCount = tablita.rows.length;
+            for (var i = 0; i < rowCount; i++) {
+                var row = tablita.rows[i];
+                /*var chkbox = row.cells[0].childNodes[0];*/
+                /*if (null != chkbox && true == chkbox.checked)*/
+
+                if (row == currentRow.parentNode.parentNode) {
+                    if (rowCount <= 1) {
+                        alert("No se pueden borrar todas las filas!");
+                        break;
+                    }
+                    if (i == 0) {
+                        alert("No se puede borrar la primera fila!");
+                        break;
+                    }
+                    tablita.deleteRow(i);
+                    rowCount--;
+                    i--;
+                }
+            }
+        } catch (e) {
+            alert(e);
+        }
+        //getValues();
+    }
+</script>
+<!-- Script to load data when proveedor is selected  -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        //var json_proveedores = JSON.parse('{{ json_proveedores | safe}}');
+        //var data_filter = json_proveedores.filter(element => element.pk == 1);
+        //$('#ruc')[0].value = data_filter[0].fields.ruc;
+        //$('#celular')[0].value = data_filter[0].fields.celular;
+        //$('#correo')[0].value = data_filter[0].fields.correo;
+    });
+
+    function cargar_plato(selectedValue) {
+
+        // Importamos json files
+        var json_platoVenta = JSON.parse('{{ json_platoVenta | safe}}');
+        var json_platoPadre = JSON.parse('{{ json_platoPadre | safe}}');
+
+        // Extraemos variables
+        var plato_seleccionado = json_platoPadre.filter(element => element.fields.nombre == selectedValue);
+        var numero_plato = json_platoVenta.filter(element => element.fields.id_plato_padre == plato_seleccionado[0].pk);
+        var valor_numero_plato = numero_plato[0].fields.id_plato_padre
+
+        // Renderizamos valores 
+        $('#numero_plato_input')[0].value = valor_numero_plato;
+
+    };
+
+</script>
 
 {% endblock pie %}
