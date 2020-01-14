@@ -1,152 +1,498 @@
 {% extends 'base.html' %}
-
 {%load static%}
 
 
 {% block cabecera %}
-<!-- Select2 -->
-<link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
-<link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
 
+
+<!-- Select2 -->
+<link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}" />
+<link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}" />
+
+<!-- Font Awesome -->
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+  integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+<!-- Moment.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"
+  integrity="sha256-VBLiveTKyUZMEzJd6z2mhfxIqz3ZATCuVMawPZGzIfA=" crossorigin="anonymous"></script>
+<!-- Spanish setting local Moment.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/es.js"></script>
+<!-- Tempus Dominus Bootstrap 4 -->
+
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
 {% endblock cabecera %}
 
+
+
 {% block contenido %}
+
 <section class="content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 ">
         <!-- Default box -->
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">RESTAURANTE | Agregar venta</h3>
+        <div class="card col-lg-8">
+          <div class="card-header ">
+            <h4 class="card-title">
+              <strong><strong>VENTAS</strong> | Empresa Isla de
+                Canrash
+                S.R.L.</strong>
+            </h4>
 
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
                 title="Collapse">
-                <i class="fas fa-minus"></i></button>
+                <i class="fas fa-minus"></i>
+              </button>
               <!-- <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-                <i class="fas fa-times"></i></button> -->
+              <i class="fas fa-times"></i></button> -->
+              <!-- Botones para cerrar ventana -->
             </div>
           </div>
 
           <!-- Aviso  -->
-          <div class="ribbon-wrapper ribbon-xl">
-            <div class="ribbon bg-warning text-lg">
-              En construcción
-            </div>
-          </div>
-
+          <!-- <div class="ribbon-wrapper ribbon-xl">
+                      <div class="ribbon bg-warning text-lg">
+                          En construcción
+                      </div>
+                  </div> -->
 
           <div class="card-body">
             <!-- form start -->
+
             <form role="form">
               <!-- Grupo 1 formulario -->
-              <div class="p-3 mb-2 bg-light text-dark">
+              <div class="invoice p-3 mb-3">
+                <!-- title row -->
+                <div class="row">
+                  <div class="col-12">
+                    <h5>
+                      <i class="fas fa-shopping-cart"></i> Boleta nueva N°
+                      {{ boletaVentaRestaurante.last.id |add:"1"  }}
+                      <small class="float-right">
 
-                <!-- Cliente -->
 
-                <div class="form-group">
-                  <label>Cliente (*)</label>
-                  <select class="form-control select2bs4" style="width: 100%;">
-                    <option selected="selected">Cliente 1</option>
-                    <option>Cliente 2</option>
-                    <option>Cliente 3</option>
-                  </select>
+                        <div class="form-group">
+                          <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input"
+                              data-target="#datetimepicker4" />
+                            <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
+                              <div class="input-group-text">
+                                <i class="fa fa-calendar"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </small>
+                    </h5>
+                  </div>
+                  <!-- /.col -->
                 </div>
-                <!-- Tipo de pago -->
-                <div class="form-group">
-                  <label for="exampleInputTipoVenta1">Tipo de venta (*)</label>
-                  <select class="form-control" required>
-                    <option value="">Seleccione tipo de venta...</option>
-                    <option value="1">Tipo de venta 1</option>
-                  </select>
-                  <div class="invalid-feedback">Seleccione un cliente válido</div>
+                <!-- info row -->
+                <div class="row invoice-info">
+                  <div class="col invoice-col">
+                    <address>
+                      <!-- Cliente -->
+                      <div class="form-group row">
+                        <label for="inputCliente" class="col-sm-2 col-form-label"><strong>Cliente:</strong></label>
+                        <div class="col-sm-10">
+                          <select class="form-control select2bs4" style="width: 100%;"
+                            onchange="cargar_cliente(this.value)">
+                            {% for proveedor in proveedores %}
+                            {% if forloop.last %}
+                            <option selected="selected">{{proveedor.nombre}}</option>
+                            {% else %}
+                            <option>{{proveedor.nombre}}</option>
+                            {% endif %}
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+
+                      <!-- DNI -->
+                      <div class="form-group row">
+                        <label for="inputDNI" class="col-sm-2 col-form-label"><strong>DNI:</strong></label>
+                        <div class="col-sm-10">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="far fa-building"></i></span>
+                            </div>
+                            <input id="dni" readonly="readonly" type="text" class="form-control"
+                              data-inputmask='"mask":"9 9999 9999 9"' data-mask />
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Correo -->
+                      <div class="form-group row">
+                        <label for="inputProveedor" class="col-sm-2 col-form-label"><strong>Celular:</strong></label>
+                        <div class="col-sm-10">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                            </div>
+                            <input id="celular" readonly="readonly" type="text" class="form-control"
+                              data-inputmask='"mask":"999-999-999"' data-mask />
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Celular -->
+                      <div class="form-group row">
+                        <label for="inputProveedor" class="col-sm-2 col-form-label"><strong>Correo:</strong></label>
+                        <div class="col-sm-10">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            </div>
+                            <input id="correo" readonly="readonly" type="text" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                    </address>
+                  </div>
+                  <!-- /.col -->
                 </div>
+                <!-- /.row -->
 
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                  <label class="custom-control-label" for="customSwitch1">Recordar cliente y tipo de venta para varias
-                    entradas</label>
+                <!-- Table row -->
+                <div class="row">
+                  <div class="col-12 table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Plato</th>
+                          <th>Cantidad</th>
+                          <th>Precio unitario</th>
+                          <th>Importe</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody id="tabla_compras">
+                        <tr id="fila_1">
+                          <td>
+                            <select class="form-control select2bs4" style="width: 100%;"
+                              onchange="cargar_plato(this.value)">
+                              {% for plato in platoPadre %}
+                              {% if forloop.last %}
+                              <option selected="selected">{{plato.nombre}}</option>
+                              {% else %}
+                              <option>{{plato.nombre}}</option>
+                              {% endif %}
+                              {% endfor %}</td>
+                          <td>
+                            <input type="number" step="1" placeholder='0' value='0' min="0"
+                              onchange="obtener_importe(this.value)">
+                          </td>
+                          <td>
+                            <input id="precio_unitario" readonly="readonly" type="text" class="form-control">
+                          </td>
+                          <td>
+                            <input id="importe" readonly="readonly" type="text" class="form-control">
+                          </td>
+                          <td>
+                            <a class="btn btn-danger btn-sm" href="#" onclick="deleteRow(this)">
+                              <i class="fas fa-trash"> </i>
+                              Delete
+                            </a>
+                          </td>
+
+                        </tr>
+
+                      </tbody>
+                    </table>
+                    <div class="text-center"><a id="agregar_fila" href="javascript:void(0);">
+                        Agregar fila
+                        <i class="fas fa-plus-circle fa-lg"></i> </a> </div>
+                  </div>
+
+                  <!-- /.col -->
                 </div>
+                <!-- /.row -->
+                <hr
+                  style="width: 100%; color: rgb(233, 230, 230); height: 1px; background-color:rgb(233, 230, 230); " />
+                <div class="row">
+                  <!-- accepted payments column -->
+                  <div class="col-6"> <br> </div>
+                  <!--    <div class="col-6">
+                                      <p class="lead">Escanea el código QR:</p>
 
-              </div>
+                                      <img src="https://tctechcrunch2011.files.wordpress.com/2012/08/qr-code.png"
+                                          alt="qr code" width="100" height="100" />
+                                      <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                                          * Recuerda verificar la veracidad de la boleta con el
+                                          código qr
+                                      </p>
+                                  </div> -->
 
-              <!-- Grupo 2 formulario -->
+                  <!-- /.col -->
+                  <div class="col-6">
+                    <p class="lead">Resumen</p>
 
-              <div class="p-3 mb-2 bg-white text-dark">
-                <!-- Cliente -->
-                <div class="form-group">
-                  <label for="exampleInputCliente1">Plato (*)</label>
-                  <select class="form-control" required>
-                    <option value="">Seleccione plato...</option>
-                    <option value="1">One</option>
-                  </select>
-                </div>
-                <!-- Cantidad -->
-                <div class="form-group">
-                  <label for="exampleInputCliente1">Cantidad (*)</label>
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Ingrese cantidad" required>
-                    <div class="input-group-append">
-                      <span class="input-group-text">unidades</span>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <!-- <tr>
+                                                  <th>Shipping:</th>
+                                                  <td>$5.80</td>
+                                              </tr> -->
+                        <tr>
+                          <th style="width:50%">Total:</th>
+                          <td>$265.24</td>
+                        </tr>
+                      </table>
                     </div>
                   </div>
+                  <!-- /.col -->
                 </div>
-                <!-- Dinero con el que pagó -->
-                <div class="form-group">
-                  <label for="exampleInputCliente1">Pagó con (**)</label>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">S/.</span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Dinero con el que paga el cliente" required>
-
+                <!-- /.row -->
+                <!-- this row will not appear when printing -->
+                <div class="row no-print">
+                  <div class="col-12">
+                    <!--   <a href="#" target="_blank" class="btn btn-default"><i
+                                              class="fas fa-print"></i> Imprimir ahora</a> -->
+                    <button type="button" class="btn btn-success float-right">
+                      <i class="far fa-credit-card"></i> Guardar <strong>boleta de compra</strong>
+                    </button>
+                    <!--       <button type="button" class="btn btn-primary float-right"
+                                          style="margin-right: 5px;">
+                                          <i class="fas fa-download"></i> Generar <strong>PDF</strong>
+                                      </button> -->
                   </div>
-                  *Obligatorio
-                  <p>
-                    ** Usar punto (.) para decimales
-                  </p>
                 </div>
-
               </div>
-              <button type="submit" class="btn btn-outline-success">Agregar venta</button>
-
-
+              <!-- /.invoice -->
+              <!--    <button type="submit" class="btn btn-outline-success">
+                              Agregar <strong>compras</strong> al sistema
+                          </button> -->
             </form>
           </div>
           <!-- /.card-body -->
-          <div class="card-footer">
-            (RESTAURANTE) *Recuerda revisar los datos.
-          </div>
+          <!-- <div class="card-footer">
+                      Empresa EICA
+                  </div> -->
           <!-- /.card-footer-->
         </div>
         <!-- /.card -->
+        <hr style="width: 100%; color: red; height: 1px; background-color:red;" />
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <strong>VENTAS</strong> | Se muestran datos de la última boleta
+                </h3>
+
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Buscar" />
+
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Boleta #</th>
+                      <th>Cliente</th>
+                      <th>Plato</th>
+                      <th>Cantidad</th>
+                      <th>Precio unitario</th>
+                      <th>Importe</th>
+                      <th>Fecha</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- {% for producto in productoHijoCompra%}
+                    <tr>
+                      <td><a href="#">#{{producto.id_boleta_compra.id}}</a></td>
+                      <td><a href="#">{{producto.id_proveedor.nombre}}</a></td>
+                      <td>
+                        <a href="#">{{producto.id_producto_padre.nombre}}</a>
+                      </td>
+                      <td>{{producto.cantidad}}</td>
+                      <td>{{producto.id_producto_padre.unidad}}</td>
+                      <td>S/. {{producto.precio}}</td>
+                      <td>{{producto.id_boleta_compra.fecha_compra}}</td>
+                      <td class="project-actions text-right">
+                        <a class="btn btn-primary btn-sm" href="#">
+                          <i class="fas fa-folder"> </i>
+                          View
+                        </a>
+                        <a class="btn btn-info btn-sm" href="#">
+                          <i class="fas fa-pencil-alt"> </i>
+                          Edit
+                        </a>
+                        <a class="btn btn-danger btn-sm" href="#">
+                          <i class="fas fa-trash"> </i>
+                          Delete
+                        </a>
+                      </td>
+
+                    </tr>
+                    {% endfor %} -->
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
 {% endblock contenido %}
 
-
-
 {% block pie %}
+
 <!-- Select2 -->
 <script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
-
+<!-- date-range-picker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
+  integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js">
+</script>
+<!-- InputMask -->
+<script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+<script src="{% static 'plugins/inputmask/min/jquery.inputmask.bundle.min.js' %}"></script>
+<!-- Add here more js -->
 
 <!-- Page script -->
-<script>
+<script type="text/javascript">
   $(function () {
     //Initialize Select2 Elements
-    $('.select2').select2()
+    $(".select2").select2({});
 
     //Initialize Select2 Elements
-    $('.select2bs4').select2({
-      theme: 'bootstrap4'
-    })
+    $(".select2bs4").select2({
+      theme: "bootstrap4"
+    });
+    //Date picker
+    $("#datetimepicker4").datetimepicker({
+      locale: "es",
+      format: "L",
+      date: moment(), // Fecha de hoy predifinida
+      format: "DD/MM/YYYY"
+    });
+    //Date mask
+    $("[data-mask]").inputmask();
 
-    // Add here more scripts
-  })
+    //Add here more functions
+
+
+  });
+</script>
+
+<!-- Script to add new row  and delete-->
+<script type="text/javascript">
+  /* ADD ROW*/
+  var cantidad_rows = 1;
+  $('#agregar_fila').click(function () {
+    /* Se cpñ*/
+    var tablita = $('#tabla_compras')[0];
+    var rowCount = tablita.rows.length;
+    objeto_primera_fila = $('#fila_1')
+    primera_fila = objeto_primera_fila[0];
+
+    objeto_primera_fila.children(":first").children("select").select2("destroy");
+
+    copia_primera_fila = primera_fila.cloneNode(true);
+
+    objeto_primera_fila.children(":first").children("select").select2({
+      theme: "bootstrap4"
+    });
+
+    copia_primera_fila.id = "fila_" + (cantidad_rows + 1);
+    cantidad_rows++;
+    tablita.append(copia_primera_fila);
+
+    $('#fila_' + cantidad_rows).children(":first").children("select").select2({
+      theme: "bootstrap4"
+    });
+
+  });
+  /* DELETE ROW*/
+  function deleteRow(currentRow) {
+    try {
+      var tablita = $('#tabla_compras')[0];
+      var rowCount = tablita.rows.length;
+      for (var i = 0; i < rowCount; i++) {
+        var row = tablita.rows[i];
+        /*var chkbox = row.cells[0].childNodes[0];*/
+        /*if (null != chkbox && true == chkbox.checked)*/
+
+        if (row == currentRow.parentNode.parentNode) {
+          if (rowCount <= 1) {
+            alert("No se pueden borrar todas las filas!");
+            break;
+          }
+          if (i == 0) {
+            alert("No se puede borrar la primera fila!");
+            break;
+          }
+          tablita.deleteRow(i);
+          rowCount--;
+          i--;
+        }
+      }
+    } catch (e) {
+      alert(e);
+    }
+    //getValues();
+  }
+</script>
+<!-- Script to load data when proveedor is selected  -->
+<script type="text/javascript">
+  $(document).ready(function () {
+    //var json_proveedores = JSON.parse('{{ json_proveedores | safe}}');
+    //var data_filter = json_proveedores.filter(element => element.pk == 1);
+    //$('#ruc')[0].value = data_filter[0].fields.ruc;
+    //$('#celular')[0].value = data_filter[0].fields.celular;
+    //$('#correo')[0].value = data_filter[0].fields.correo;
+  });
+
+  function cargar_cliente(selectedValue) {
+
+    //var json_proveedores = JSON.parse('{{ json_proveedores | safe}}');
+    //var data_filter = json_proveedores.filter(element => element.fields.nombre == selectedValue);
+    //$('#ruc')[0].value = data_filter[0].fields.ruc;
+    //$('#celular')[0].value = data_filter[0].fields.celular;
+    //$('#correo')[0].value = data_filter[0].fields.correo;
+  };
+
+  function cargar_plato(selectedValue) {
+
+    var json_platoVenta = JSON.parse('{{  json_platoVenta | safe }}');
+    var json_platoPadre = JSON.parse('{{  json_platoPadre | safe }}');
+
+    var plato_seleccionado = json_platoPadre.filter(element => element.fields.nombre == selectedValue);
+    var plato_venta_seleccionado = json_platoVenta.filter(element => element.fields.id_plato_padre ==
+      plato_seleccionado[0].pk);
+    var precio_unitario = plato_venta_seleccionado[0].fields.precio_venta
+
+    $('#precio_unitario')[0].value = precio_unitario;
+
+  };
+
+  function obtener_importe(selectedValue) {
+
+    precio_unitario = $('#precio_unitario')[0].value;
+
+    $('#importe')[0].value = precio_unitario * selectedValue;
+
+  };
 </script>
 
 {% endblock pie %}

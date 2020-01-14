@@ -1,4 +1,7 @@
-{% extends 'base.html' %} {%load static%} {% block cabecera %}
+{% extends 'base.html' %}
+{%load static%}
+
+{% block cabecera %}
 <!-- Select2 -->
 <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}" />
 <link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}" />
@@ -12,17 +15,19 @@
 <!-- Spanish setting local Moment.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/es.js"></script>
 <!-- Tempus Dominus Bootstrap 4 -->
-
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
-{% endblock cabecera %} {% block contenido %}
+
+
+{% endblock cabecera %}
+
+{% block contenido %}
 
 <section class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 ">
                 <!-- Default box -->
-
                 <div class="card col-lg-8">
                     <div class="card-header ">
                         <h4 class="card-title">
@@ -59,7 +64,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <h5>
-                                            <i class="fas fa-globe"></i> Boleta nueva N°
+                                            <i class="fas fa-shopping-cart"></i> Boleta nueva N°
                                             {{ boletasCompra.last.id |add:"1"  }}
                                             <small class="float-right">
 
@@ -184,8 +189,8 @@
                                                             <option>{{producto.nombre}}</option>
                                                             {% endif %}
                                                             {% endfor %}</td>
-                                                    <td><input type="number" step="00.1" placeholder='00.0' value='00.0'
-                                                            min="0"> </td>
+                                                    <td><input type="number" step="00.01" placeholder='00.00'
+                                                            value='00.00' min="0"> </td>
                                                     <td>
                                                         <input id="unidad" readonly="readonly" type="text"
                                                             class="form-control">
@@ -407,7 +412,7 @@
         /* Se cpñ*/
         var tablita = $('#tabla_compras')[0];
         var rowCount = tablita.rows.length;
-        objeto_primera_fila=$('#fila_1')
+        objeto_primera_fila = $('#fila_1')
         primera_fila = objeto_primera_fila[0];
 
         objeto_primera_fila.children(":first").children("select").select2("destroy");
@@ -418,10 +423,11 @@
             theme: "bootstrap4"
         });
 
-        copia_primera_fila.id = "fila_" + (cantidad_rows + 1);        cantidad_rows++;
+        copia_primera_fila.id = "fila_" + (cantidad_rows + 1);
+        cantidad_rows++;
         tablita.append(copia_primera_fila);
 
-        $('#fila_'+cantidad_rows).children(":first").children("select").select2({
+        $('#fila_' + cantidad_rows).children(":first").children("select").select2({
             theme: "bootstrap4"
         });
 

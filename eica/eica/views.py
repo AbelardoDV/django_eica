@@ -1,3 +1,4 @@
+from django.core import serializers
 from django.http import HttpResponse
 # from eica.models import Personas
 from django.shortcuts import render
@@ -5,10 +6,15 @@ from django.contrib.auth.decorators import login_required
 from .models import ProductoHijoCompra
 from .models import ProductoPadre
 from .models import Proveedor
-from.models import BoletaCompra
+from .models import BoletaCompra
 
-from django.core import serializers
+from .models import ProductoPlato
+from .models import PlatoPadre
+from .models import PlatoVenta
+from .models import BoletaVentaRestaurante
+
 # -------------------------Inicio Dashboard-------------------------
+
 
 @login_required(login_url='/accounts/login')
 def dashboard_view(request):
@@ -26,6 +32,21 @@ def dashboard_view(request):
 def ventas_restaurante_view(request):
     nombre_vista = 'Ventas de Restaurante'
     ruta_vista = ['Ventas de Restaurante']
+    
+    productoPlato=ProductoPlato.objects.all()
+    platoPadre=PlatoPadre.objects.all()
+    platoVenta=PlatoVenta.objects.all()
+    boletaVentaRestaurante=BoletaVentaRestaurante.objects.all()
+    productoPadre = ProductoPadre.objects.all()
+    
+
+    json_productoPlato = serializers.serialize("json", productoPlato)  # Usado para autocompletado
+    json_platoPadre = serializers.serialize("json", platoPadre)  # Usado para autocompletado
+    json_platoVenta = serializers.serialize("json", platoVenta)  # Usado para autocompletado
+    json_boletaVentaRestaurante = serializers.serialize("json", boletaVentaRestaurante)  # Usado para autocompletado
+    json_productoPadre = serializers.serialize("json", productoPadre)  # Usado para autocompletado
+
+    
     return render(request, 'ventas_restaurante.html', locals())
 
 # Ventas de bodega
@@ -50,15 +71,16 @@ def ventas_historial_view(request):
 def compras_productos_view(request):
     nombre_vista = 'Compras de Productos'
     ruta_vista = ['Compras de Productos']
-    productoPadre = ProductoPadre.objects.all()
-    productoHijoCompra = ProductoHijoCompra.objects.all()
+    
     proveedores = Proveedor.objects.all()
+    productoHijoCompra = ProductoHijoCompra.objects.all()
+    productoPadre = ProductoPadre.objects.all()
     boletasCompra = BoletaCompra.objects.all()
-    
-    json_proveedores=serializers.serialize("json",proveedores) # Usado para autocompletado
-    json_producto_hijo=serializers.serialize("json",productoHijoCompra) # Usado para autocompletado
-    json_producto_padre=serializers.serialize("json",productoPadre) # Usado para autocompletado
-    
+
+    json_proveedores = serializers.serialize("json", proveedores)  # Usado para autocompletado
+    json_producto_hijo = serializers.serialize("json", productoHijoCompra)  # Usado para autocompletado
+    json_producto_padre = serializers.serialize("json", productoPadre)  # Usado para autocompletado
+
     return render(request, 'compras_productos.html', locals())
 
 
@@ -82,15 +104,14 @@ def agregar_plato_view(request):
 
 # ---------------------------Inicio Páginas 404 y 500---------------------------
 
+
 def error_404_view(request, exception):
     data = {"example": "text.com"}
     return render(request, 'eica/404.html', data)
+
 
 def error_500_view(request, exception):
     data = {"example": "text.com"}
     return render(request, 'eica/500.html', data)
 
 # ---------------------------Fin Páginas 404 y 500---------------------------
-
-
-#----------------------
