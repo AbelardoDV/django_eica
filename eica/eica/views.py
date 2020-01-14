@@ -1,13 +1,14 @@
 from django.core import serializers
 from django.http import HttpResponse
-# from eica.models import Personas
+###########################################################
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+###########################################################
 from .models import ProductoHijoCompra
 from .models import ProductoPadre
 from .models import Proveedor
 from .models import BoletaCompra
-
+###########################################################
 from .models import ProductoPlato
 from .models import PlatoPadre
 from .models import PlatoVenta
@@ -93,6 +94,18 @@ def compras_historial_view(request):
 # ---------------------------------Fin Seccion Productos---------------------------------
 
 
+# ---------------------------------Inicio Editar---------------------------------
+
+@login_required(login_url='/accounts/login')
+def editar_plato_view(request):
+    nombre_vista = 'Editar platos'
+    ruta_vista = ['Editar platos']
+    return render(request, 'editar_platos.html', locals())
+
+# ---------------------------------Fin Editar---------------------------------
+
+
+
 # ------------------------------Inicio Seccion Agregar---------------------------------
 @login_required(login_url='/accounts/login')
 def agregar_plato_view(request):
@@ -101,6 +114,7 @@ def agregar_plato_view(request):
     return render(request, 'agregar_plato.html', locals())
 
 # ------------------------------Fin Seccion Agregar---------------------------------
+
 
 # ---------------------------Inicio Páginas 404 y 500---------------------------
 

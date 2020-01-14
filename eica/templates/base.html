@@ -5,13 +5,13 @@
 <html>
 
 <head>
-  
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!-- Título de la página  -->
   <title>EICA | {{nombre_vista}}</title>
   <!-- Favicon -->
-  <link rel="shortcut icon" type="image/png" href="{% static 'logo/favicon.ico' %}"/>
+  <link rel="shortcut icon" type="image/png" href="{% static 'logo/favicon.ico' %}" />
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -154,8 +154,7 @@
           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
             <!-- <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="user-image img-circle elevation-2"
               alt="User Image"> -->
-              <img src="{% static 'logo/user.png' %}" class="user-image img-circle elevation-2"
-              alt="User Image">
+            <img src="{% static 'logo/user.png' %}" class="user-image img-circle elevation-2" alt="User Image">
             <span class="d-none d-md-inline">{{ user.get_username }}</span>
           </a>
           <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
@@ -163,7 +162,7 @@
             <li class="user-header bg-primary">
               <!-- <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
                -->
-               <img src="{% static 'logo/user.png' %}" class="img-circle elevation-2" alt="Imagen de usuario">
+              <img src="{% static 'logo/user.png' %}" class="img-circle elevation-2" alt="Imagen de usuario">
 
               <p>
                 {{ user.get_username }}
@@ -189,8 +188,8 @@
     <aside class="main-sidebar elevation-4 sidebar-light-danger">
       <!-- Brand Logo -->
       <a href="/" class="brand-link elevation-4">
-        <img src=" {% static 'logo/favicon.ico' %}" alt="AdminLTE Logo"
-          class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src=" {% static 'logo/favicon.ico' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+          style="opacity: .8">
         <span class="brand-text font-weight-light">EICA v1.0</span>
       </a>
 
@@ -278,7 +277,7 @@
                       <a href="/ventas_bodega" class="nav-link">
                         {% endif %}
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Ventas Bodega</p>
+                        <p>Ingresar ventas de bodega</p>
                       </a>
                   </li>
                   <li class="nav-item">
@@ -339,6 +338,36 @@
 
             <!-- Fin Compras-->
 
+
+            <!--Inicio Editar-->
+            {% if nombre_vista == 'Editar platos' or nombre_vista == ''  %}
+            <li class="nav-item has-treeview menu-open">
+              {% else %}
+            <li class="nav-item has-treeview">
+              {% endif %}
+              {% if nombre_vista == 'Editar platos' or nombre_vista == '' %}
+              <a href="#" class="nav-link active">
+                {% else %}
+                <a href="#" class="nav-link">
+                  {% endif %}
+                  <i class="fas fa-edit"></i>
+                  <p> Editar
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    {% if nombre_vista == 'Editar platos'  %}
+                    <a href="/editar_platos" class="nav-link active">
+                      {% else %}
+                      <a href="/editar_platos" class="nav-link">
+                        {% endif %}
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Editar platos</p>
+                      </a>
+                </ul>
+            </li>
+            <!-- Fin Editar-->
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
