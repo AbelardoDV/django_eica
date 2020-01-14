@@ -4,11 +4,9 @@
 
 {% block cabecera %}
 
-
 <!-- Select2 -->
 <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}" />
 <link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}" />
-
 <!-- Font Awesome -->
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
     integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
@@ -22,7 +20,6 @@
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
 {% endblock cabecera %}
-
 
 
 {% block contenido %}
@@ -217,15 +214,7 @@
 
 <!-- Select2 -->
 <script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
-<!-- date-range-picker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
-    integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
-<script type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js">
-</script>
-<!-- InputMask -->
-<script src="{% static 'plugins/moment/moment.min.js' %}"></script>
-<script src="{% static 'plugins/inputmask/min/jquery.inputmask.bundle.min.js' %}"></script>
+
 <!-- Add here more js -->
 
 <!-- Page script -->
@@ -238,15 +227,6 @@
         $(".select2bs4").select2({
             theme: "bootstrap4"
         });
-        //Date picker
-        $("#datetimepicker4").datetimepicker({
-            locale: "es",
-            format: "L",
-            date: moment(), // Fecha de hoy predifinida
-            format: "DD/MM/YYYY"
-        });
-        //Date mask
-        $("[data-mask]").inputmask();
 
         //Add here more functions
 
