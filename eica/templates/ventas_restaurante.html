@@ -252,7 +252,7 @@
                     <!--   <a href="#" target="_blank" class="btn btn-default"><i
                                               class="fas fa-print"></i> Imprimir ahora</a> -->
                     <button type="button" class="btn btn-success float-right">
-                      <i class="far fa-credit-card"></i> Guardar <strong>boleta de compra</strong>
+                      <i class="far fa-credit-card"></i> Guardar <strong>boleta de venta</strong>
                     </button>
                     <!--       <button type="button" class="btn btn-primary float-right"
                                           style="margin-right: 5px;">
@@ -311,12 +311,16 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <!-- {% for producto in productoHijoCompra%}
+                    {% for plato in platoVenta%}
                     <tr>
-                      <td><a href="#">#{{producto.id_boleta_compra.id}}</a></td>
-                      <td><a href="#">{{producto.id_proveedor.nombre}}</a></td>
                       <td>
-                        <a href="#">{{producto.id_producto_padre.nombre}}</a>
+                        <a href="#">#{{plato.id}}</a>
+                      </td>
+                      <td>
+                        <a href="#">{{plato.precio_venta}}</a>
+                      </td>
+                      <td>
+                        <a href="#">{{plato.id_plato_padre.nombre}}</a>
                       </td>
                       <td>{{producto.cantidad}}</td>
                       <td>{{producto.id_producto_padre.unidad}}</td>
@@ -338,7 +342,7 @@
                       </td>
 
                     </tr>
-                    {% endfor %} -->
+                    {% endfor %}
                   </tbody>
                 </table>
               </div>
