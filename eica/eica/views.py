@@ -125,7 +125,6 @@ def agregar_plato_view(request):
 
 # ---------------------------Inicio Páginas 404 y 500---------------------------
 
-
 def error_404_view(request, exception):
     data = {"example": "text.com"}
     return render(request, 'eica/404.html', data)

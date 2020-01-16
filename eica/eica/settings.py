@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'eica',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -67,7 +69,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 
 WSGI_APPLICATION = 'eica.wsgi.application'
@@ -135,15 +136,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/AdminLte3/' #Contiene el tema de administrador Dashboard llamado AdminLTE
+# Contiene el tema de administrador Dashboard llamado AdminLTE
+STATIC_URL = '/AdminLte3/'
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'AdminLte3'),]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'AdminLte3'), ]
 
 
 # print(BASE_DIR)
 # print(STATICFILES_DIRS)
 
-#Para entender statics https://stackoverflow.com/questions/24022558/differences-between-staticfiles-dir-static-root-and-media-root
+# Para entender statics https://stackoverflow.com/questions/24022558/differences-between-staticfiles-dir-static-root-and-media-root
 
 LOGIN_REDIRECT_URL = '/dashboard'
 LOGOUT_REDIRECT_URL = '/accounts/login'

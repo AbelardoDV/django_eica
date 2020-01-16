@@ -28,6 +28,9 @@ from eica.views import editar_plato_view
 from eica.views import error_404_view
 from eica.views import error_500_view
 
+
+
+
 urlpatterns = [
     
     path('', dashboard_view, name='login'),
@@ -63,4 +66,8 @@ urlpatterns = [
     # -----------------Fin seccion agregar plato-----------------
 
 
+    ######## API
+    path('',include('api.urls'))
+    
+    ######## API
 ]
