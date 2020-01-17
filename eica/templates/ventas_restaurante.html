@@ -61,7 +61,7 @@
           <div class="card-body">
             <!-- form start -->
 
-            <form role="form">
+            <form id="myForm" action="#" method="POST">
               <!-- Grupo 1 formulario -->
               <div class="invoice p-3 mb-3">
                 <!-- title row -->
@@ -251,8 +251,8 @@
                   <div class="col-12">
                     <!--   <a href="#" target="_blank" class="btn btn-default"><i
                                               class="fas fa-print"></i> Imprimir ahora</a> -->
-                    <button type="button" class="btn btn-success float-right">
-                      <i class="far fa-credit-card"></i> Guardar <strong>boleta de venta</strong>
+                    <button id="btnGuardar" type="button" class="btn btn-success float-right">
+                      <i class="far fa-credit-card"></i> Guardar <strong>venta</strong>
                     </button>
                     <!--       <button type="button" class="btn btn-primary float-right"
                                           style="margin-right: 5px;">
@@ -371,6 +371,10 @@
 <!-- InputMask -->
 <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
 <script src="{% static 'plugins/inputmask/min/jquery.inputmask.bundle.min.js' %}"></script>
+<!-- serializeToJSON -->
+<script src="{% static 'plugins/formtojson/src/jquery.serializeToJSON.js' %}"></script>
+
+
 <!-- Add here more js -->
 
 <!-- Page script -->
@@ -497,6 +501,51 @@
     $('#importe')[0].value = precio_unitario * selectedValue;
 
   };
+
+
+  $(function () {
+    $("#btnGuardar").on("click", function () {
+
+
+      var i = 0;
+      var columnas = 4;
+      var num_fila = 0;
+      $('.form-control').each(function () {
+        if (i == 0) {
+          // nothing
+        } else if (i == 1) {
+          $(this).attr('name', "fecha");
+        } else if (i == 2) {
+          $(this).attr('name', "cliente");
+        } else if (i == 3) {
+          $(this).attr('name', "dni");
+        } else if (i == 4) {
+          $(this).attr('name', "celular");
+        } else if (i == 5) {
+          $(this).attr('name', "correo");
+        } else {
+
+          if (i % columnas == 2) {
+            $(this).attr('name', "productos[" + num_fila + "].producto");
+          }
+          if (i % columnas == 3) {
+            $(this).attr('name', "productos[" + num_fila + "].cantidad");
+          }
+          if (i % columnas == 0) {
+            $(this).attr('name', "productos[" + num_fila + "].precio_unitario");
+          }
+          if (i % columnas == 1) {
+            $(this).attr('name', "productos[" + num_fila + "].importe");
+            num_fila++;
+          }
+
+        }
+        i++;
+      });
+
+      console.log($("#myForm").serializeToJSON());
+    })
+  });
 </script>
 
 {% endblock pie %}

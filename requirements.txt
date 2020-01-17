@@ -1,2 +1,7 @@
+# https://tecadmin.net/install-django-on-ubuntu/
+
 django
 djangorestframework
+https://computingforgeeks.com/how-to-install-pgadmin4-on-debian/
+https://support.gitkraken.com/how-to-install/
+https://stackoverflow.com/a/54884976
