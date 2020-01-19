@@ -57,7 +57,9 @@
                     <div class="card-body">
                         <!-- form start -->
 
-                        <form id="myForm" action="#" method="POST">
+                        <form id="myForm" action="" method="POST"> <!---->
+                            {% csrf_token %}
+                            <input type="hidden" name="id_boleta" value="{{boletasCompra.last.id |add:"1"}}">
                             <!-- Grupo 1 formulario -->
                             <div class="invoice p-3 mb-3">
                                 <!-- title row -->
@@ -66,6 +68,7 @@
                                         <h5>
                                             <i class="fas fa-shopping-cart"></i> Boleta nueva N°
                                             {{ boletasCompra.last.id |add:"1"  }}
+                                            
                                             <small class="float-right">
 
 
@@ -73,7 +76,7 @@
                                                     <div class="input-group date" id="datetimepicker4"
                                                         data-target-input="nearest">
                                                         <input type="text" class="form-control datetimepicker-input"
-                                                            data-target="#datetimepicker4" name="default" />
+                                                            data-target="#datetimepicker4" name="fecha_compra"/>
                                                         <div class="input-group-append" data-target="#datetimepicker4"
                                                             data-toggle="datetimepicker">
                                                             <div class="input-group-text">
@@ -97,12 +100,12 @@
                                                     class="col-sm-2 col-form-label"><strong>Proveedor:</strong></label>
                                                 <div class="col-sm-10">
                                                     <select class="form-control select2bs4" style="width: 100%;"
-                                                        onchange="cargar_proveedor(this.value)" name="default">
+                                                        onchange="cargar_proveedor(this.value)" name="id_proveedor">
                                                         {% for proveedor in proveedores %}
                                                         {% if forloop.last %}
-                                                        <option selected="selected">{{proveedor.nombre}}</option>
+                                                        <option selected="selected" value="{{proveedor.pk}}">{{proveedor.nombre}}</option>
                                                         {% else %}
-                                                        <option>{{proveedor.nombre}}</option>
+                                                        <option value="{{proveedor.pk}}">{{proveedor.nombre}}</option>
                                                         {% endif %}
                                                         {% endfor %}
                                                     </select>
@@ -181,10 +184,10 @@
                                                 <tr id="fila_1">
                                                     <td>
                                                         <select class="form-control select2bs4" style="width: 100%;"
-                                                            onchange="cargar_producto(this.value)" name="default">
+                                                            onchange="cargar_producto(this.value)" name="id_producto_padre">
                                                             {% for producto in productoPadre %}
                                                             {% if forloop.last %}
-                                                            <option selected="selected">{{producto.nombre}}</option>
+                                                            <option selected="selected" value="{{producto.pk}}">{{producto.nombre}}</option>
                                                             {% else %}
                                                             <option>{{producto.nombre}}</option>
                                                             {% endif %}
@@ -192,14 +195,14 @@
                                                     </td>
                                                     <td>
                                                         <input type="number" step="00.01" placeholder='00.00'
-                                                            value='00.00' min="0" class="form-control" name="default">
+                                                            value='00.00' min="0" class="form-control" name="Cantidad">
                                                     </td>
                                                     <td>
                                                         <input id="unidad" readonly="readonly" type="text"
-                                                            class="form-control" name="default">
+                                                            class="form-control" name="Unidad">
                                                     </td>
                                                     <td>S/. <input type="number" step="00.1" placeholder='00.0'
-                                                            value='00.0' min="0" class="form-control" name="default">
+                                                            value='00.0' min="0" class="form-control" name="Precio">
                                                     </td>
                                                     <td>
                                                         <a class="btn btn-danger btn-sm" href="#"
@@ -262,7 +265,7 @@
                                     <div class="col-12">
                                         <!--   <a href="#" target="_blank" class="btn btn-default"><i
                                                 class="fas fa-print"></i> Imprimir ahora</a> -->
-                                        <button id="btnGuardar" type="button" class="btn btn-success float-right">
+                                        <button id="btnGuardar" class="btn btn-success float-right" type="submit" value="Guardar" name="_save">
                                             <i class="far fa-credit-card"></i> Guardar <strong>compra</strong>
                                         </button>
                                         <!--       <button type="button" class="btn btn-primary float-right"
@@ -498,49 +501,49 @@
         $('#unidad')[0].value = json_producto_padre_filtrado[0].fields.unidad;
     };
 
-    $(function () {
-        $("#btnGuardar").on("click", function () {
+    // $(function () {
+    //     $("#btnGuardar").on("click", function () {
 
 
-            var i = 0;
-            var columnas = 4;
-            var num_fila = 0;
-            $('.form-control').each(function () {
-                if (i == 0) {
-                    // nothing
-                } else if (i == 1) {
-                    $(this).attr('name', "fecha");
-                } else if (i == 2) {
-                    $(this).attr('name', "proveedor");
-                } else if (i == 3) {
-                    $(this).attr('name', "ruc");
-                } else if (i == 4) {
-                    $(this).attr('name', "celular");
-                } else if (i == 5) {
-                    $(this).attr('name', "correo");
-                } else {
+    //         var i = 0;
+    //         var columnas = 4;
+    //         var num_fila = 0;
+    //         $('.form-control').each(function () {
+    //             if (i == 0) {
+    //                 // nothing
+    //             } else if (i == 1) {
+    //                 $(this).attr('name', "fecha");
+    //             } else if (i == 2) {
+    //                 $(this).attr('name', "proveedor");
+    //             } else if (i == 3) {
+    //                 $(this).attr('name', "ruc");
+    //             } else if (i == 4) {
+    //                 $(this).attr('name', "celular");
+    //             } else if (i == 5) {
+    //                 $(this).attr('name', "correo");
+    //             } else {
 
-                    if (i % columnas == 2) {
-                        $(this).attr('name', "productos[" + num_fila + "].producto");
-                    }
-                    if (i % columnas == 3) {
-                        $(this).attr('name', "productos[" + num_fila + "].cantidad");
-                    }
-                    if (i % columnas == 0) {
-                        $(this).attr('name', "productos[" + num_fila + "].unidad");
-                    }
-                    if (i % columnas == 1) {
-                        $(this).attr('name', "productos[" + num_fila + "].precio");
-                        num_fila++;
-                    }
+    //                 if (i % columnas == 2) {
+    //                     $(this).attr('name', "productos[" + num_fila + "].producto");
+    //                 }
+    //                 if (i % columnas == 3) {
+    //                     $(this).attr('name', "productos[" + num_fila + "].cantidad");
+    //                 }
+    //                 if (i % columnas == 0) {
+    //                     $(this).attr('name', "productos[" + num_fila + "].unidad");
+    //                 }
+    //                 if (i % columnas == 1) {
+    //                     $(this).attr('name', "productos[" + num_fila + "].precio");
+    //                     num_fila++;
+    //                 }
 
-                }
-                i++;
-            });
+    //             }
+    //             i++;
+    //         });
 
-            console.log($("#myForm").serializeToJSON());
-        })
-    });
+    //         console.log($("#myForm").serializeToJSON());
+    //     })
+    // });
 </script>
 
 {% endblock pie %}

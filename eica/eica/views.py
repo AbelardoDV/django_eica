@@ -14,6 +14,9 @@ from .models import PlatoPadre
 from .models import PlatoVenta
 from .models import BoletaVentaRestaurante
 
+import datetime
+
+
 # -------------------------Inicio Dashboard-------------------------
 
 
@@ -68,8 +71,27 @@ def ventas_historial_view(request):
 # ---------------------------------Fin Seccion Ventas---------------------------------
 
 # ---------------------------------Inicio Seccion Productos---------------------------------
+#Aquí se registran las compras
 @login_required(login_url='/accounts/login')
 def compras_productos_view(request):
+
+    #Aquí se recoje toda la información a insertar
+    if request.method == 'POST':
+        fecha= datetime.datetime.strptime(request.POST.get('fecha_compra'), "%d/%m/%Y")
+        id_boleta_compra=request.POST.get('id_boleta')
+        id_proveedor=request.POST.get('id_proveedor')
+        
+        id_producto_padre_1 = request.POST.get('id_producto_padre')
+        precio_1=request.POST.get('Precio')
+        cantidad_1=request.POST.get('Cantidad')
+               
+        BoletaCompra.objects.create(fecha_compra=fecha)
+        ProductoHijoCompra.objects.create(id_proveedor=Proveedor.objects.get(pk=id_proveedor),id_boleta_compra=BoletaCompra.objects.get(pk=id_boleta_compra),id_producto_padre=ProductoPadre.objects.get(pk=id_producto_padre_1),precio=precio_1,cantidad=cantidad_1)
+        
+        
+    else:
+        0
+        
     nombre_vista = 'Compras de Productos'
     ruta_vista = ['Compras de Productos']
     
@@ -90,6 +112,7 @@ def compras_historial_view(request):
     nombre_vista = 'Compras Historial'
     ruta_vista = ['Compras Historial']
     return render(request, 'compras_historial.html', locals())
+
 
 # ---------------------------------Fin Seccion Productos---------------------------------
 
@@ -135,3 +158,5 @@ def error_500_view(request, exception):
     return render(request, 'eica/500.html', data)
 
 # ---------------------------Fin Páginas 404 y 500---------------------------
+
+
