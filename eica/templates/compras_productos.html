@@ -2,6 +2,41 @@
 {%load static%}
 
 {% block cabecera %}
+<!--Para mostrar la modena S/.-->
+<style>.input-icon {
+    position: relative;
+  }
+  
+  .input-icon > i {
+    position: absolute;
+    display: block;
+    transform: translate(0, -50%);
+    top: 50%;
+    pointer-events: none;
+    width: 25px;
+    text-align: center;
+      font-style: normal;
+  }
+  
+  .input-icon > input {
+    padding-left: 25px;
+      padding-right: 0;
+  }
+  
+  .input-icon-right > i {
+    right: 0;
+  }
+  
+  .input-icon-right > input {
+    padding-left: 0;
+    padding-right: 25px;
+    text-align: right;
+  }
+  
+
+</style>
+
+
 <!-- Select2 -->
 <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}" />
 <link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}" />
@@ -57,9 +92,10 @@
                     <div class="card-body">
                         <!-- form start -->
 
-                        <form id="myForm" action="" method="POST"> <!---->
+                        <form id="myForm" action="" method="POST">
+                            <!---->
                             {% csrf_token %}
-                            <input type="hidden" name="id_boleta" value="{{boletasCompra.last.id |add:"1"}}">
+                            <input type="hidden" name="id_boleta_compra" value="{{boletasCompra.last.id |add:"1"}}">
                             <!-- Grupo 1 formulario -->
                             <div class="invoice p-3 mb-3">
                                 <!-- title row -->
@@ -68,7 +104,7 @@
                                         <h5>
                                             <i class="fas fa-shopping-cart"></i> Boleta nueva N°
                                             {{ boletasCompra.last.id |add:"1"  }}
-                                            
+
                                             <small class="float-right">
 
 
@@ -76,7 +112,7 @@
                                                     <div class="input-group date" id="datetimepicker4"
                                                         data-target-input="nearest">
                                                         <input type="text" class="form-control datetimepicker-input"
-                                                            data-target="#datetimepicker4" name="fecha_compra"/>
+                                                            data-target="#datetimepicker4" name="fecha_compra" />
                                                         <div class="input-group-append" data-target="#datetimepicker4"
                                                             data-toggle="datetimepicker">
                                                             <div class="input-group-text">
@@ -103,7 +139,8 @@
                                                         onchange="cargar_proveedor(this.value)" name="id_proveedor">
                                                         {% for proveedor in proveedores %}
                                                         {% if forloop.last %}
-                                                        <option selected="selected" value="{{proveedor.pk}}">{{proveedor.nombre}}</option>
+                                                        <option selected="selected" value="{{proveedor.pk}}">
+                                                            {{proveedor.nombre}}</option>
                                                         {% else %}
                                                         <option value="{{proveedor.pk}}">{{proveedor.nombre}}</option>
                                                         {% endif %}
@@ -124,7 +161,7 @@
                                                         </div>
                                                         <input id="ruc" readonly="readonly" type="text"
                                                             class="form-control" data-inputmask='"mask":"9 9999 9999 9"'
-                                                            data-mask  />
+                                                            data-mask />
                                                     </div>
                                                 </div>
                                             </div>
@@ -141,7 +178,7 @@
                                                         </div>
                                                         <input id="celular" readonly="readonly" type="text"
                                                             class="form-control" data-inputmask='"mask":"999-999-999"'
-                                                            data-mask  />
+                                                            data-mask />
                                                     </div>
                                                 </div>
                                             </div>
@@ -157,7 +194,7 @@
                                                                     class="fas fa-envelope"></i></span>
                                                         </div>
                                                         <input id="correo" readonly="readonly" type="text"
-                                                            class="form-control"  />
+                                                            class="form-control" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -184,10 +221,12 @@
                                                 <tr id="fila_1">
                                                     <td>
                                                         <select class="form-control select2bs4" style="width: 100%;"
-                                                            onchange="cargar_producto(this.value)" name="id_producto_padre_1">
+                                                            onchange="cargar_producto(this.value)"
+                                                            name="id_producto_padre_1">
                                                             {% for producto in productoPadre %}
                                                             {% if forloop.last %}
-                                                            <option selected="selected" value="{{producto.pk}}">{{producto.nombre}}</option>
+                                                            <option selected="selected" value="{{producto.pk}}">
+                                                                {{producto.nombre}}</option>
                                                             {% else %}
                                                             <option>{{producto.nombre}}</option>
                                                             {% endif %}
@@ -195,18 +234,20 @@
                                                     </td>
                                                     <td>
                                                         <input type="number" step="00.01" placeholder='00.00'
-                                                            value='00.00' min="0" class="form-control" name="Cantidad_1">
+                                                            value='00.00' min="0" class="form-control"
+                                                            name="Cantidad_1">
                                                     </td>
                                                     <td>
                                                         <input id="unidad" readonly="readonly" type="text"
                                                             class="form-control" name="Unidad">
                                                     </td>
-                                                    <td>S/. <input type="number" step="00.1" placeholder='00.0'
-                                                            value='00.0' min="0" class="form-control" name="Precio_1">
+                                                    <td class="input-icon">    <i>S/.</i> <input type="number" step="00.01" placeholder='00.00'
+                                                            value='00.0' min="0" class="form-control precio"
+                                                            name="Precio_1">
                                                     </td>
                                                     <td>
                                                         <a class="btn btn-danger btn-sm" href="#"
-                                                            onclick="deleteRow(this)">
+                                                            onclick="deleteRow(this);return false;">
                                                             <i class="fas fa-trash"> </i>
                                                             Borrar
                                                         </a>
@@ -252,7 +293,7 @@
                                                 </tr> -->
                                                 <tr>
                                                     <th style="width:50%">Total:</th>
-                                                    <td>$265.24</td>
+                                                    <td class="total" >265.24</td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -265,7 +306,8 @@
                                     <div class="col-12">
                                         <!--   <a href="#" target="_blank" class="btn btn-default"><i
                                                 class="fas fa-print"></i> Imprimir ahora</a> -->
-                                        <button id="btnGuardar" class="btn btn-success float-right" type="submit" value="Guardar" name="_save">
+                                        <button id="btnGuardar" class="btn btn-success float-right" type="submit"
+                                            value="Guardar" name="_save">
                                             <i class="far fa-credit-card"></i> Guardar <strong>compra</strong>
                                         </button>
                                         <!--       <button type="button" class="btn btn-primary float-right"
@@ -295,7 +337,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">
-                                    <strong>COMPRAS</strong> | Se muestran las últimas 10
+                                    <strong>BOLETAS DE COMPRA</strong> | Se muestran las últimas 10
                                 </h3>
 
                                 <div class="card-tools">
@@ -335,7 +377,7 @@
                                             </td>
                                             <td>{{producto.cantidad}}</td>
                                             <td>{{producto.id_producto_padre.unidad}}</td>
-                                            <td>S/. {{producto.precio}}</td>
+                                            <td><i>S/.</i> {{producto.precio}}</td>
                                             <td>{{producto.id_boleta_compra.fecha_compra}}</td>
                                             <td class="project-actions text-right">
                                                 <a class="btn btn-primary btn-sm" href="#">
@@ -427,27 +469,37 @@
 
         objeto_primera_fila.children(":first").children("select").select2("destroy");
 
-        copia_primera_fila = primera_fila.cloneNode(true);
+        copia_primera_fila = objeto_primera_fila.clone(true,true)[0];
 
         objeto_primera_fila.children(":first").children("select").select2({
             theme: "bootstrap4"
         });
 
         copia_primera_fila.id = "fila_" + (cantidad_rows + 1);
-        copia_primera_fila.childNodes[1].childNodes[1].setAttribute("name","id_producto_padre_" + (cantidad_rows + 1));
-        copia_primera_fila.childNodes[3].childNodes[1].setAttribute("name","Cantidad_" + (cantidad_rows + 1));
-        copia_primera_fila.childNodes[7].childNodes[1].setAttribute("name","Precio_" + (cantidad_rows + 1));
-
-        console.log(copia_primera_fila.childNodes);
-
+        copia_primera_fila.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (
+            cantidad_rows + 1));
+        copia_primera_fila.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (cantidad_rows + 1));
+        copia_primera_fila.childNodes[7].childNodes[1].setAttribute("name", "Precio_" + (cantidad_rows + 1));
 
         cantidad_rows++;
+
         tablita.append(copia_primera_fila);
 
         $('#fila_' + cantidad_rows).children(":first").children("select").select2({
             theme: "bootstrap4"
         });
+        /*Actualizar Ids de las filas*/
+        var tablita = $('#tabla_compras')[0];
+        var rowCount = tablita.rows.length;
+        for (var i = 0; i < rowCount; i++) {
+            console.log(tablita.rows[i]);
+            var row = tablita.rows[i];
+            row.id = "fila_" + (i + 1);
+            row.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (i + 1));
+            row.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (i + 1));
+            row.childNodes[7].childNodes[1].setAttribute("name", "Precio_" + (i + 1));
 
+        };
     });
     /* DELETE ROW*/
     function deleteRow(currentRow) {
@@ -471,18 +523,41 @@
                     tablita.deleteRow(i);
                     rowCount--;
                     i--;
-                    
+
                 }
             }
-           /*TO DOActualizar Ids de las filas*/
+            /*Actualizar Ids de las filas*/
+            for (var i = 0; i < rowCount; i++) {
+                console.log(tablita.rows[i]);
+                var row = tablita.rows[i];
+                row.id = "fila_" + (i + 1);
+                row.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (i + 1));
+                row.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (i + 1));
+                row.childNodes[7].childNodes[1].setAttribute("name", "Precio_" + (i + 1));
 
-     
-
+            };
         } catch (e) {
             alert(e);
         }
-        //getValues();
-    }
+
+    };
+
+    /*Hallar el monto total de la boleta*/
+    $('.precio').on('change', function () {
+        console.log('Se ha cambiado el precio');
+        var total = 0.0;
+        $('.precio').each(function () {
+            var $this = $(this);
+            var price = parseFloat($this.val());
+            total += price;
+        })
+        total=total.toFixed(2);
+        $('.total').text(total);
+
+    })
+    $('.precio').trigger('change')
+
+
 </script>
 <!-- Script to load data when proveedor is selected  -->
 <script type="text/javascript">

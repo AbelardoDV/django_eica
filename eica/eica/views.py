@@ -77,24 +77,31 @@ def compras_productos_view(request):
 
     #Aquí se recoje toda la información a insertar
     if request.method == 'POST':
+        
+        #Obtener información de la boleta   
         fecha= datetime.datetime.strptime(request.POST.get('fecha_compra'), "%d/%m/%Y")
-        id_boleta_compra=request.POST.get('id_boleta')
-        id_proveedor=request.POST.get('id_proveedor')
+        id_proveedor=request.POST.get('id_proveedor') #El proveedor es el mismo para todos
+        id_boleta_compra = request.POST.get('id_boleta_compra')
+        BoletaCompra.objects.create(fecha_compra=fecha)
         
+        print(id_boleta_compra)
         
-        
-        id_producto_padre_1 = request.POST.get('id_producto_padre_1')
-        precio_1=request.POST.get('Precio_1')
-        cantidad_1=request.POST.get('Cantidad_1')
-               
-        # BoletaCompra.objects.create(fecha_compra=fecha)
         # ProductoHijoCompra.objects.create(id_proveedor=Proveedor.objects.get(pk=id_proveedor),id_boleta_compra=BoletaCompra.objects.get(pk=id_boleta_compra),id_producto_padre=ProductoPadre.objects.get(pk=id_producto_padre_1),precio=precio_1,cantidad=cantidad_1)
-        
+        #Obtener información de los productos
         for key, value in request.POST.items():
-            print(f'Key: {key}')         
-            print(f'Value: {value}') 
-        
-        
+            
+            
+            if "id_producto_padre" in key:   
+                id_producto_padre = int(value)
+            if "Cantidad" in key:
+                cantidad = float(value)
+            if "Precio" in key:
+                precio = float(value)
+                #Solo cuando tenga Precio se agrega, el key y value pues son del producto
+                ProductoHijoCompra.objects.create(id_proveedor=Proveedor.objects.get(pk=id_proveedor),id_boleta_compra=BoletaCompra.objects.get(pk=id_boleta_compra),id_producto_padre=ProductoPadre.objects.get(pk=id_producto_padre),precio=precio,cantidad=cantidad)
+                
+            
+            
     else:
         0
         
