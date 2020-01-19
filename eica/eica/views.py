@@ -81,12 +81,18 @@ def compras_productos_view(request):
         id_boleta_compra=request.POST.get('id_boleta')
         id_proveedor=request.POST.get('id_proveedor')
         
-        id_producto_padre_1 = request.POST.get('id_producto_padre')
-        precio_1=request.POST.get('Precio')
-        cantidad_1=request.POST.get('Cantidad')
+        
+        
+        id_producto_padre_1 = request.POST.get('id_producto_padre_1')
+        precio_1=request.POST.get('Precio_1')
+        cantidad_1=request.POST.get('Cantidad_1')
                
-        BoletaCompra.objects.create(fecha_compra=fecha)
-        ProductoHijoCompra.objects.create(id_proveedor=Proveedor.objects.get(pk=id_proveedor),id_boleta_compra=BoletaCompra.objects.get(pk=id_boleta_compra),id_producto_padre=ProductoPadre.objects.get(pk=id_producto_padre_1),precio=precio_1,cantidad=cantidad_1)
+        # BoletaCompra.objects.create(fecha_compra=fecha)
+        # ProductoHijoCompra.objects.create(id_proveedor=Proveedor.objects.get(pk=id_proveedor),id_boleta_compra=BoletaCompra.objects.get(pk=id_boleta_compra),id_producto_padre=ProductoPadre.objects.get(pk=id_producto_padre_1),precio=precio_1,cantidad=cantidad_1)
+        
+        for key, value in request.POST.items():
+            print(f'Key: {key}')         
+            print(f'Value: {value}') 
         
         
     else:

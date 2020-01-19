@@ -124,7 +124,7 @@
                                                         </div>
                                                         <input id="ruc" readonly="readonly" type="text"
                                                             class="form-control" data-inputmask='"mask":"9 9999 9999 9"'
-                                                            data-mask name="default" />
+                                                            data-mask  />
                                                     </div>
                                                 </div>
                                             </div>
@@ -141,7 +141,7 @@
                                                         </div>
                                                         <input id="celular" readonly="readonly" type="text"
                                                             class="form-control" data-inputmask='"mask":"999-999-999"'
-                                                            data-mask name="default" />
+                                                            data-mask  />
                                                     </div>
                                                 </div>
                                             </div>
@@ -157,7 +157,7 @@
                                                                     class="fas fa-envelope"></i></span>
                                                         </div>
                                                         <input id="correo" readonly="readonly" type="text"
-                                                            class="form-control" name="default" />
+                                                            class="form-control"  />
                                                     </div>
                                                 </div>
                                             </div>
@@ -184,7 +184,7 @@
                                                 <tr id="fila_1">
                                                     <td>
                                                         <select class="form-control select2bs4" style="width: 100%;"
-                                                            onchange="cargar_producto(this.value)" name="id_producto_padre">
+                                                            onchange="cargar_producto(this.value)" name="id_producto_padre_1">
                                                             {% for producto in productoPadre %}
                                                             {% if forloop.last %}
                                                             <option selected="selected" value="{{producto.pk}}">{{producto.nombre}}</option>
@@ -195,14 +195,14 @@
                                                     </td>
                                                     <td>
                                                         <input type="number" step="00.01" placeholder='00.00'
-                                                            value='00.00' min="0" class="form-control" name="Cantidad">
+                                                            value='00.00' min="0" class="form-control" name="Cantidad_1">
                                                     </td>
                                                     <td>
                                                         <input id="unidad" readonly="readonly" type="text"
                                                             class="form-control" name="Unidad">
                                                     </td>
                                                     <td>S/. <input type="number" step="00.1" placeholder='00.0'
-                                                            value='00.0' min="0" class="form-control" name="Precio">
+                                                            value='00.0' min="0" class="form-control" name="Precio_1">
                                                     </td>
                                                     <td>
                                                         <a class="btn btn-danger btn-sm" href="#"
@@ -419,7 +419,7 @@
     /* ADD ROW*/
     var cantidad_rows = 1;
     $('#agregar_fila').click(function () {
-        /* Se cpñ*/
+
         var tablita = $('#tabla_compras')[0];
         var rowCount = tablita.rows.length;
         objeto_primera_fila = $('#fila_1')
@@ -434,6 +434,13 @@
         });
 
         copia_primera_fila.id = "fila_" + (cantidad_rows + 1);
+        copia_primera_fila.childNodes[1].childNodes[1].setAttribute("name","id_producto_padre_" + (cantidad_rows + 1));
+        copia_primera_fila.childNodes[3].childNodes[1].setAttribute("name","Cantidad_" + (cantidad_rows + 1));
+        copia_primera_fila.childNodes[7].childNodes[1].setAttribute("name","Precio_" + (cantidad_rows + 1));
+
+        console.log(copia_primera_fila.childNodes);
+
+
         cantidad_rows++;
         tablita.append(copia_primera_fila);
 
@@ -464,8 +471,13 @@
                     tablita.deleteRow(i);
                     rowCount--;
                     i--;
+                    
                 }
             }
+           /*TO DOActualizar Ids de las filas*/
+
+     
+
         } catch (e) {
             alert(e);
         }
