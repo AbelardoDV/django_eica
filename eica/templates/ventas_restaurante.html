@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
-{%load static%}
+{% load static %}
 
 
 {% block cabecera %}
-
 
 <!-- Select2 -->
 <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}" />
@@ -21,8 +20,8 @@
 
 <link rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
-{% endblock cabecera %}
 
+{% endblock cabecera %}
 
 
 {% block contenido %}
@@ -75,8 +74,8 @@
 
                         <div class="form-group">
                           <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input"
-                              data-target="#datetimepicker4" />
+                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker4"
+                              name="fecha_venta" />
                             <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
                               <div class="input-group-text">
                                 <i class="fa fa-calendar"></i>
@@ -95,17 +94,17 @@
                     <address>
                       <!-- Cliente -->
                       <div class="form-group row">
-                        <label for="inputCliente" class="col-sm-2 col-form-label"><strong>Cliente:</strong></label>
+                        <label for="inputCliente" class="col-sm-2 col-form-label">
+                          <strong>Cliente:</strong>
+                        </label>
                         <div class="col-sm-10">
                           <select class="form-control select2bs4" style="width: 100%;"
                             onchange="cargar_cliente(this.value)">
+                            {% comment %}
                             {% for proveedor in proveedores %}
-                            {% if forloop.last %}
-                            <option selected="selected">{{proveedor.nombre}}</option>
-                            {% else %}
                             <option>{{proveedor.nombre}}</option>
-                            {% endif %}
                             {% endfor %}
+                            {% endcomment %}
                           </select>
                         </div>
                       </div>
@@ -164,9 +163,9 @@
                         <tr>
                           <th>Plato</th>
                           <th>Cantidad</th>
-                          <th>Precio unitario</th>
-                          <th>Importe</th>
-                          <th></th>
+                          <th>Precio unitario (S/.)</th>
+                          <th>Importe (S/.)</th>
+                          <th>Acción</th>
                         </tr>
                       </thead>
                       <tbody id="tabla_compras">
@@ -175,12 +174,9 @@
                             <select class="form-control select2bs4" style="width: 100%;"
                               onchange="cargar_plato(this.value)">
                               {% for plato in platoPadre %}
-                              {% if forloop.last %}
-                              <option selected="selected">{{plato.nombre}}</option>
-                              {% else %}
                               <option>{{plato.nombre}}</option>
-                              {% endif %}
-                              {% endfor %}</td>
+                              {% endfor %}
+                          </td>
                           <td>
                             <input type="number" step="1" placeholder='0' value='0' min="0"
                               onchange="obtener_importe(this.value)" class="form-control">
@@ -408,7 +404,8 @@
   /* ADD ROW*/
   var cantidad_rows = 1;
   $('#agregar_fila').click(function () {
-    /* Se cpñ*/
+
+    /* Se clona y añade*/
     var tablita = $('#tabla_compras')[0];
     var rowCount = tablita.rows.length;
     objeto_primera_fila = $('#fila_1')
@@ -486,8 +483,7 @@
     var json_platoPadre = JSON.parse('{{  json_platoPadre | safe }}');
 
     var plato_seleccionado = json_platoPadre.filter(element => element.fields.nombre == selectedValue);
-    var plato_venta_seleccionado = json_platoVenta.filter(element => element.fields.id_plato_padre ==
-      plato_seleccionado[0].pk);
+    var plato_venta_seleccionado = json_platoVenta.filter(element => element.fields.id_plato_padre ==      plato_seleccionado[0].pk);
     var precio_unitario = plato_venta_seleccionado[0].fields.precio_venta
 
     $('#precio_unitario')[0].value = precio_unitario;
@@ -506,44 +502,40 @@
   $(function () {
     $("#btnGuardar").on("click", function () {
 
-
-      var i = 0;
-      var columnas = 4;
-      var num_fila = 0;
-      $('.form-control').each(function () {
-        if (i == 0) {
-          // nothing
-        } else if (i == 1) {
-          $(this).attr('name', "fecha");
-        } else if (i == 2) {
-          $(this).attr('name', "cliente");
-        } else if (i == 3) {
-          $(this).attr('name', "dni");
-        } else if (i == 4) {
-          $(this).attr('name', "celular");
-        } else if (i == 5) {
-          $(this).attr('name', "correo");
-        } else {
-
-          if (i % columnas == 2) {
-            $(this).attr('name', "productos[" + num_fila + "].producto");
-          }
-          if (i % columnas == 3) {
-            $(this).attr('name', "productos[" + num_fila + "].cantidad");
-          }
-          if (i % columnas == 0) {
-            $(this).attr('name', "productos[" + num_fila + "].precio_unitario");
-          }
-          if (i % columnas == 1) {
-            $(this).attr('name', "productos[" + num_fila + "].importe");
-            num_fila++;
-          }
-
-        }
-        i++;
-      });
-
-      console.log($("#myForm").serializeToJSON());
+      //var i = 0;
+      //var columnas = 4;
+      //var num_fila = 0;
+      //$('.form-control').each(function () {
+      //  if (i == 0) {
+      //    // nothing
+      //  } else if (i == 1) {
+      //    $(this).attr('name', "fecha");
+      //  } else if (i == 2) {
+      //    $(this).attr('name', "cliente");
+      //  } else if (i == 3) {
+      //    $(this).attr('name', "dni");
+      //  } else if (i == 4) {
+      //    $(this).attr('name', "celular");
+      //  } else if (i == 5) {
+      //    $(this).attr('name', "correo");
+      //  } else {
+      //    if (i % columnas == 2) {
+      //      $(this).attr('name', "productos[" + num_fila + "].producto");
+      //    }
+      //    if (i % columnas == 3) {
+      //      $(this).attr('name', "productos[" + num_fila + "].cantidad");
+      //    }
+      //    if (i % columnas == 0) {
+      //      $(this).attr('name', "productos[" + num_fila + "].precio_unitario");
+      //    }
+      //    if (i % columnas == 1) {
+      //      $(this).attr('name', "productos[" + num_fila + "].importe");
+      //      num_fila++;
+      //    }
+      //  }
+      //  i++;
+      //});
+      //console.log($("#myForm").serializeToJSON());
     })
   });
 </script>

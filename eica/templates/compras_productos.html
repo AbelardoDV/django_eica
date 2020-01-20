@@ -76,7 +76,7 @@
                                 <i class="fas fa-minus"></i>
                             </button>
                             <!-- <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-                <i class="fas fa-times"></i></button> -->
+                                <i class="fas fa-times"></i></button> -->
                             <!-- Botones para cerrar ventana -->
                         </div>
                     </div>
@@ -92,7 +92,7 @@
                         <!-- form start -->
 
                         <form id="myForm" action="" method="POST">
-                            <!---->
+                            <!-- csrf token -->
                             {% csrf_token %}
                             <input type="hidden" name="id_boleta_compra" value="{{boletasCompra.last.id |add:"1"}}">
                             <!-- Grupo 1 formulario -->
@@ -103,10 +103,7 @@
                                         <h5>
                                             <i class="fas fa-shopping-cart"></i> Boleta nueva N°
                                             {{ boletasCompra.last.id |add:"1"  }}
-
                                             <small class="float-right">
-
-
                                                 <div class="form-group">
                                                     <div class="input-group date" id="datetimepicker4"
                                                         data-target-input="nearest">
@@ -418,7 +415,7 @@
     integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
 <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js">
-    </script>
+</script>
 <!-- InputMask -->
 <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
 <script src="{% static 'plugins/inputmask/min/jquery.inputmask.bundle.min.js' %}"></script>
@@ -455,7 +452,7 @@
     });
 </script>
 
-<!-- Script to add new row  and delete-->
+<!-- Script to add new row and delete-->
 <script type="text/javascript">
     /* ADD ROW*/
     var cantidad_rows = 1;
@@ -500,6 +497,7 @@
 
         };
     });
+
     /* DELETE ROW*/
     function deleteRow(currentRow) {
         try {
@@ -555,23 +553,25 @@
 
     })
     $('.precio').trigger('change')
-
-
 </script>
 <!-- Script to load data when proveedor is selected  -->
 <script type="text/javascript">
     $(document).ready(function () {
+
         var json_proveedores = JSON.parse('{{ json_proveedores | safe}}');
         var data_filter = json_proveedores.filter(element => element.pk == 1);
+
         $('#ruc')[0].value = data_filter[0].fields.ruc;
         $('#celular')[0].value = data_filter[0].fields.celular;
         $('#correo')[0].value = data_filter[0].fields.correo;
+
     });
 
     function cargar_proveedor(selectedValue) {
 
         var json_proveedores = JSON.parse('{{ json_proveedores | safe}}');
         var data_filter = json_proveedores.filter(element => element.pk == selectedValue);
+
         $('#ruc')[0].value = data_filter[0].fields.ruc;
         $('#celular')[0].value = data_filter[0].fields.celular;
         $('#correo')[0].value = data_filter[0].fields.correo;

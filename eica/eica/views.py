@@ -16,7 +16,6 @@ from .models import BoletaVentaRestaurante
 
 import datetime
 
-
 # -------------------------Inicio Dashboard-------------------------
 
 
@@ -34,6 +33,37 @@ def dashboard_view(request):
 # Ventas de restaurante
 @login_required(login_url='/accounts/login')
 def ventas_restaurante_view(request):
+
+    #Aquí se recoje toda la información a insertar
+    if request.method == 'POST':
+
+        fecha= datetime.datetime.strptime(request.POST.get('fecha_venta'), "%d/%m/%Y")
+        cantidad=request.POST.get('cantidad') #El proveedor es el mismo para todos
+        importe = request.POST.get('importe')
+        id_plato_padre = request.POST.get('id_plato_padre')
+        id_boleta_venta_restaurante= request.POST.get('id_boleta_venta_restaurante')
+
+        # BoletaVentaRestaurante.objects.create(fecha_venta=fecha)
+        
+        print('[ PRINT ]: id_boleta_venta_restaurante: {}'.format(id_boleta_venta_restaurante))
+        
+        # FALTA CREAR OBJETOS EN CASCADA Y GUARDAR
+
+        # ProductoHijoCompra.objects.create(id_proveedor=Proveedor.objects.get(pk=id_proveedor),id_boleta_compra=BoletaCompra.objects.get(pk=id_boleta_compra),id_producto_padre=ProductoPadre.objects.get(pk=id_producto_padre_1),precio=precio_1,cantidad=cantidad_1)
+        # Obtener información de los productos
+        # for key, value in request.POST.items():
+        #     if "id_producto_padre" in key:   
+        #         id_producto_padre = int(value)
+        #     if "Cantidad" in key:
+        #         cantidad = float(value)
+        #     if "Precio" in key:
+        #         precio = float(value)
+        #         #Solo cuando tenga Precio se agrega, el key y value pues son del producto
+        #         ProductoHijoCompra.objects.create(id_proveedor=Proveedor.objects.get(pk=id_proveedor),id_boleta_compra=BoletaCompra.objects.get(pk=id_boleta_compra),id_producto_padre=ProductoPadre.objects.get(pk=id_producto_padre),precio=precio,cantidad=cantidad)
+            
+    else:
+        0
+
     nombre_vista = 'Ventas de Restaurante'
     ruta_vista = ['Ventas de Restaurante']
     
@@ -50,7 +80,6 @@ def ventas_restaurante_view(request):
     json_boletaVentaRestaurante = serializers.serialize("json", boletaVentaRestaurante)  # Usado para autocompletado
     json_productoPadre = serializers.serialize("json", productoPadre)  # Usado para autocompletado
 
-    
     return render(request, 'ventas_restaurante.html', locals())
 
 # Ventas de bodega
@@ -66,7 +95,6 @@ def ventas_historial_view(request):
     nombre_vista = 'Historial de Ventas'
     ruta_vista = ['Historial de Ventas']
     return render(request, 'ventas_historial.html', locals())
-
 
 # ---------------------------------Fin Seccion Ventas---------------------------------
 
@@ -84,13 +112,11 @@ def compras_productos_view(request):
         id_boleta_compra = request.POST.get('id_boleta_compra')
         BoletaCompra.objects.create(fecha_compra=fecha)
         
-        print(id_boleta_compra)
+        print('[ PRINT ]: id_boleta_compra: {}'.format(id_boleta_compra))
         
         # ProductoHijoCompra.objects.create(id_proveedor=Proveedor.objects.get(pk=id_proveedor),id_boleta_compra=BoletaCompra.objects.get(pk=id_boleta_compra),id_producto_padre=ProductoPadre.objects.get(pk=id_producto_padre_1),precio=precio_1,cantidad=cantidad_1)
         #Obtener información de los productos
         for key, value in request.POST.items():
-            
-            
             if "id_producto_padre" in key:   
                 id_producto_padre = int(value)
             if "Cantidad" in key:
@@ -99,9 +125,7 @@ def compras_productos_view(request):
                 precio = float(value)
                 #Solo cuando tenga Precio se agrega, el key y value pues son del producto
                 ProductoHijoCompra.objects.create(id_proveedor=Proveedor.objects.get(pk=id_proveedor),id_boleta_compra=BoletaCompra.objects.get(pk=id_boleta_compra),id_producto_padre=ProductoPadre.objects.get(pk=id_producto_padre),precio=precio,cantidad=cantidad)
-                
-            
-            
+
     else:
         0
         
@@ -134,6 +158,7 @@ def compras_historial_view(request):
 
 @login_required(login_url='/accounts/login')
 def editar_plato_view(request):
+
     nombre_vista = 'Editar platos'
     ruta_vista = ['Editar platos']
     
@@ -148,7 +173,6 @@ def editar_plato_view(request):
     json_producto_padre = serializers.serialize("json", productoPadre)  # Usado para autocompletado
     json_producto_hijo = serializers.serialize("json", productoHijoCompra)  # Usado para autocompletado
     json_producto_padre = serializers.serialize("json", productoPadre)  # Usado para autocompletado
-
 
     return render(request, 'editar_platos.html', locals())
 
@@ -178,5 +202,3 @@ def error_500_view(request, exception):
     return render(request, 'eica/500.html', data)
 
 # ---------------------------Fin Páginas 404 y 500---------------------------
-
-
