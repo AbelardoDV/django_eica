@@ -139,10 +139,17 @@ def editar_plato_view(request):
     
     platoVenta=PlatoVenta.objects.all()
     platoPadre=PlatoPadre.objects.all()
+    productoPadre = ProductoPadre.objects.all()
+    productoHijoCompra = ProductoHijoCompra.objects.all()
+    productoPadre = ProductoPadre.objects.all()
     
     json_platoVenta = serializers.serialize("json", platoVenta)  # Usado para autocompletado
     json_platoPadre = serializers.serialize("json", platoPadre)  # Usado para autocompletado
-    
+    json_producto_padre = serializers.serialize("json", productoPadre)  # Usado para autocompletado
+    json_producto_hijo = serializers.serialize("json", productoHijoCompra)  # Usado para autocompletado
+    json_producto_padre = serializers.serialize("json", productoPadre)  # Usado para autocompletado
+
+
     return render(request, 'editar_platos.html', locals())
 
 # ---------------------------------Fin Editar---------------------------------

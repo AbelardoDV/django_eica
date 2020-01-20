@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{%load static%}
+{% load static %}
 
 
 {% block cabecera %}
@@ -85,8 +85,7 @@
                                             <!-- Nombre de plato -->
                                             <div class="row">
                                                 <label for="inputCliente" class="col-sm-2 col-form-label">
-                                                    <strong>Nombre de plato:
-                                                    </strong>
+                                                    <strong>Nombre de plato: </strong>
                                                 </label>
                                                 <div class="col-sm-10">
                                                     <div class="input-group">
@@ -136,15 +135,11 @@
                                                 <tr id="fila_1">
                                                     <td>
                                                         <select class="form-control select2bs4" style="width: 100%;"
-                                                            onchange="" name="default">
-                                                            <option>ejemplo</option>
-                                                            <!-- {% for plato in platoPadre %}
-                                                            {% if forloop.last %}
-                                                            <option selected="selected">{{plato.nombre}}</option>
-                                                            {% else %}
-                                                            <option>{{plato.nombre}}</option>
-                                                            {% endif %}
-                                                            {% endfor %}</td> -->
+                                                            onchange="cargar_producto(this.value)" name="default">
+                                                            {% for producto in productoPadre %}
+                                                            <option>{{producto.nombre}}</option>
+                                                            {% endfor %}
+                                                    </td>
                                                     <td>
                                                         <input type="number" step="1" placeholder='0' value='0' min="0"
                                                             class="form-control" name="default">
@@ -326,15 +321,29 @@
         // Renderizamos valores 
         $('#numero_plato_input')[0].value = valor_numero_plato;
 
+        // Agregando productos a la lista
+
+
+
+    };
+
+    function cargar_producto(selectedValue) {
+
+        var json_producto_hijo = JSON.parse('{{  json_producto_hijo | safe }}');
+        var json_producto_padre = JSON.parse('{{  json_producto_padre | safe }}');
+
+        var json_producto_padre_filtrado = json_producto_padre.filter(p => p.fields.nombre == selectedValue);
+
+        $('#unidad')[0].value = json_producto_padre_filtrado[0].fields.unidad;
     };
 
     $(function () {
         $("#btnGuardar").on("click", function () {
 
-
             var i = 0;
             var columnas = 3;
             var num_fila = 0;
+
             $('.form-control').each(function () {
                 if (i == 0) {
                     //nothing id
@@ -343,22 +352,19 @@
                 } else if (i == 2) {
                     $(this).attr('name', "nombre_plato");
                 } else {
-
-                    if (i%columnas==0){
+                    if (i % columnas == 0) {
                         $(this).attr('name', "productos[" + num_fila + "].producto");
                     }
-                    if (i%columnas==1){
+                    if (i % columnas == 1) {
                         $(this).attr('name', "productos[" + num_fila + "].cantidad");
                     }
-                    if (i%columnas==2){
+                    if (i % columnas == 2) {
                         $(this).attr('name', "productos[" + num_fila + "].unidad");
                         num_fila++;
                     }
-
                 }
                 i++;
             });
-
             console.log($("#myForm").serializeToJSON());
         })
     });
