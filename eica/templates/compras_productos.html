@@ -1,39 +1,38 @@
 {% extends 'base.html' %}
-{%load static%}
+{% load static %}
 
 {% block cabecera %}
-<!--Para mostrar la modena S/.-->
-<style>.input-icon {
-    position: relative;
-  }
-  
-  .input-icon > i {
-    position: absolute;
-    display: block;
-    transform: translate(0, -50%);
-    top: 50%;
-    pointer-events: none;
-    width: 25px;
-    text-align: center;
-      font-style: normal;
-  }
-  
-  .input-icon > input {
-    padding-left: 25px;
-      padding-right: 0;
-  }
-  
-  .input-icon-right > i {
-    right: 0;
-  }
-  
-  .input-icon-right > input {
-    padding-left: 0;
-    padding-right: 25px;
-    text-align: right;
-  }
-  
+<!--Para mostrar la moneda S/.-->
+<style>
+    .input-icon {
+        position: relative;
+    }
 
+    .input-icon>i {
+        position: absolute;
+        display: block;
+        transform: translate(0, -50%);
+        top: 50%;
+        pointer-events: none;
+        width: 25px;
+        text-align: center;
+        font-style: normal;
+    }
+
+    .input-icon>input {
+        padding-left: 25px;
+        padding-right: 0;
+    }
+
+    .input-icon-right>i {
+        right: 0;
+    }
+
+    .input-icon-right>input {
+        padding-left: 0;
+        padding-right: 25px;
+        text-align: right;
+    }
 </style>
 
 
@@ -241,9 +240,9 @@
                                                         <input id="unidad" readonly="readonly" type="text"
                                                             class="form-control" name="Unidad">
                                                     </td>
-                                                    <td class="input-icon">    <i>S/.</i> <input type="number" step="00.01" placeholder='00.00'
-                                                            value='00.0' min="0" class="form-control precio"
-                                                            name="Precio_1">
+                                                    <td class="input-icon"> <i>S/.</i> <input type="number" step="00.01"
+                                                            placeholder='00.00' value='00.0' min="0"
+                                                            class="form-control precio" name="Precio_1">
                                                     </td>
                                                     <td>
                                                         <a class="btn btn-danger btn-sm" href="#"
@@ -293,7 +292,7 @@
                                                 </tr> -->
                                                 <tr>
                                                     <th style="width:50%">Total:</th>
-                                                    <td class="total" >265.24</td>
+                                                    <td class="total">265.24</td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -419,7 +418,7 @@
     integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
 <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js">
-</script>
+    </script>
 <!-- InputMask -->
 <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
 <script src="{% static 'plugins/inputmask/min/jquery.inputmask.bundle.min.js' %}"></script>
@@ -469,7 +468,7 @@
 
         objeto_primera_fila.children(":first").children("select").select2("destroy");
 
-        copia_primera_fila = objeto_primera_fila.clone(true,true)[0];
+        copia_primera_fila = objeto_primera_fila.clone(true, true)[0];
 
         objeto_primera_fila.children(":first").children("select").select2({
             theme: "bootstrap4"
@@ -551,7 +550,7 @@
             var price = parseFloat($this.val());
             total += price;
         })
-        total=total.toFixed(2);
+        total = total.toFixed(2);
         $('.total').text(total);
 
     })
@@ -572,7 +571,7 @@
     function cargar_proveedor(selectedValue) {
 
         var json_proveedores = JSON.parse('{{ json_proveedores | safe}}');
-        var data_filter = json_proveedores.filter(element => element.fields.nombre == selectedValue);
+        var data_filter = json_proveedores.filter(element => element.pk == selectedValue);
         $('#ruc')[0].value = data_filter[0].fields.ruc;
         $('#celular')[0].value = data_filter[0].fields.celular;
         $('#correo')[0].value = data_filter[0].fields.correo;
@@ -590,8 +589,6 @@
 
     // $(function () {
     //     $("#btnGuardar").on("click", function () {
-
-
     //         var i = 0;
     //         var columnas = 4;
     //         var num_fila = 0;
@@ -609,7 +606,6 @@
     //             } else if (i == 5) {
     //                 $(this).attr('name', "correo");
     //             } else {
-
     //                 if (i % columnas == 2) {
     //                     $(this).attr('name', "productos[" + num_fila + "].producto");
     //                 }
@@ -623,11 +619,9 @@
     //                     $(this).attr('name', "productos[" + num_fila + "].precio");
     //                     num_fila++;
     //                 }
-
     //             }
     //             i++;
     //         });
-
     //         console.log($("#myForm").serializeToJSON());
     //     })
     // });

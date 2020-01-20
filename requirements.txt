@@ -1,7 +1,16 @@
 # https://tecadmin.net/install-django-on-ubuntu/
 
-django
-djangorestframework
+pip3 install django
+pip3 install djangorestframework
+pip3 install psycopg2-binary
+pip3 install django-pylint
+
+
+sudo apt-get install psmisc #Error: That port is already in use.
+
+
 https://computingforgeeks.com/how-to-install-pgadmin4-on-debian/
 https://support.gitkraken.com/how-to-install/
 https://stackoverflow.com/a/54884976
+Install django and setup env
+https://www.digitalocean.com/community/tutorials/how-to-install-django-and-set-up-a-development-environment-on-ubuntu-16-04
