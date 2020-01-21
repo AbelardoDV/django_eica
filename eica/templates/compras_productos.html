@@ -210,7 +210,7 @@
                                                     <th>Cantidad</th>
                                                     <th>Unidad</th>
                                                     <th>Precio</th>
-                                                    <th></th>
+                                                    <th>Acción</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="tabla_compras">
@@ -551,8 +551,8 @@
         total = total.toFixed(2);
         $('.total').text(total);
 
-    })
-    $('.precio').trigger('change')
+    });
+    $('.precio').trigger('change');
 </script>
 <!-- Script to load data when proveedor is selected  -->
 <script type="text/javascript">

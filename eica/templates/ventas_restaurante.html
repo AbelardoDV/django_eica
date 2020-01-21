@@ -38,15 +38,30 @@
                 Canrash
                 S.R.L.</strong>
             </h4>
-
             <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                title="Collapse">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
                 <i class="fas fa-minus"></i>
               </button>
-              <!-- <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fas fa-times"></i></button> -->
-              <!-- Botones para cerrar ventana -->
+              <div class="btn-group">
+                <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                  <i class="fas fa-file-excel  fa-2x"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                  <a href="#" class="dropdown-item">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success">
+                      Importar datos
+                    </button>
+                  </a>
+
+                  <a class="dropdown-divider"></a>
+                </div>
+              </div>
+
+
+              <!-- /.modal -->
+              {% comment %} <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+              </button> {% endcomment %}
             </div>
           </div>
 
@@ -179,13 +194,13 @@
                           </td>
                           <td>
                             <input type="number" step="1" placeholder='0' value='0' min="0"
-                              onchange="obtener_importe(this.value)" class="form-control">
+                              onclick="obtener_importe(this.value)" class="form-control">
                           </td>
                           <td>
-                            <input id="precio_unitario" readonly="readonly" type="text" class="form-control">
+                            <input id="precio_unitario" readonly="readonly" type="text" class="form-control" placeholder="0">
                           </td>
                           <td>
-                            <input id="importe" readonly="readonly" type="text" class="form-control">
+                            <input id="importe" type="number" readonly="readonly" class="form-control importe_parcial" value="0" placeholder="0">
                           </td>
                           <td>
                             <a class="btn btn-danger btn-sm" href="#" onclick="deleteRow(this)">
@@ -229,12 +244,14 @@
                     <div class="table-responsive">
                       <table class="table">
                         <!-- <tr>
-                                                  <th>Shipping:</th>
-                                                  <td>$5.80</td>
-                                              </tr> -->
+                        <th>Shipping:</th>
+                        <td>$5.80</td>
+                        </tr> -->
+                        <tr>
                         <tr>
                           <th style="width:50%">Total:</th>
-                          <td>$265.24</td>
+                          <td class="total_importe">0</td>
+                        </tr>
                         </tr>
                       </table>
                     </div>
@@ -352,6 +369,31 @@
   </div>
 </section>
 
+
+<div class="modal fade" id="modal-success">
+  <div class="modal-dialog">
+    <div class="modal-content bg-success">
+      <div class="modal-header">
+        <h4 class="modal-title"><i class="fas fa-file-excel "></i> Importar desde excel </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p>Para poder importar correctamente se tiene que ingresar documentos con formatos predefinidos para que estos
+          puedan ser leídos por el sistema.</p>
+
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal"
+          onclick="location.href = 'https://docs.google.com/spreadsheets/d/1AH2juP4xG_x9cB2wel7BDoOhlHr-Ul2uALlui8NbJX4/edit?usp=sharing'">Descargar
+          plantilla</button>
+        <button type="button" class="btn btn-outline-light">Subir archivo</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 {% endblock contenido %}
 
 {% block pie %}
@@ -457,6 +499,23 @@
     }
     //getValues();
   }
+
+ /*Hallar el monto total de la boleta*/
+    $('.importe_parcial').on('click', function () {
+        console.log('Se ha cambiado el importe_parcial');
+        var total = 0.0;
+        $('.importe_parcial').each(function () {
+            var $this = $(this);
+            var price = parseFloat($this.val());
+            total += price;
+            
+        })
+        total = total.toFixed(2);
+        $('.total_importe').text(total);
+
+    });
+    $('.importe_parcial').trigger('change');
+
 </script>
 <!-- Script to load data when proveedor is selected  -->
 <script type="text/javascript">
@@ -483,7 +542,8 @@
     var json_platoPadre = JSON.parse('{{  json_platoPadre | safe }}');
 
     var plato_seleccionado = json_platoPadre.filter(element => element.fields.nombre == selectedValue);
-    var plato_venta_seleccionado = json_platoVenta.filter(element => element.fields.id_plato_padre ==      plato_seleccionado[0].pk);
+    var plato_venta_seleccionado = json_platoVenta.filter(element => element.fields.id_plato_padre ==
+      plato_seleccionado[0].pk);
     var precio_unitario = plato_venta_seleccionado[0].fields.precio_venta
 
     $('#precio_unitario')[0].value = precio_unitario;
