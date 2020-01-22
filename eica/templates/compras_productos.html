@@ -224,7 +224,7 @@
                                                             <option selected="selected" value="{{producto.pk}}">
                                                                 {{producto.nombre}}</option>
                                                             {% else %}
-                                                            <option>{{producto.nombre}}</option>
+                                                            <option value="{{producto.pk}}">{{producto.nombre}}</option>
                                                             {% endif %}
                                                             {% endfor %}
                                                     </td>
@@ -235,7 +235,7 @@
                                                     </td>
                                                     <td>
                                                         <input id="unidad" readonly="readonly" type="text"
-                                                            class="form-control" name="Unidad">
+                                                            class="form-control unidad" name="Unidad">
                                                     </td>
                                                     <td class="input-icon"> <i>S/.</i> <input type="number" step="00.01"
                                                             placeholder='00.00' value='00.0' min="0"
@@ -577,13 +577,16 @@
     };
 
     function cargar_producto(selectedValue) {
-
+        console.log('selectedValue');
+        console.log(selectedValue);
         var json_producto_hijo = JSON.parse('{{  json_producto_hijo | safe }}');
         var json_producto_padre = JSON.parse('{{  json_producto_padre | safe }}');
 
-        var json_producto_padre_filtrado = json_producto_padre.filter(p => p.fields.nombre == selectedValue);
+        var json_producto_padre_filtrado = json_producto_padre.filter(p => p.pk == selectedValue);
 
         $('#unidad')[0].value = json_producto_padre_filtrado[0].fields.unidad;
+
+        
     };
 
     // $(function () {
