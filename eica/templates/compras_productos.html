@@ -472,10 +472,9 @@
         });
 
         copia_primera_fila.id = "fila_" + (cantidad_rows + 1);
-        copia_primera_fila.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (
-            cantidad_rows + 1));
+        copia_primera_fila.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (cantidad_rows + 1));
         copia_primera_fila.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (cantidad_rows + 1));
-        copia_primera_fila.childNodes[7].childNodes[1].setAttribute("name", "Precio_" + (cantidad_rows + 1));
+        copia_primera_fila.childNodes[7].childNodes[3].setAttribute("name", "Precio_" + (cantidad_rows + 1));
 
         cantidad_rows++;
 
@@ -493,7 +492,7 @@
             row.id = "fila_" + (i + 1);
             row.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (i + 1));
             row.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (i + 1));
-            row.childNodes[7].childNodes[1].setAttribute("name", "Precio_" + (i + 1));
+            row.childNodes[7].childNodes[3].setAttribute("name", "Precio_" + (i + 1));
 
         };
     });
@@ -530,7 +529,7 @@
                 row.id = "fila_" + (i + 1);
                 row.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (i + 1));
                 row.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (i + 1));
-                row.childNodes[7].childNodes[1].setAttribute("name", "Precio_" + (i + 1));
+                row.childNodes[7].childNodes[3].setAttribute("name", "Precio_" + (i + 1));
 
             };
         } catch (e) {
