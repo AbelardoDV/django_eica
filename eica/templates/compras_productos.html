@@ -399,10 +399,10 @@
                                     <tbody>
 
                                         {% for boleta in tablaBoletas %}
-                                        {% comment %} {% if  forloop.counter <= 10 %} {% endcomment %}
+                                        {% if  forloop.counter <= 10 %}
                                         <tr>
                                             <td>
-                                                <a href="#">#{{boleta.id_boleta_compra}}</a>
+                                                <a href="#">N° {{boleta.id_boleta_compra}}</a>
                                             </td>
                                             <td>
                                                 {{boleta.id_boleta_compra.comentario}}
@@ -440,7 +440,7 @@
                                             {% endcomment %}
 
                                         </tr>
-                                        {% comment %} {% endif %} {% endcomment %}
+                                        {% endif %}
                                         {% endfor %}
                                     </tbody>
                                 </table>

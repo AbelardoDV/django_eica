@@ -23,6 +23,14 @@ import datetime
 def dashboard_view(request):
     nombre_vista = 'Dashboard'
     ruta_vista = ['Dashboard']
+
+
+    productoHijoCompra = ProductoHijoCompra.objects.all()
+
+    # Para mostrar en tabla vamos a usar GROUPBY
+    # tutorial sacado de https://stackoverflow.com/a/629600/10491422
+    tablaBoletas = ProductoHijoCompra.objects.raw('SELECT MIN(id) AS id,MAX(id_boleta_compra) AS id_boleta_compra, MAX(id_proveedor) AS id_proveedor, SUM(precio) AS precio_total, COUNT(*) AS nro_productos FROM producto_hijo_compra GROUP BY id_boleta_compra ORDER BY id_boleta_compra DESC;')
+
     return render(request, 'dashboard.html', locals())
 
 # ---------------------------Fin Dashboard-------------------------

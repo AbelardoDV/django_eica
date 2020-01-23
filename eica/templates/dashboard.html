@@ -37,7 +37,7 @@ to get the desired effect
                                 <div class="dropdown-menu dropdown-menu-right" role="menu">
                                     <a href="#" class="dropdown-item">Falta agregar acciones</a>
                                     <a class="dropdown-divider"></a> <!-- Es un divisor-->
-                                    
+
                                 </div>
                             </div>
                             {% comment %}
@@ -147,7 +147,7 @@ to get the desired effect
                             <div class="col-sm-3 col-6">
                                 <div class="description-block border-right">
                                     <span class="description-percentage text-warning">
-                                    <i class="fas fa-caret-left"></i>
+                                        <i class="fas fa-caret-left"></i>
                                         0%</span>
                                     <h5 class="description-header">S/. 10,390.90</h5>
                                     <span class="description-text">EN COMPRAS ESTE MES</span>
@@ -282,20 +282,31 @@ to get the desired effect
                             <!-- /.card-header -->
                             <div class="card-body p-0">
                                 <ul class="products-list product-list-in-card pl-2 pr-2">
+                                    {% for boleta in tablaBoletas%}
+                                    {% if  forloop.counter <= 10 %}
                                     <li class="item">
                                         <div class="product-img">
                                             <img src="{% static 'dist/img/default-150x150.png' %}" alt="Product Image"
                                                 class="img-size-50">
                                         </div>
                                         <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">N° 20
-                                                <span class="badge badge-warning float-right">S/. 560.25</span></a>
+                                            <a href="javascript:void(0)" class="product-title">
+                                                N° {{boleta.id_boleta_compra}}
+                                                <span class="badge badge-warning float-right">
+                                                    S/. {{boleta.precio_total}}
+                                                </span>
+                                            </a>
                                             <span class="product-description">
-                                                # Productos: 32, Proveedor: 1
+                                                <strong>Nro. de productos:</strong> {{boleta.nro_productos}}
+                                                <br>
+                                                <strong>Proveedor: </strong>{{boleta.id_proveedor.nombre}}
+                                                </br>
                                             </span>
                                         </div>
                                     </li>
                                     <!-- /.item -->
+                                    {% endif %}
+                                    {% endfor %}
 
                                 </ul>
                             </div>
@@ -562,7 +573,7 @@ to get the desired effect
                 },
                 scales: {
                     yAxes: [{
-                        display: false,
+                        display: true,
                         gridLines: {
                             display: true,
                             lineWidth: '4px',
