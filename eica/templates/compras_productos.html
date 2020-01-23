@@ -229,7 +229,7 @@
                                                 <tr id="fila_1">
                                                     <td>
                                                         <select class="form-control select2bs4" style="width: 100%;"
-                                                            onchange="cargar_producto(this.value)"
+                                                            onchange="cargar_producto(this.value,this.name)"
                                                             name="id_producto_padre_1">
                                                             {% for producto in productoPadre %}
                                                             {% if forloop.last %}
@@ -246,8 +246,8 @@
                                                             name="Cantidad_1">
                                                     </td>
                                                     <td>
-                                                        <input id="unidad" readonly="readonly" type="text"
-                                                            class="form-control unidad" name="Unidad">
+                                                        <input readonly="readonly" type="text"
+                                                            class="form-control" id="Unidad_1">
                                                     </td>
                                                     <td class="input-icon"> <i>S/.</i> <input type="number" step="00.01"
                                                             placeholder='00.00' value='00.0' min="0"
@@ -496,6 +496,7 @@
         copia_primera_fila.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (
             cantidad_rows + 1));
         copia_primera_fila.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (cantidad_rows + 1));
+        copia_primera_fila.childNodes[5].childNodes[1].setAttribute("id", "Unidad_" + (cantidad_rows + 1));
         copia_primera_fila.childNodes[7].childNodes[3].setAttribute("name", "Precio_" + (cantidad_rows + 1));
 
         cantidad_rows++;
@@ -514,6 +515,7 @@
             row.id = "fila_" + (i + 1);
             row.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (i + 1));
             row.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (i + 1));
+            row.childNodes[5].childNodes[1].setAttribute("id", "Unidad_" + (i + 1));
             row.childNodes[7].childNodes[3].setAttribute("name", "Precio_" + (i + 1));
 
         };
@@ -551,6 +553,7 @@
                 row.id = "fila_" + (i + 1);
                 row.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (i + 1));
                 row.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (i + 1));
+                row.childNodes[5].childNodes[1].setAttribute("id", "Unidad_" + (i + 1));
                 row.childNodes[7].childNodes[3].setAttribute("name", "Precio_" + (i + 1));
 
             };
@@ -599,13 +602,13 @@
         $('#correo')[0].value = data_filter[0].fields.correo;
     };
 
-    function cargar_producto(selectedValue) {
-
-        console.log('selectedValue', selectedValue);
+    function cargar_producto(selectedValue,name) {
+        
         var json_producto_hijo = JSON.parse('{{  json_producto_hijo | safe }}');
         var json_producto_padre = JSON.parse('{{  json_producto_padre | safe }}');
         var json_producto_padre_filtrado = json_producto_padre.filter(p => p.pk == selectedValue);
-        $('#unidad')[0].value = json_producto_padre_filtrado[0].fields.unidad;
+
+        $('#Unidad_'+(name.slice(-1)))[0].value = json_producto_padre_filtrado[0].fields.unidad;
 
     };
 
