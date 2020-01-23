@@ -141,6 +141,7 @@
                                                         <option value="{{proveedor.pk}}">{{proveedor.nombre}}</option>
                                                         {% endif %}
                                                         {% endfor %}
+                                                        <option value="Nuevo">Agregar Nuevo</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -227,6 +228,8 @@
                                                             <option value="{{producto.pk}}">{{producto.nombre}}</option>
                                                             {% endif %}
                                                             {% endfor %}
+                                                           
+                                                        </select>
                                                     </td>
                                                     <td>
                                                         <input type="number" step="00.01" placeholder='00.00'
