@@ -76,17 +76,17 @@
                                 <i class="fas fa-minus"></i>
                             </button>
                             <!-- <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-                                <i class="fas fa-times"></i></button> -->
+                            <i class="fas fa-times"></i></button> -->
                             <!-- Botones para cerrar ventana -->
                         </div>
                     </div>
 
                     <!-- Aviso  -->
                     <!-- <div class="ribbon-wrapper ribbon-xl">
-                        <div class="ribbon bg-warning text-lg">
-                            En construcción
-                        </div>
-                    </div> -->
+                    <div class="ribbon bg-warning text-lg">
+                        En construcción
+                    </div>
+                </div> -->
 
                     <div class="card-body">
                         <!-- form start -->
@@ -129,8 +129,8 @@
                                             <!-- Proveedor -->
                                             <div class="form-group row">
                                                 <label for="inputProveedor"
-                                                    class="col-sm-2 col-form-label"><strong>Proveedor:</strong></label>
-                                                <div class="col-sm-10">
+                                                    class="col-3 col-sm-2 col-form-label"><strong>Proveedor:</strong></label>
+                                                <div class=" col-7 col-sm-9">
                                                     <select class="form-control select2bs4" style="width: 100%;"
                                                         onchange="cargar_proveedor(this.value)" name="id_proveedor">
                                                         {% for proveedor in proveedores %}
@@ -144,17 +144,25 @@
                                                         <option value="Nuevo">Agregar Nuevo</option>
                                                     </select>
                                                 </div>
+                                                <div class="col-2 col-sm-1" style="text-align: center">
+                                                    <a href="">
+                                                        <i class="fas fa-plus-circle fa-2x"></i>
+                                                        {% comment %}
+                                                        <kbd> Agregar Nuevo</kbd>
+                                                        {% endcomment %}
+                                                    </a>
+                                                </div>
                                             </div>
-
                                             <!-- RUC -->
                                             <div class="form-group row">
-                                                <label for="inputProveedor"
-                                                    class="col-sm-2 col-form-label"><strong>RUC:</strong></label>
-                                                <div class="col-sm-10">
+                                                <label for="inputProveedor" class="col-3 col-sm-2 col-form-label">
+                                                    <strong>RUC:</strong></label>
+                                                <div class="col-9 col-sm-10">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text"><i
-                                                                    class="far fa-building"></i></span>
+                                                            <span class="input-group-text">
+                                                                <i class="far fa-building"></i>
+                                                            </span>
                                                         </div>
                                                         <input id="ruc" readonly="readonly" type="text"
                                                             class="form-control" data-inputmask='"mask":"9 9999 9999 9"'
@@ -165,13 +173,15 @@
 
                                             <!-- Correo -->
                                             <div class="form-group row">
-                                                <label for="inputProveedor"
-                                                    class="col-sm-2 col-form-label"><strong>Celular:</strong></label>
-                                                <div class="col-sm-10">
+                                                <label for="inputProveedor" class="col-3 col-sm-2 col-form-label">
+                                                    <strong>Celular:</strong>
+                                                </label>
+                                                <div class="col-9 col-sm-10">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text"><i
-                                                                    class="fas fa-phone"></i></span>
+                                                            <span class="input-group-text">
+                                                                <i class="fas fa-phone"></i>
+                                                            </span>
                                                         </div>
                                                         <input id="celular" readonly="readonly" type="text"
                                                             class="form-control" data-inputmask='"mask":"999-999-999"'
@@ -180,15 +190,17 @@
                                                 </div>
                                             </div>
 
-                                            <!-- Celular -->
+                                            <!-- Correo -->
                                             <div class="form-group row">
-                                                <label for="inputProveedor"
-                                                    class="col-sm-2 col-form-label"><strong>Correo:</strong></label>
-                                                <div class="col-sm-10">
+                                                <label for="inputProveedor" class="col-3 col-sm-2 col-form-label">
+                                                    <strong>Correo:</strong>
+                                                </label>
+                                                <div class="col-9 col-sm-10">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text"><i
-                                                                    class="fas fa-envelope"></i></span>
+                                                            <span class="input-group-text">
+                                                                <i class="fas fa-envelope"></i>
+                                                            </span>
                                                         </div>
                                                         <input id="correo" readonly="readonly" type="text"
                                                             class="form-control" />
@@ -210,7 +222,7 @@
                                                     <th>Producto</th>
                                                     <th>Cantidad</th>
                                                     <th>Unidad</th>
-                                                    <th>Precio</th>
+                                                    <th>Precio (S/.)</th>
                                                     <th>Acción</th>
                                                 </tr>
                                             </thead>
@@ -245,7 +257,7 @@
                                                             class="form-control precio" name="Precio_1">
                                                     </td>
                                                     <td>
-                                                        <a class="btn btn-danger btn-sm" href="#"
+                                                        <a class="btn btn-danger btn-sm" href=""
                                                             onclick="deleteRow(this);return false;">
                                                             <i class="fas fa-trash"> </i>
                                                             Borrar
@@ -256,9 +268,12 @@
 
                                             </tbody>
                                         </table>
-                                        <div class="text-center"><a id="agregar_fila" href="javascript:void(0);">
+                                        <div class="text-center">
+                                            <a id="agregar_fila" href="javascript:void(0);">
                                                 Agregar fila
-                                                <i class="fas fa-plus-circle fa-lg"></i> </a> </div>
+                                                <i class="fas fa-plus-circle fa-lg"></i>
+                                            </a>
+                                        </div>
                                     </div>
 
                                     <!-- /.col -->
@@ -270,15 +285,15 @@
                                     <!-- accepted payments column -->
                                     <div class="col-6"> <br> </div>
                                     <!--    <div class="col-6">
-                                        <p class="lead">Escanea el código QR:</p>
+                                    <p class="lead">Escanea el código QR:</p>
 
-                                        <img src="https://tctechcrunch2011.files.wordpress.com/2012/08/qr-code.png"
-                                            alt="qr code" width="100" height="100" />
-                                        <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-                                            * Recuerda verificar la veracidad de la boleta con el
-                                            código qr
-                                        </p>
-                                    </div> -->
+                                    <img src="https://tctechcrunch2011.files.wordpress.com/2012/08/qr-code.png"
+                                        alt="qr code" width="100" height="100" />
+                                    <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                                        * Recuerda verificar la veracidad de la boleta con el
+                                        código qr
+                                    </p>
+                                </div> -->
 
                                     <!-- /.col -->
                                     <div class="col-6">
@@ -287,9 +302,9 @@
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <!-- <tr>
-                                                    <th>Shipping:</th>
-                                                    <td>$5.80</td>
-                                                </tr> -->
+                                                <th>Shipping:</th>
+                                                <td>$5.80</td>
+                                            </tr> -->
                                                 <tr>
                                                     <th style="width:50%">Total:</th>
                                                     <td class="total">265.24</td>
@@ -303,29 +318,29 @@
                                 <!-- this row will not appear when printing -->
                                 <div class="row no-print">
                                     <div class="col-12">
-                                        <!--   <a href="#" target="_blank" class="btn btn-default"><i
-                                                class="fas fa-print"></i> Imprimir ahora</a> -->
+                                        <!--   <a href="" target="_blank" class="btn btn-default"><i
+                                            class="fas fa-print"></i> Imprimir ahora</a> -->
                                         <button id="btnGuardar" class="btn btn-success float-right" type="submit"
                                             value="Guardar" name="_save">
                                             <i class="far fa-credit-card"></i> Guardar <strong>compra</strong>
                                         </button>
                                         <!--       <button type="button" class="btn btn-primary float-right"
-                                            style="margin-right: 5px;">
-                                            <i class="fas fa-download"></i> Generar <strong>PDF</strong>
-                                        </button> -->
+                                        style="margin-right: 5px;">
+                                        <i class="fas fa-download"></i> Generar <strong>PDF</strong>
+                                    </button> -->
                                     </div>
                                 </div>
                             </div>
                             <!-- /.invoice -->
                             <!--    <button type="submit" class="btn btn-outline-success">
-                                Agregar <strong>compras</strong> al sistema
-                            </button> -->
+                            Agregar <strong>compras</strong> al sistema
+                        </button> -->
                         </form>
                     </div>
                     <!-- /.card-body -->
                     <!-- <div class="card-footer">
-                        Empresa EICA
-                    </div> -->
+                    Empresa EICA
+                </div> -->
                     <!-- /.card-footer-->
                 </div>
                 <!-- /.card -->
@@ -358,42 +373,48 @@
                                     <thead>
                                         <tr>
                                             <th>Boleta</th>
+                                            <th>Descripción</th>
                                             <th>Proveedor</th>
-                                            <th>Producto</th>
                                             <th>Cantidad</th>
                                             <th>Unidad</th>
                                             <th>Precio</th>
+                                            {% comment %}
                                             <th>Fecha</th>
+                                            {% endcomment %}
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for producto in productoHijoCompra%}
+                                        {% if  forloop.counter <= 10 %}
                                         <tr>
-                                            <td><a href="#">#{{producto.id_boleta_compra.id}}</a></td>
-                                            <td><a href="#">{{producto.id_proveedor.nombre}}</a></td>
+                                            <td><a href="">#{{producto.id_boleta_compra.id}}</a></td>
+                                            <td><a href="">{{producto.id_proveedor.nombre}}</a></td>
                                             <td>
-                                                <a href="#">{{producto.id_producto_padre.nombre}}</a>
+                                                <a href="">{{producto.id_producto_padre.nombre}}</a>
                                             </td>
                                             <td>{{producto.cantidad}}</td>
                                             <td>{{producto.id_producto_padre.unidad}}</td>
                                             <td><i>S/.</i> {{producto.precio}}</td>
                                             <td>{{producto.id_boleta_compra.fecha_compra}}</td>
+                                            {% comment %}
                                             <td class="project-actions text-right">
-                                                <a class="btn btn-primary btn-sm" href="#">
+                                                <a class="btn btn-primary btn-sm" href="">
                                                     <i class="fas fa-folder"> </i>
                                                     View
                                                 </a>
-                                                <a class="btn btn-info btn-sm" href="#">
+                                                <a class="btn btn-info btn-sm" href="">
                                                     <i class="fas fa-pencil-alt"> </i>
                                                     Edit
                                                 </a>
-                                                <a class="btn btn-danger btn-sm" href="#">
+                                                <a class="btn btn-danger btn-sm" href="">
                                                     <i class="fas fa-trash"> </i>
                                                     Delete
                                                 </a>
                                             </td>
+                                            {% endcomment %}
 
                                         </tr>
+                                        {% endif %}
                                         {% endfor %}
                                     </tbody>
                                 </table>
@@ -475,7 +496,8 @@
         });
 
         copia_primera_fila.id = "fila_" + (cantidad_rows + 1);
-        copia_primera_fila.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (cantidad_rows + 1));
+        copia_primera_fila.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (
+            cantidad_rows + 1));
         copia_primera_fila.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (cantidad_rows + 1));
         copia_primera_fila.childNodes[5].childNodes[1].setAttribute("id", "Unidad_" + (cantidad_rows + 1));
         copia_primera_fila.childNodes[7].childNodes[3].setAttribute("name", "Precio_" + (cantidad_rows + 1));
@@ -559,6 +581,7 @@
     });
     $('.precio').trigger('change');
 </script>
+
 <!-- Script to load data when proveedor is selected  -->
 <script type="text/javascript">
     $(document).ready(function () {
@@ -586,12 +609,10 @@
         
         var json_producto_hijo = JSON.parse('{{  json_producto_hijo | safe }}');
         var json_producto_padre = JSON.parse('{{  json_producto_padre | safe }}');
-
         var json_producto_padre_filtrado = json_producto_padre.filter(p => p.pk == selectedValue);
 
         $('#Unidad_'+(name.slice(-1)))[0].value = json_producto_padre_filtrado[0].fields.unidad;
 
-        
     };
 
     // $(function () {
