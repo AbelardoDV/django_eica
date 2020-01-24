@@ -29,48 +29,34 @@
 <section class="content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12 ">
+      <div class="col-12">
         <!-- Default box -->
         <div class="card col-lg-8">
           <div class="card-header ">
-            <h4 class="card-title">
-              <strong><strong>VENTAS</strong> | Empresa Isla de
-                Canrash
-                S.R.L.</strong>
+            <h4 class="card-title col-6">
+              <strong>VENTAS | Empresa Isla de Canrash S.R.L.</strong>
             </h4>
             <div class="card-tools">
+              <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                <i class="fas fa-file-excel  fa-2x"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" role="menu">
+                <a href="#" class="dropdown-item">
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success">
+                    Importar datos de Excel
+                  </button>
+                </a>
+                <a class="dropdown-divider">
+                </a>
+              </div>
+
               <button type="button" class="btn btn-tool" data-card-widget="collapse">
                 <i class="fas fa-minus"></i>
               </button>
-              <div class="btn-group">
-                <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
-                  <i class="fas fa-file-excel  fa-2x"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right" role="menu">
-                  <a href="#" class="dropdown-item">
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success">
-                      Importar datos
-                    </button>
-                  </a>
 
-                  <a class="dropdown-divider"></a>
-                </div>
-              </div>
-
-
-              <!-- /.modal -->
-              {% comment %} <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-              </button> {% endcomment %}
             </div>
           </div>
 
-          <!-- Aviso  -->
-          <!-- <div class="ribbon-wrapper ribbon-xl">
-                      <div class="ribbon bg-warning text-lg">
-                          En construcción
-                      </div>
-                  </div> -->
 
           <div class="card-body">
             <!-- form start -->
@@ -85,8 +71,6 @@
                       <i class="fas fa-shopping-cart"></i> Boleta nueva N°
                       {{ boletaVentaRestaurante.last.id |add:"1"  }}
                       <small class="float-right">
-
-
                         <div class="form-group">
                           <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
                             <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker4"
@@ -109,10 +93,10 @@
                     <address>
                       <!-- Cliente -->
                       <div class="form-group row">
-                        <label for="inputCliente" class="col-sm-2 col-form-label">
+                        <label for="inputCliente" class="col-3 col-sm-2 col-form-label">
                           <strong>Cliente:</strong>
                         </label>
-                        <div class="col-sm-10">
+                        <div class="col-7 col-sm-9">
                           <select class="form-control select2bs4" style="width: 100%;"
                             onchange="cargar_cliente(this.value)">
                             {% comment %}
@@ -122,18 +106,25 @@
                             {% endcomment %}
                           </select>
                         </div>
+                        <div class="col-2 col-sm-1" style="text-align: center">
+                          <i id="simbolo_agregar" class="fas fa-plus-circle fa-2x" style="color: #007bff;"></i>
+                        </div>
                       </div>
 
 
                       <!-- Tipo de cliente -->
                       <div class="form-group row">
-                        <label for="inputTipo" class="col-sm-2 col-form-label"><strong>Tipo:</strong></label>
-                        <div class="col-sm-10">
+                        <label for="inputTipo" class="col-3 col-sm-2 col-form-label">
+                          <strong>Tipo:</strong>
+                        </label>
+                        <div class="col-9 col-sm-10">
                           <div class="input-group">
                             <div class="input-group-prepend">
-                              <span class="input-group-text"><i class="far fa-building"></i></span>
+                              <span class="input-group-text">
+                                <i class="far fa-building"></i>
+                              </span>
                             </div>
-                            <input id="dni" readonly="readonly" type="text" class="form-control"
+                            <input id="tipoCliente" readonly="readonly" type="text" class="form-control"
                               data-inputmask='"mask":"9 9999 9999 9"' data-mask />
                           </div>
                         </div>
@@ -141,11 +132,15 @@
 
                       <!-- DNI -->
                       <div class="form-group row">
-                        <label for="inputDNI" class="col-sm-2 col-form-label"><strong>DNI:</strong></label>
-                        <div class="col-sm-10">
+                        <label for="inputDNI" class="col-3 col-sm-2 col-form-label">
+                          <strong>DNI:</strong>
+                        </label>
+                        <div class="col-9 col-sm-10">
                           <div class="input-group">
                             <div class="input-group-prepend">
-                              <span class="input-group-text"><i class="far fa-building"></i></span>
+                              <span class="input-group-text">
+                                <i class="far fa-building"></i>
+                              </span>
                             </div>
                             <input id="dni" readonly="readonly" type="text" class="form-control"
                               data-inputmask='"mask":"9 9999 9999 9"' data-mask />
@@ -155,11 +150,15 @@
 
                       <!-- Correo -->
                       <div class="form-group row">
-                        <label for="inputProveedor" class="col-sm-2 col-form-label"><strong>Celular:</strong></label>
-                        <div class="col-sm-10">
+                        <label for="inputProveedor" class="col-3 col-sm-2 col-form-label">
+                          <strong>Celular:</strong>
+                        </label>
+                        <div class="col-9 col-sm-10">
                           <div class="input-group">
                             <div class="input-group-prepend">
-                              <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                              <span class="input-group-text">
+                                <i class="fas fa-phone"></i>
+                              </span>
                             </div>
                             <input id="celular" readonly="readonly" type="text" class="form-control"
                               data-inputmask='"mask":"999-999-999"' data-mask />
@@ -169,11 +168,15 @@
 
                       <!-- Celular -->
                       <div class="form-group row">
-                        <label for="inputProveedor" class="col-sm-2 col-form-label"><strong>Correo:</strong></label>
-                        <div class="col-sm-10">
+                        <label for="inputProveedor" class="col-3 col-sm-2 col-form-label">
+                          <strong>Correo:</strong>
+                        </label>
+                        <div class="col-9 col-sm-10">
                           <div class="input-group">
                             <div class="input-group-prepend">
-                              <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                              <span class="input-group-text">
+                                <i class="fas fa-envelope"></i>
+                              </span>
                             </div>
                             <input id="correo" readonly="readonly" type="text" class="form-control" />
                           </div>
@@ -212,10 +215,12 @@
                               onclick="obtener_importe(this.value)" class="form-control">
                           </td>
                           <td>
-                            <input id="precio_unitario" readonly="readonly" type="text" class="form-control" placeholder="0">
+                            <input id="precio_unitario" readonly="readonly" type="text" class="form-control"
+                              placeholder="0">
                           </td>
                           <td>
-                            <input id="importe" type="number" readonly="readonly" class="form-control importe_parcial" value="0" placeholder="0">
+                            <input id="importe" type="number" readonly="readonly" class="form-control importe_parcial"
+                              value="0" placeholder="0">
                           </td>
                           <td>
                             <a class="btn btn-danger btn-sm" href="#" onclick="deleteRow(this)">
@@ -223,9 +228,7 @@
                               Borrar
                             </a>
                           </td>
-
                         </tr>
-
                       </tbody>
                     </table>
                     <div class="text-center"><a id="agregar_fila" href="javascript:void(0);">
@@ -309,7 +312,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
-                  <strong>VENTAS</strong> | Se muestran datos de la última boleta
+                  <strong>VENTAS</strong> | Se muestran últimas 10
                 </h3>
 
                 <div class="card-tools">
@@ -329,32 +332,37 @@
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th>Boleta #</th>
+                      <th>Boleta</th>
+                      <th>Comentarios</th>
+                      <th>Fecha venta</th>
                       <th>Cliente</th>
-                      <th>Plato</th>
-                      <th>Cantidad</th>
-                      <th>Precio unitario</th>
-                      <th>Importe</th>
-                      <th>Fecha</th>
+                      <th>Nro platos</th>
+                      <th>Total (S/.)</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {% for plato in platoVenta%}
+                    {% for boleta in tablaBoletasVenta %}
+                    {% if  forloop.counter <= 10 %}
                     <tr>
                       <td>
-                        <a href="#">#{{plato.id}}</a>
+                        <a href="#">N° {{boleta.id_boleta_venta_restaurante}}</a>
                       </td>
                       <td>
-                        <a href="#">{{plato.precio_venta}}</a>
+                        {{boleta.id_boleta_venta_restaurante.comentario}}
                       </td>
                       <td>
-                        <a href="#">{{plato.id_plato_padre.nombre}}</a>
+                        {{boleta.id_boleta_venta_restaurante.fecha_venta}}
                       </td>
-                      <td>{{producto.cantidad}}</td>
-                      <td>{{producto.id_producto_padre.unidad}}</td>
-                      <td>S/. {{producto.precio}}</td>
-                      <td>{{producto.id_boleta_compra.fecha_compra}}</td>
-                      <td class="project-actions text-right">
+                      <td>
+                        Falta setear cliente
+                      </td>
+                      <td>
+                        {{boleta.nro_productos}}
+                      </td>
+                      <td>
+                        S/. {{boleta.precio_total}}
+                      </td>
+                      {% comment %} <td class="project-actions text-right">
                         <a class="btn btn-primary btn-sm" href="#">
                           <i class="fas fa-folder"> </i>
                           View
@@ -367,9 +375,10 @@
                           <i class="fas fa-trash"> </i>
                           Delete
                         </a>
-                      </td>
+                      </td> {% endcomment %}
 
                     </tr>
+                    {% endif %}
                     {% endfor %}
                   </tbody>
                 </table>
@@ -384,31 +393,45 @@
   </div>
 </section>
 
+<!-- ADD MODALS HERE-->
 
 <div class="modal fade" id="modal-success">
   <div class="modal-dialog">
     <div class="modal-content bg-success">
       <div class="modal-header">
-        <h4 class="modal-title"><i class="fas fa-file-excel "></i> Importar desde excel </h4>
+        <h4 class="modal-title">
+          <i class="fas fa-file-excel "></i>
+          Importar desde excel
+        </h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
+          <span aria-hidden="true">&times;
+          </span>
+        </button>
       </div>
       <div class="modal-body">
         <p>Para poder importar correctamente se tiene que ingresar documentos con formatos predefinidos para que estos
-          puedan ser leídos por el sistema.</p>
-
+          puedan ser leídos por el sistema.
+        </p>
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-outline-light" data-dismiss="modal"
-          onclick="location.href = 'https://docs.google.com/spreadsheets/d/1AH2juP4xG_x9cB2wel7BDoOhlHr-Ul2uALlui8NbJX4/edit?usp=sharing'">Descargar
-          plantilla</button>
-        <button type="button" class="btn btn-outline-light">Subir archivo</button>
+          onclick="location.href = 'https://docs.google.com/spreadsheets/d/1AH2juP4xG_x9cB2wel7BDoOhlHr-Ul2uALlui8NbJX4/edit?usp=sharing'">
+          Descargar
+          plantilla
+        </button>
+        <button type="button" class="btn btn-outline-light">
+          Subir archivo
+        </button>
       </div>
     </div>
     <!-- /.modal-content -->
   </div>
   <!-- /.modal-dialog -->
 </div>
+
+
+<!-- /.MODALS-->
+
 {% endblock contenido %}
 
 {% block pie %}
@@ -515,22 +538,21 @@
     //getValues();
   }
 
- /*Hallar el monto total de la boleta*/
-    $('.importe_parcial').on('click', function () {
-        console.log('Se ha cambiado el importe_parcial');
-        var total = 0.0;
-        $('.importe_parcial').each(function () {
-            var $this = $(this);
-            var price = parseFloat($this.val());
-            total += price;
-            
-        })
-        total = total.toFixed(2);
-        $('.total_importe').text(total);
+  /*Hallar el monto total de la boleta*/
+  $('.importe_parcial').on('click', function () {
+    console.log('Se ha cambiado el importe_parcial');
+    var total = 0.0;
+    $('.importe_parcial').each(function () {
+      var $this = $(this);
+      var price = parseFloat($this.val());
+      total += price;
 
-    });
-    $('.importe_parcial').trigger('change');
+    })
+    total = total.toFixed(2);
+    $('.total_importe').text(total);
 
+  });
+  $('.importe_parcial').trigger('change');
 </script>
 <!-- Script to load data when proveedor is selected  -->
 <script type="text/javascript">

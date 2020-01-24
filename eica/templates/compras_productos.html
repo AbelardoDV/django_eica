@@ -64,17 +64,30 @@
                 <!-- Default box -->
                 <div class="card col-lg-8">
                     <div class="card-header ">
-                        <h4 class="card-title">
-                            <strong><strong>COMPRAS</strong> | Empresa Isla de
-                                Canrash
-                                S.R.L.</strong>
+                        <h4 class="card-title col-6">
+                            <strong>COMPRAS | Empresa Isla de Canrash S.R.L.</strong>
                         </h4>
-
                         <div class="card-tools">
+                            <!-- Importar / Exportar -->
+                            <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                                <i class="fas fa-file-excel  fa-2x"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                <a href="#" class="dropdown-item">
+                                    <button type="button" class="btn btn-success" data-toggle="modal"
+                                        data-target="#modal-success">
+                                        Importar datos de Excel
+                                    </button>
+                                </a>
+                                <a class="dropdown-divider">
+                                </a>
+                            </div>
+                            <!-- Minimizar -->
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
                                 title="Collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
+                            <!-- Cerrar -->
                             <!-- <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
                             <i class="fas fa-times"></i></button> -->
                             <!-- Botones para cerrar ventana -->
@@ -210,8 +223,8 @@
                                                                 <i class="fas fa-envelope"></i>
                                                             </span>
                                                         </div>
-                                                        <input id="correo" placeholder="Ingrese correo" readonly name="correo"
-                                                            type="text" class="form-control" />
+                                                        <input id="correo" placeholder="Ingrese correo" readonly
+                                                            name="correo" type="text" class="form-control" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -379,7 +392,6 @@
                                     <div class="input-group input-group-sm" style="width: 150px;">
                                         <input type="text" name="table_search" class="form-control float-right"
                                             placeholder="Buscar" />
-
                                         <div class="input-group-append">
                                             <button type="submit" class="btn btn-default">
                                                 <i class="fas fa-search"></i>
@@ -394,8 +406,8 @@
                                     <thead>
                                         <tr>
                                             <th>Boleta</th>
-                                            <th>Descripción</th>
-                                            <th>Fecha</th>
+                                            <th>Comentarios</th>
+                                            <th>Fecha compra</th>
                                             <th>Proveedor</th>
                                             <th>Nro. de productos</th>
                                             <th>Total (S/.)</th>
@@ -425,7 +437,7 @@
                                                 {{boleta.nro_productos}}
                                             </td>
                                             <td>
-                                                {{boleta.precio_total}}
+                                                S/. {{boleta.precio_total}}
                                             </td>
                                             {% comment %}
                                             <td>{{producto.id_boleta_compra.fecha_compra}}</td>
@@ -462,6 +474,46 @@
         </div>
     </div>
 </section>
+
+<!-- ADD MODALS HERE-->
+
+<div class="modal fade" id="modal-success">
+    <div class="modal-dialog">
+        <div class="modal-content bg-success">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <i class="fas fa-file-excel "></i> Importar desde excel
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Para poder importar correctamente se tiene que ingresar documentos con formatos predefinidos para que
+                    estos
+                    puedan ser leídos por el sistema.
+                </p>
+
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-light" data-dismiss="modal"
+                    onclick="location.href = 'https://docs.google.com/spreadsheets/d/1AH2juP4xG_x9cB2wel7BDoOhlHr-Ul2uALlui8NbJX4/edit?usp=sharing'">Descargar
+                    plantilla
+                </button>
+                <button type="button" class="btn btn-outline-light">
+                    Subir archivo
+                </button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<!-- /.MODALS-->
+
 {% endblock contenido %}
 
 {% block pie %}

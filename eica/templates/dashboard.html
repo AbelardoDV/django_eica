@@ -51,47 +51,44 @@ to get the desired effect
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-8">
-                                <div class="card">
-                                    <div class="card-header border-0">
-                                        <div class="d-flex justify-content-between">
-                                            <h3 class="card-title"><strong>Compras, ventas e ingresos de la
-                                                    semana</strong></h3>
-                                            <a href="javascript:void(0);">Ver completo</a>
-                                        </div>
+                                {% comment %} <div class="card-header border-0">
+                                    <div class="d-flex justify-content-between">
+                                        <h3 class="card-title"><strong>Compras, ventas e ingresos de la
+                                                semana</strong></h3>
+                                        <a href="javascript:void(0);">Ver completo</a>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="d-flex">
-                                            <p class="d-flex flex-column">
-                                                <span class="text-bold text-lg">820</span>
-                                                <span>Ventas se han realizado esta semana</span>
-                                            </p>
-                                            <p class="ml-auto d-flex flex-column text-right">
-                                                <span class="text-success">
-                                                    <i class="fas fa-arrow-up"></i> 12.5%
-                                                </span>
-                                                <span class="text-muted">Desde la semana pasada</span>
-                                            </p>
-                                        </div>
-                                        <!-- /.d-flex -->
+                                </div> {% endcomment %}
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <p class="d-flex flex-column">
+                                            <span class="text-bold text-lg">{{cantidadPlatosMes}}</span>
+                                            <span>Platos vendidos este mes</span>
+                                        </p>
+                                        <p class="ml-auto d-flex flex-column text-right">
+                                            <span class="text-bold text-success">
+                                                <i class="fas fa-arrow-up"></i> {{porcentajeRespectoMesAnterior}}%
+                                            </span>
+                                            <span class="text-muted">Respecto al mes anterior</span>
+                                        </p>
+                                    </div>
+                                    <!-- /.d-flex -->
 
-                                        <div class="position-relative mb-4">
-                                            <canvas id="visitors-chart" height="200"></canvas>
-                                        </div>
+                                    <div class="position-relative mb-4">
+                                        <canvas id="visitors-chart" height="200"></canvas>
+                                    </div>
 
-                                        <div class="d-flex flex-row justify-content-end">
-                                            <span class="mr-2">
-                                                <i class="fas fa-square text-danger"></i> Compras &nbsp;
-                                            </span>
-                                            <span>
-                                                <i class="fas fa-square text-success"></i> Ventas &nbsp;
-                                            </span>
-                                            <span>
-                                                <i class="fas fa-square text-primary"></i> Ingresos &nbsp;
-                                            </span>
-                                        </div>
+                                    <div class="d-flex flex-row justify-content-end">
+                                        <span class="mr-2">
+                                            <i class="fas fa-square text-danger"></i> Compras &nbsp;
+                                        </span>
+                                        <span>
+                                            <i class="fas fa-square text-success"></i> Ventas &nbsp;
+                                        </span>
+                                        <span>
+                                            <i class="fas fa-square text-primary"></i> Ingresos &nbsp;
+                                        </span>
                                     </div>
                                 </div>
-                                <!-- /.card -->
                             </div>
                             <!-- /.col -->
                             <div class="col-md-4">
@@ -148,8 +145,9 @@ to get the desired effect
                                 <div class="description-block border-right">
                                     <span class="description-percentage text-warning">
                                         <i class="fas fa-caret-left"></i>
-                                        0%</span>
-                                    <h5 class="description-header">S/. 10,390.90</h5>
+                                        <strong>{{porcentajeComprasMesActual}} %</strong>
+                                    </span>
+                                    <h5 class="description-header">S/. {{montoComprasMesActual}}</h5>
                                     <span class="description-text">EN COMPRAS ESTE MES</span>
                                 </div>
                                 <!-- /.description-block -->
@@ -158,9 +156,10 @@ to get the desired effect
                             <div class="col-sm-3 col-6">
                                 <div class="description-block border-right">
                                     <span class="description-percentage text-success">
-                                        <i class="fas fa-caret-up"></i> 17%
+                                        <i class="fas fa-caret-up"></i>
+                                        <strong>{{porcentajeVentasMesActual}} %</strong>
                                     </span>
-                                    <h5 class="description-header">S/. 35,210.43</h5>
+                                    <h5 class="description-header">S/. {{montoVentasMesActual}}</h5>
                                     <span class="description-text">EN VENTAS ESTE MES</span>
                                 </div>
                                 <!-- /.description-block -->
@@ -169,9 +168,10 @@ to get the desired effect
                             <div class="col-sm-3 col-6">
                                 <div class="description-block border-right">
                                     <span class="description-percentage text-success">
-                                        <i class="fas fa-caret-up"></i> 20%
+                                        <i class="fas fa-caret-up"></i>
+                                        <strong>{{porcentajeIngresosMesActual}} %</strong>
                                     </span>
-                                    <h5 class="description-header">S/. 14,813.53</h5>
+                                    <h5 class="description-header">S/. {{montoIngresosMesActual}}</h5>
                                     <span class="description-text">EN INGRESOS ESTE MES</span>
                                 </div>
                                 <!-- /.description-block -->
@@ -180,9 +180,10 @@ to get the desired effect
                             <div class="col-sm-3 col-6">
                                 <div class="description-block">
                                     <span class="description-percentage text-danger">
-                                        <i class="fas fa-caret-down"></i> 18%
+                                        <i class="fas fa-caret-down"></i>
+                                        <strong>{{porcentajeImpuestosMesActual}} %</strong>
                                     </span>
-                                    <h5 class="description-header">S/. 1,000.54</h5>
+                                    <h5 class="description-header">S/. {{montoImpuestosMesActual}}</h5>
                                     <span class="description-text">EN IMPUESTOS ESTE MES</span>
                                 </div>
                                 <!-- /.description-block -->
@@ -255,18 +256,18 @@ to get the desired effect
                             <div class="card-footer clearfix">
                                 {% comment %} <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place
                                     New Order</a> {% endcomment %}
-                                {% comment %} <a href="javascript:void(0)"
-                                    class="btn btn-sm btn-secondary float-right">View All Orders</a> {% endcomment %}
+                                <a href="javascript:void(0)" class="btn btn-sm btn-primary float-right">Ver todo el
+                                    inventario</a>
                             </div>
                             <!-- /.card-footer -->
                         </div>
                     </div>
                     <!-- /.card -->
                     <div class="col-md-4">
-                        <!-- PRODUCT LIST -->
+                        <!-- COMPRAS LIST -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Últimas boletas de compra</h3>
+                                <h3 class="card-title">Últimas boletas de <strong>compra</strong></h3>
 
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -282,8 +283,8 @@ to get the desired effect
                             <!-- /.card-header -->
                             <div class="card-body p-0">
                                 <ul class="products-list product-list-in-card pl-2 pr-2">
-                                    {% for boleta in tablaBoletas%}
-                                    {% if  forloop.counter <= 10 %}
+                                    {% for boleta in tablaBoletasCompra%}
+                                    {% if  forloop.counter <= maxItemTabla %}
                                     <li class="item">
                                         <div class="product-img">
                                             <img src="{% static 'dist/img/default-150x150.png' %}" alt="Product Image"
@@ -312,8 +313,9 @@ to get the desired effect
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer text-center">
-                                {% comment %} <a href="javascript:void(0)" class="uppercase">View All Products</a>
-                                {% endcomment %}
+                                <a href="javascript:void(0)" class="uppercase">
+                                    Ver todas las compras
+                                </a>
                             </div>
                             <!-- /.card-footer -->
                         </div>
@@ -369,10 +371,10 @@ to get the desired effect
                     </div>
                     <!-- /.card -->
                     <div class="col-md-4">
-                        <!-- PRODUCT LIST -->
+                        <!-- VENTAS RESTAURANTE LIST -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Últimas boletas de venta</h3>
+                                <h3 class="card-title">Últimas boletas de <strong>venta</strong></h3>
 
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -388,26 +390,39 @@ to get the desired effect
                             <!-- /.card-header -->
                             <div class="card-body p-0">
                                 <ul class="products-list product-list-in-card pl-2 pr-2">
+                                    {% for boleta in tablaBoletasVenta%}
+                                    {% if  forloop.counter <= maxItemTabla %}
                                     <li class="item">
                                         <div class="product-img">
                                             <img src="{% static 'dist/img/default-150x150.png' %}" alt="Product Image"
                                                 class="img-size-50">
                                         </div>
                                         <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">N° 105
-                                                <span class="badge badge-success float-right">S/. 2500</span></a>
+                                            <a href="javascript:void(0)" class="product-title">
+                                                N° {{boleta.id_boleta_venta_restaurante}}
+                                                <span class="badge badge-success float-right">
+                                                    S/. {{boleta.precio_total}}
+                                                </span>
+                                            </a>
                                             <span class="product-description">
-                                                # Platos: 10, Cliente: 1
+                                                <strong>Nro. de productos:</strong> {{boleta.nro_productos}}
+                                                <br>
+                                                <strong>Cliente: </strong>Falta setear clientes
+                                                </br>
                                             </span>
                                         </div>
                                     </li>
                                     <!-- /.item -->
+                                    {% endif %}
+                                    {% endfor %}
+
                                 </ul>
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer text-center">
-                                {% comment %} <a href="javascript:void(0)" class="uppercase">View All Products</a>
-                                {% endcomment %}
+                                <a href="javascript:void(0)" class="uppercase">
+                                    Ver todas las ventas
+                                </a>
                             </div>
                             <!-- /.card-footer -->
                         </div>
