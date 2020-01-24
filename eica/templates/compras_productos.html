@@ -130,12 +130,17 @@
                                             <div class="form-group row">
                                                 <label for="inputProveedor"
                                                     class="col-3 col-sm-2 col-form-label"><strong>Proveedor:</strong></label>
-                                                <div class=" col-7 col-sm-9">
+                                                <div id="input_proveedor" class=" col-7 col-sm-9"
+                                                    style="display: none;">
+                                                    <input id="nuevo_proveedor" name="nuevo_proveedor"
+                                                        placeholder="Ingrese nuevo proveedor" type="text"
+                                                        class="form-control" />
+                                                </div>
+                                                <div class=" col-7 col-sm-9" id="seleccionar_proveedor">
                                                     <select class="form-control select2bs4" style="width: 100%;"
                                                         onchange="cargar_proveedor(this.value)" name="id_proveedor">
-                                                        <option value="0">----Agregar Nuevo----</option>
                                                         {% for proveedor in proveedores %}
-                                                        {% if forloop.last %}
+                                                        {% if forloop.first %}
                                                         <option selected="selected" value="{{proveedor.pk}}">
                                                             {{proveedor.nombre}}</option>
                                                         {% else %}
@@ -146,11 +151,13 @@
                                                 </div>
                                                 <div class="col-2 col-sm-1" style="text-align: center">
 
-                                                        <i id="simbolo_agregar"  title="Agregar Nuevo Proveedor" onclick="agregar_nuevo_proveedor(this);return false;" class="fas fa-plus-circle fa-2x"  style="color: #007bff;"></i>
-                                                        {% comment %}
-                                                        <kbd> Agregar Nuevo</kbd>
-                                                        {% endcomment %}
-                                                    
+                                                    <i id="simbolo_agregar" title="Agregar Nuevo Proveedor"
+                                                        onclick="agregar_nuevo_proveedor(this);return false;"
+                                                        class="fas fa-plus-circle fa-2x" style="color: #007bff;"></i>
+                                                    {% comment %}
+                                                    <kbd> Agregar Nuevo</kbd>
+                                                    {% endcomment %}
+
                                                 </div>
                                             </div>
 
@@ -166,12 +173,13 @@
                                                             </span>
                                                         </div>
                                                         <input id="ruc" readonly type="text" class="form-control"
-                                                            data-inputmask='"mask":"9 9999 9999 9"' data-mask />
+                                                            name="ruc" data-inputmask='"mask":"9 9999 9999 9"'
+                                                            data-mask />
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <!-- Correo -->
+                                            <!-- celular -->
                                             <div class="form-group row">
                                                 <label for="inputProveedor" class="col-3 col-sm-2 col-form-label">
                                                     <strong>Celular:</strong>
@@ -184,7 +192,8 @@
                                                             </span>
                                                         </div>
                                                         <input id="celular" readonly type="text" class="form-control"
-                                                            data-inputmask='"mask":"999-999-999"' data-mask />
+                                                            name="celular" data-inputmask='"mask":"999-999-999"'
+                                                            data-mask />
                                                     </div>
                                                 </div>
                                             </div>
@@ -201,7 +210,8 @@
                                                                 <i class="fas fa-envelope"></i>
                                                             </span>
                                                         </div>
-                                                        <input id="correo" readonly type="text" class="form-control" />
+                                                        <input id="correo" placeholder="Ingrese correo" readonly name="correo"
+                                                            type="text" class="form-control" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -620,16 +630,23 @@
     });
 
     function cargar_proveedor(selectedValue) {
-        if (selectedValue != 0) { // selectedValue=0 es cuando se quiere agregar un nuevo proveedor
-            var json_proveedores = JSON.parse('{{ json_proveedores | safe}}');
-            var data_filter = json_proveedores.filter(element => element.pk == selectedValue);
-            $('#ruc')[0].value = data_filter[0].fields.ruc;
-            $('#celular')[0].value = data_filter[0].fields.celular;
-            $('#correo')[0].value = data_filter[0].fields.correo;
-            $('#ruc').attr("readonly", "readonly");
-            $('#celular').attr("readonly", "readonly");
-            $('#correo').attr("readonly", "readonly");
-        } else {
+
+        var json_proveedores = JSON.parse('{{ json_proveedores | safe}}');
+        var data_filter = json_proveedores.filter(element => element.pk == selectedValue);
+        $('#ruc')[0].value = data_filter[0].fields.ruc;
+        $('#celular')[0].value = data_filter[0].fields.celular;
+        $('#correo')[0].value = data_filter[0].fields.correo;
+
+
+    };
+
+    function agregar_nuevo_proveedor(objeto) {
+        if ($("#simbolo_agregar").attr("class") != "fas fa-search fa-2x") {
+            //Agregar Nuevo Proveedor
+            $("#simbolo_agregar").attr("class", "fas fa-search fa-2x");
+            $("#simbolo_agregar").attr("title", "Buscar Proveedores");
+            $("#seleccionar_proveedor").hide();
+            $("#input_proveedor").show();
             $('#ruc')[0].value = '';
             $('#celular')[0].value = '';
             $('#correo')[0].value = '';
@@ -637,17 +654,18 @@
             $('#celular').removeAttr("readonly");
             $('#correo').removeAttr("readonly");
 
-        };
-    };
 
-    function agregar_nuevo_proveedor(objeto){
-        if($("#simbolo_agregar").attr("class") != "fas fa-search fa-2x"){
-            $("#simbolo_agregar").attr("class","fas fa-search fa-2x");
-            $("#simbolo_agregar").attr("title","Buscar Proveedores");
-        }else{
-            $("#simbolo_agregar").attr("class","fas fa-plus-circle fa-2x");
-            $("#simbolo_agregar").attr("title","Agregar Nuevo Proveedor");
-        
+        } else {
+            //Buscar Proveedor
+            $("#simbolo_agregar").attr("class", "fas fa-plus-circle fa-2x");
+            $("#simbolo_agregar").attr("title", "Agregar Nuevo Proveedor");
+            $("#seleccionar_proveedor").show();
+            $("#seleccionar_proveedor").children("select").val(1).change();
+            $("#input_proveedor").hide();
+            $('#ruc').attr("readonly", "readonly");
+            $('#celular').attr("readonly", "readonly");
+            $('#correo').attr("readonly", "readonly");
+
         }
     }
 
@@ -661,16 +679,15 @@
 
 
     };
-
 </script>
 
 <!-- Aqui van todas las inicializaciones-->
 <script>
-$(document).ready(function(){
-   $("#simbolo_agregar").css({"cursor":"pointer"});
-   
-});
+    $(document).ready(function () {
+        $("#simbolo_agregar").css({
+            "cursor": "pointer"
+        });
 
-
+    });
 </script>
 {% endblock pie %}

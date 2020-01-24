@@ -13,6 +13,7 @@ from .models import ProductoPlato
 from .models import PlatoPadre
 from .models import PlatoVenta
 from .models import BoletaVentaRestaurante
+from .models import Proveedor
 
 import datetime
 
@@ -53,10 +54,8 @@ def ventas_restaurante_view(request):
 
         BoletaVentaRestaurante.objects.create(fecha_venta=fecha)
         
-        # print('[ PRINT ]: id_boleta_venta_restaurante: {}'.format(id_boleta_venta_restaurante))
         
-    
-         # Obtener información de los productos
+        # Obtener información de los productos
         for key, value in request.POST.items():
             if "id_producto_padre" in key:   
                 id_producto_padre = int(value)
@@ -117,8 +116,18 @@ def compras_productos_view(request):
         id_proveedor=request.POST.get('id_proveedor') #El proveedor es el mismo para todos
         id_boleta_compra = int(request.POST.get('id_boleta_compra'))
         BoletaCompra.objects.create(fecha_compra=fecha)
+               
+       #Si se envia el parámetro "nuevo_proveedor" significa que se debe crear un nuevo_proveedor:
+        nombre_proveedor = request.POST.get('nuevo_proveedor')
+        print(nombre_proveedor)
+        ruc=int(request.POST.get('ruc').replace(" ",""))
+        celular=int(request.POST.get('celular').replace("-",""))
+        correo=request.POST.get('correo')
         
-        print('[ PRINT ]: id_boleta_compra: {}'.format(id_boleta_compra))
+        if nombre_proveedor != None:
+            Proveedor.objects.create(nombre=nombre_proveedor,ruc=ruc,celular=celular,correo=correo,fecha_creado=fecha,fecha_modificado=fecha)       
+            id_proveedor=Proveedor.objects.get(nombre=nombre_proveedor).pk
+ 
         
         # ProductoHijoCompra.objects.create(id_proveedor=Proveedor.objects.get(pk=id_proveedor),id_boleta_compra=BoletaCompra.objects.get(pk=id_boleta_compra),id_producto_padre=ProductoPadre.objects.get(pk=id_producto_padre_1),precio=precio_1,cantidad=cantidad_1)
         #Obtener información de los productos
