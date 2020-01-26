@@ -212,6 +212,8 @@
             role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+
+            <!-- Resumen general -->
             {% if nombre_vista == 'Dashboard'  %}
             <li class="nav-item has-treeview menu-open">
               {% else  %}
@@ -229,6 +231,7 @@
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
+                  <!-- Submenu -->
                   <li class="nav-item">
                     {% if nombre_vista == 'Dashboard'  %}
                     <a href="../dashboard" class="nav-link active">
@@ -237,6 +240,17 @@
                         {% endif  %}
                         <i class="far fa-circle nav-icon"></i>
                         <p>Resumen general</p>
+                      </a>
+                  </li>
+                  <!-- Submenu -->
+                  <li class="nav-item">
+                    {% if nombre_vista == 'Dashboard | Reporte económico'  %}
+                    <a href="../dashboard/reporte_economico" class="nav-link active">
+                      {% else  %}
+                      <a href="../dashboard/reporte_economico" class="nav-link">
+                        {% endif  %}
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Reporte económico</p>
                       </a>
                   </li>
 

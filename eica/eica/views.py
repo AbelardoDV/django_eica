@@ -19,7 +19,6 @@ import datetime
 
 # -------------------------Inicio Dashboard-------------------------
 
-
 @login_required(login_url='/accounts/login')
 def dashboard_view(request):
     nombre_vista = 'Dashboard'
@@ -48,6 +47,16 @@ def dashboard_view(request):
     maxItemTabla=5
 
     return render(request, 'dashboard.html', locals())
+
+
+
+@login_required(login_url='/accounts/login')
+def dashboard_reporte_economico_view(request):
+    nombre_vista = 'Reporte económico'
+    ruta_vista = ['Dashboard', 'Reporte económico']
+
+
+    return render(request, 'dashboard/reporte_economico.html', locals())
 
 # ---------------------------Fin Dashboard-------------------------
 
@@ -150,9 +159,7 @@ def compras_productos_view(request):
         if nombre_proveedor != None:
             Proveedor.objects.create(nombre=nombre_proveedor,ruc=ruc,celular=celular,correo=correo,fecha_creado=fecha,fecha_modificado=fecha)       
             id_proveedor=Proveedor.objects.get(nombre=nombre_proveedor).pk
- 
-        
-        # ProductoHijoCompra.objects.create(id_proveedor=Proveedor.objects.get(pk=id_proveedor),id_boleta_compra=BoletaCompra.objects.get(pk=id_boleta_compra),id_producto_padre=ProductoPadre.objects.get(pk=id_producto_padre_1),precio=precio_1,cantidad=cantidad_1)
+
         #Obtener información de los productos
         for key, value in request.POST.items():
             if "id_producto_padre" in key:   
