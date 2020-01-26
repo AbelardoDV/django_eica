@@ -188,9 +188,12 @@ def compras_productos_view(request):
 
 @login_required(login_url='/accounts/login')
 def compras_historial_view(request):
+
     nombre_vista = 'Compras Historial'
     ruta_vista = ['Compras Historial']
-    productoHijoCompra = ProductoHijoCompra.objects.all()
+
+    tablaBoletas = ProductoHijoCompra.objects.raw('SELECT MIN(id) AS id,MAX(id_boleta_compra) AS id_boleta_compra, MAX(id_proveedor) AS id_proveedor, SUM(precio) AS precio_total, COUNT(*) AS nro_productos FROM producto_hijo_compra GROUP BY id_boleta_compra ORDER BY id_boleta_compra DESC;')
+
     return render(request, 'compras_historial.html', locals())
 
 
