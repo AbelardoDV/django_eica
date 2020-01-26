@@ -116,8 +116,12 @@ def ventas_bodega_view(request):
 # Historial de Ventas
 @login_required(login_url='/accounts/login')
 def ventas_historial_view(request):
+
     nombre_vista = 'Historial de Ventas'
     ruta_vista = ['Historial de Ventas']
+
+    tablaBoletasVenta = PlatoVenta.objects.raw('SELECT MIN(id) AS id, MAX(id_boleta_venta_restaurante) AS id_boleta_venta_restaurante, SUM(precio_venta) AS precio_total,  COUNT(*) AS nro_productos  FROM plato_venta GROUP BY id_boleta_venta_restaurante ORDER BY id_boleta_venta_restaurante DESC;')
+
     return render(request, 'ventas_historial.html', locals())
 
 # ---------------------------------Fin Seccion Ventas---------------------------------
