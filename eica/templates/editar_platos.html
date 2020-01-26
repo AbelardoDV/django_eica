@@ -97,7 +97,7 @@
                                                         <div class="input-group-prepend ">
                                                             <select class="form-control select2bs4" style="width: 100%;"
                                                                 onchange="cargar_plato(this.value)">
-                                                                {% for plato in platoVenta %}
+                                                                {% for plato in platoHijoVenta %}
                                                                 {% if forloop.last %}
                                                                 <option selected="selected">
                                                                     {{plato.id_plato_padre.nombre}}
@@ -310,12 +310,12 @@
     function cargar_plato(selectedValue) {
 
         // Importamos json files
-        var json_platoVenta = JSON.parse('{{ json_platoVenta | safe}}');
+        var json_platoHijoVenta = JSON.parse('{{ json_platoHijoVenta | safe}}');
         var json_platoPadre = JSON.parse('{{ json_platoPadre | safe}}');
 
         // Extraemos variables
         var plato_seleccionado = json_platoPadre.filter(element => element.fields.nombre == selectedValue);
-        var numero_plato = json_platoVenta.filter(element => element.fields.id_plato_padre == plato_seleccionado[0].pk);
+        var numero_plato = json_platoHijoVenta.filter(element => element.fields.id_plato_padre == plato_seleccionado[0].pk);
         var valor_numero_plato = numero_plato[0].fields.id_plato_padre
 
         // Renderizamos valores 
