@@ -175,7 +175,7 @@ def compras_productos_view(request):
     productoPadre = ProductoPadre.objects.all()
     boletasCompra = BoletaCompra.objects.all()
 
-    # Para mostrar en tabla vamos a usar GROUPBY
+    # Mostrar tabla boletas solo 10 ultimos
     # tutorial sacado de https://stackoverflow.com/a/629600/10491422
     tablaBoletas = ProductoHijoCompra.objects.raw('SELECT MIN(id) AS id,MAX(id_boleta_compra) AS id_boleta_compra, MAX(id_proveedor) AS id_proveedor, SUM(precio) AS precio_total, COUNT(*) AS nro_productos FROM producto_hijo_compra GROUP BY id_boleta_compra ORDER BY id_boleta_compra DESC;')
 
@@ -219,7 +219,6 @@ def editar_plato_view(request):
     json_producto_padre = serializers.serialize("json", productoPadre)  # Usado para autocompletado
     json_producto_hijo = serializers.serialize("json", productoHijoCompra)  # Usado para autocompletado
     json_producto_padre = serializers.serialize("json", productoPadre)  # Usado para autocompletado
-
     return render(request, 'editar_platos.html', locals())
 
 # ---------------------------------Fin Editar---------------------------------
