@@ -41,13 +41,13 @@ class PlatoPadreAdmin(admin.ModelAdmin):
 
 admin.site.register(PlatoPadre, PlatoPadreAdmin)
 
-class PlatoVentaAdmin(admin.ModelAdmin):
+class PlatoHijoVentaAdmin(admin.ModelAdmin):
     list_display = ('id',
                     'precio_venta',
                     'id_plato_padre',
                     'id_boleta_venta_restaurante')
 
-admin.site.register(PlatoVenta, PlatoVentaAdmin)
+admin.site.register(PlatoHijoVenta, PlatoHijoVentaAdmin)
 
 class ProductoHijoCompraAdmin(admin.ModelAdmin):
     list_display = ('id',

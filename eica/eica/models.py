@@ -154,14 +154,14 @@ class PlatoPadre(models.Model):
     def __str__(self):
         return '{}'.format(self.nombre)
 
-class PlatoVenta(models.Model):
+class PlatoHijoVenta(models.Model):
     precio_venta = models.FloatField(blank=True, null=True)
     id_plato_padre = models.ForeignKey(PlatoPadre, models.DO_NOTHING, db_column='id_plato_padre', blank=True, null=True)
     id_boleta_venta_restaurante = models.ForeignKey(BoletaVentaRestaurante, models.DO_NOTHING, db_column='id_boleta_venta_restaurante', blank=True, null=True)
 
     class Meta:
-        managed = False
-        db_table = 'plato_venta'
+        managed = True
+        db_table = 'plato_hijo_venta'
 
     def __str__(self):
         return '{}'.format(self.id)

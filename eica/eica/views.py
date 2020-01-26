@@ -11,7 +11,7 @@ from .models import BoletaCompra
 ###########################################################
 from .models import ProductoPlato
 from .models import PlatoPadre
-from .models import PlatoVenta
+from .models import PlatoHijoVenta
 from .models import BoletaVentaRestaurante
 from .models import Proveedor
 
@@ -42,9 +42,9 @@ def dashboard_view(request):
     # Para mostrar en tabla vamos a usar GROUPBY
     # tutorial sacado de https://stackoverflow.com/a/629600/10491422
     tablaBoletasCompra = ProductoHijoCompra.objects.raw('SELECT MIN(id) AS id,MAX(id_boleta_compra) AS id_boleta_compra, MAX(id_proveedor) AS id_proveedor, SUM(precio) AS precio_total, COUNT(*) AS nro_productos FROM producto_hijo_compra GROUP BY id_boleta_compra ORDER BY id_boleta_compra DESC;')
-    tablaBoletasVenta = PlatoVenta.objects.raw('SELECT MIN(id) AS id, MAX(id_boleta_venta_restaurante) AS id_boleta_venta_restaurante, SUM(precio_venta) AS precio_total,  COUNT(*) AS nro_productos  FROM plato_venta GROUP BY id_boleta_venta_restaurante ORDER BY id_boleta_venta_restaurante DESC;')
+    tablaBoletasVenta = PlatoHijoVenta.objects.raw('SELECT MIN(id) AS id, MAX(id_boleta_venta_restaurante) AS id_boleta_venta_restaurante, SUM(precio_venta) AS precio_total,  COUNT(*) AS nro_productos  FROM plato_hijo_venta GROUP BY id_boleta_venta_restaurante ORDER BY id_boleta_venta_restaurante DESC;')
     # sumaBoletasVentasMes=
-    # sumaBoletasComprasMes=PlatoVenta.objects.raw('SELECT MIN(id) AS id, MAX(id_boleta_venta_restaurante) AS id_boleta_venta_restaurante, SUM(precio_venta) AS precio_total,  COUNT(*) AS nro_productos  FROM plato_venta GROUP BY id_boleta_venta_restaurante ORDER BY id_boleta_venta_restaurante DESC;')
+    # sumaBoletasComprasMes=PlatoHijoVenta.objects.raw('SELECT MIN(id) AS id, MAX(id_boleta_venta_restaurante) AS id_boleta_venta_restaurante, SUM(precio_venta) AS precio_total,  COUNT(*) AS nro_productos  FROM plato_hijo_venta GROUP BY id_boleta_venta_restaurante ORDER BY id_boleta_venta_restaurante DESC;')
     maxItemTabla=5
 
     return render(request, 'dashboard.html', locals())
@@ -89,18 +89,18 @@ def ventas_restaurante_view(request):
     
     productoPlato=ProductoPlato.objects.all()
     platoPadre=PlatoPadre.objects.all()
-    platoVenta=PlatoVenta.objects.all()
+    platoHijoVenta=PlatoHijoVenta.objects.all()
     boletaVentaRestaurante=BoletaVentaRestaurante.objects.all()
     productoPadre = ProductoPadre.objects.all()
     
     # Para mostrar en tabla vamos a usar GROUPBY
     # tutorial sacado de https://stackoverflow.com/a/629600/10491422
-    tablaBoletasVenta = PlatoVenta.objects.raw('SELECT MIN(id) AS id, MAX(id_boleta_venta_restaurante) AS id_boleta_venta_restaurante, SUM(precio_venta) AS precio_total,  COUNT(*) AS nro_productos  FROM plato_venta GROUP BY id_boleta_venta_restaurante ORDER BY id_boleta_venta_restaurante DESC;')
+    tablaBoletasVenta = PlatoHijoVenta.objects.raw('SELECT MIN(id) AS id, MAX(id_boleta_venta_restaurante) AS id_boleta_venta_restaurante, SUM(precio_venta) AS precio_total,  COUNT(*) AS nro_productos  FROM plato_hijo_venta GROUP BY id_boleta_venta_restaurante ORDER BY id_boleta_venta_restaurante DESC;')
 
 
     json_productoPlato = serializers.serialize("json", productoPlato)  # Usado para autocompletado
     json_platoPadre = serializers.serialize("json", platoPadre)  # Usado para autocompletado
-    json_platoVenta = serializers.serialize("json", platoVenta)  # Usado para autocompletado
+    json_platoHijoVenta = serializers.serialize("json", platoHijoVenta)  # Usado para autocompletado
     json_boletaVentaRestaurante = serializers.serialize("json", boletaVentaRestaurante)  # Usado para autocompletado
     json_productoPadre = serializers.serialize("json", productoPadre)  # Usado para autocompletado
 
@@ -120,7 +120,7 @@ def ventas_historial_view(request):
     nombre_vista = 'Historial de Ventas'
     ruta_vista = ['Historial de Ventas']
 
-    tablaBoletasVenta = PlatoVenta.objects.raw('SELECT MIN(id) AS id, MAX(id_boleta_venta_restaurante) AS id_boleta_venta_restaurante, SUM(precio_venta) AS precio_total,  COUNT(*) AS nro_productos  FROM plato_venta GROUP BY id_boleta_venta_restaurante ORDER BY id_boleta_venta_restaurante DESC;')
+    tablaBoletasVenta = PlatoHijoVenta.objects.raw('SELECT MIN(id) AS id, MAX(id_boleta_venta_restaurante) AS id_boleta_venta_restaurante, SUM(precio_venta) AS precio_total,  COUNT(*) AS nro_productos  FROM plato_hijo_venta GROUP BY id_boleta_venta_restaurante ORDER BY id_boleta_venta_restaurante DESC;')
 
     return render(request, 'ventas_historial.html', locals())
 
@@ -208,13 +208,13 @@ def editar_plato_view(request):
     nombre_vista = 'Editar platos'
     ruta_vista = ['Editar platos']
     
-    platoVenta=PlatoVenta.objects.all()
+    platoHijoVenta=PlatoHijoVenta.objects.all()
     platoPadre=PlatoPadre.objects.all()
     productoPadre = ProductoPadre.objects.all()
     productoHijoCompra = ProductoHijoCompra.objects.all()
     productoPadre = ProductoPadre.objects.all()
     
-    json_platoVenta = serializers.serialize("json", platoVenta)  # Usado para autocompletado
+    json_platoHijoVenta = serializers.serialize("json", PlatoHijoVenta)  # Usado para autocompletado
     json_platoPadre = serializers.serialize("json", platoPadre)  # Usado para autocompletado
     json_producto_padre = serializers.serialize("json", productoPadre)  # Usado para autocompletado
     json_producto_hijo = serializers.serialize("json", productoHijoCompra)  # Usado para autocompletado
