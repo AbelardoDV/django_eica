@@ -407,7 +407,7 @@
                                         <tr>
                                             <th>Boleta</th>
                                             <th>Comentarios</th>
-                                            <th>Fecha compra</th>
+                                            <th>Fecha compra (D/M/Y)</th>
                                             <th>Proveedor</th>
                                             <th>Nro. de productos</th>
                                             <th>Total (S/.)</th>
@@ -425,10 +425,10 @@
                                                 <a href="#">N° {{boleta.id_boleta_compra}}</a>
                                             </td>
                                             <td>
-                                                {{boleta.id_boleta_compra.comentario}}
+                                                {{boleta.id_boleta_compra.comentario |default_if_none:"- - - -"}}
                                             </td>
                                             <td>
-                                                {{boleta.id_boleta_compra.fecha_compra}}
+                                                {{boleta.id_boleta_compra.fecha_compra | date:"d/m/yy"}}
                                             </td>
                                             <td>
                                                 {{boleta.id_proveedor.nombre}}
