@@ -29,7 +29,7 @@ def dashboard_view(request):
     cantidadPlatosMes=900
     porcentajeRespectoMesAnterior=112.5
 
-    porcentajeComprasMesActual=17
+    porcentajeComprasMesActual=18
     montoComprasMesActual=10390.50
     porcentajeVentasMesActual=17
     montoVentasMesActual=35215.48
