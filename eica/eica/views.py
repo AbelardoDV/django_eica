@@ -186,6 +186,7 @@ def compras_productos_view(request):
 def compras_historial_view(request):
     nombre_vista = 'Compras Historial'
     ruta_vista = ['Compras Historial']
+    productoHijoCompra = ProductoHijoCompra.objects.all()
     return render(request, 'compras_historial.html', locals())
 
 
