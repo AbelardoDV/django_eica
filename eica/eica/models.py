@@ -3,7 +3,7 @@
 #   * Rearrange models' order
 #   * Make sure each model has one field with primary_key=True
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
-#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+#   * Remove `managed = True` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
@@ -81,7 +81,7 @@ class BoletaCompra(models.Model):
     fecha_modifcado = models.DateTimeField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'boleta_compra'
         
     def __str__(self):
@@ -94,7 +94,7 @@ class BoletaVentaRestaurante(models.Model):
     fecha_modificado = models.DateTimeField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'boleta_venta_restaurante'
 
     def __str__(self):
@@ -148,7 +148,7 @@ class PlatoPadre(models.Model):
     nombre = models.CharField(max_length=500)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'plato_padre'
 
     def __str__(self):
@@ -174,7 +174,7 @@ class ProductoHijoCompra(models.Model):
     id_producto_padre = models.ForeignKey('ProductoPadre', models.DO_NOTHING, db_column='id_producto_padre', blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'producto_hijo_compra'
 
     def __str__(self):
@@ -188,7 +188,7 @@ class ProductoHijoVenta(models.Model):
     id_producto_padre = models.ForeignKey('ProductoPadre', models.DO_NOTHING, db_column='id_producto_padre', blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'producto_hijo_venta'
 
     def __str__(self):
@@ -200,7 +200,7 @@ class ProductoPadre(models.Model):
     unidad = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'producto_padre'
 
     def __str__(self):
@@ -212,7 +212,7 @@ class ProductoPlato(models.Model):
     id_plato_padre = models.ForeignKey(PlatoPadre, models.DO_NOTHING, db_column='id_plato_padre', blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'producto_plato'
 
     def __str__(self):
@@ -227,7 +227,7 @@ class Proveedor(models.Model):
     fecha_modificado = models.DateTimeField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'proveedor'
 
     def __str__(self):
@@ -238,7 +238,7 @@ class VentaBodega(models.Model):
     comentario = models.CharField(max_length=500, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'venta_bodega'
 
     def __str__(self):
