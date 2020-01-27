@@ -91,20 +91,14 @@
                 <div class="row invoice-info">
                   <div class="col invoice-col">
                     <address>
+
                       <!-- Cliente -->
                       <div class="form-group row">
                         <label for="inputCliente" class="col-3 col-sm-2 col-form-label">
                           <strong>Cliente:</strong>
                         </label>
                         <div class="col-7 col-sm-9">
-                          <select class="form-control select2bs4" style="width: 100%;"
-                            onchange="cargar_cliente(this.value)">
-                            {% comment %}
-                            {% for proveedor in proveedores %}
-                            <option>{{proveedor.nombre}}</option>
-                            {% endfor %}
-                            {% endcomment %}
-                          </select>
+                          <input id="cliente" type="text" class="form-control" />
                         </div>
                         <div class="col-2 col-sm-1" style="text-align: center">
                           <i id="simbolo_agregar" class="fas fa-plus-circle fa-2x" style="color: #007bff;"></i>
@@ -114,24 +108,21 @@
 
                       <!-- Tipo de cliente -->
                       <div class="form-group row">
-                        <label for="inputTipo" class="col-3 col-sm-2 col-form-label">
+                        <label for="inputCliente" class="col-3 col-sm-2 col-form-label">
                           <strong>Tipo:</strong>
                         </label>
                         <div class="col-9 col-sm-10">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">
-                                <i class="far fa-building"></i>
-                              </span>
-                            </div>
-                            <input id="tipoCliente" readonly="readonly" type="text" class="form-control"
-                              data-inputmask='"mask":"9 9999 9999 9"' data-mask />
-                          </div>
+                          <select class="form-control" style="width: 100%;">
+                            <option>Al contado</option>
+                            <option>Pensión empresarial</option>
+                            <option>Personal</option>
+                          </select>
                         </div>
                       </div>
 
                       <!-- DNI -->
-                      <div class="form-group row">
+
+                      {% comment %} <div class="form-group row">
                         <label for="inputDNI" class="col-3 col-sm-2 col-form-label">
                           <strong>DNI:</strong>
                         </label>
@@ -146,10 +137,11 @@
                               data-inputmask='"mask":"9 9999 9999 9"' data-mask />
                           </div>
                         </div>
-                      </div>
+                      </div> {% endcomment %}
 
                       <!-- Correo -->
-                      <div class="form-group row">
+                      
+                      {% comment %} <div class="form-group row">
                         <label for="inputProveedor" class="col-3 col-sm-2 col-form-label">
                           <strong>Celular:</strong>
                         </label>
@@ -164,10 +156,11 @@
                               data-inputmask='"mask":"999-999-999"' data-mask />
                           </div>
                         </div>
-                      </div>
+                      </div> {% endcomment %}
 
                       <!-- Celular -->
-                      <div class="form-group row">
+
+                      {% comment %} <div class="form-group row">
                         <label for="inputProveedor" class="col-3 col-sm-2 col-form-label">
                           <strong>Correo:</strong>
                         </label>
@@ -181,7 +174,7 @@
                             <input id="correo" readonly="readonly" type="text" class="form-control" />
                           </div>
                         </div>
-                      </div>
+                      </div> {% endcomment %}
 
                       <!-- Comentarios -->
                       <div class="form-group row">
