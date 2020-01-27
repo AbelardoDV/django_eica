@@ -32,7 +32,7 @@
                 <div class="card col-lg-8">
                     <div class="card-header ">
                         <h4 class="card-title">
-                            <strong>AGREGAR | ELIMINAR | EDITAR platos</strong>
+                            <strong>AGREGAR | ELIMINAR | EDITAR - - - PLATOS</strong>
                         </h4>
 
                         <div class="card-tools">
@@ -58,25 +58,7 @@
                         <form id="myForm" action="#" method="POST">
                             <!-- Grupo 1 formulario -->
                             <div class="invoice p-3 mb-3">
-                                <!-- title row -->
-                                <div class="row">
-                                    <div class="col-xs-2">
-                                        <h5>
-                                            <i class="fas fa-utensils">
-                                            </i>
-                                            Plato N°
-                                        </h5>
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <input id="numero_plato_input" readonly class="form-control">
-                                    </div>
-                                    <!-- /.col -->
-                                </div>
-                                <!-- info row -->
 
-                                <div class="container">
-                                    <p></p>
-                                </div>
                                 <!-- info row -->
 
                                 <div class="row invoice-info">
@@ -97,13 +79,13 @@
                                                         <div class="input-group-prepend ">
                                                             <select class="form-control select2bs4" style="width: 100%;"
                                                                 onchange="cargar_plato(this.value)">
-                                                                {% for plato in platoHijoVenta %}
+                                                                {% for plato in platoPadre %}
                                                                 {% if forloop.last %}
-                                                                <option selected="selected">
-                                                                    {{plato.id_plato_padre.nombre}}
+                                                                <option selected="selected" value={{plato.id}}>
+                                                                    {{plato.nombre}}
                                                                 </option>
                                                                 {% else %}
-                                                                <option>{{plato.id_plato_padre.nombre}}</option>
+                                                                <option value={{plato.id}}> {{plato.nombre}}</option>
                                                                 {% endif %}
                                                                 {% endfor %}
                                                             </select>
@@ -309,20 +291,10 @@
 
     function cargar_plato(selectedValue) {
 
-        // Importamos json files
-        var json_platoHijoVenta = JSON.parse('{{ json_platoHijoVenta | safe}}');
         var json_platoPadre = JSON.parse('{{ json_platoPadre | safe}}');
+        var plato_seleccionado = json_platoPadre.filter(element => element.fields.pk == selectedValue);
 
-        // Extraemos variables
-        var plato_seleccionado = json_platoPadre.filter(element => element.fields.nombre == selectedValue);
-        var numero_plato = json_platoHijoVenta.filter(element => element.fields.id_plato_padre == plato_seleccionado[0].pk);
-        var valor_numero_plato = numero_plato[0].fields.id_plato_padre
-
-        // Renderizamos valores 
-        $('#numero_plato_input')[0].value = valor_numero_plato;
-
-        // Agregando productos a la lista
-        
+s      
 
 
     };
@@ -365,7 +337,6 @@
                 }
                 i++;
             });
-            console.log($("#myForm").serializeToJSON());
         })
     });
 </script>
