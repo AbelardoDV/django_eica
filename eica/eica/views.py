@@ -215,11 +215,13 @@ def editar_plato_view(request):
     nombre_vista = 'Editar platos'
     ruta_vista = ['Editar platos']
     
-    platoPadre = PlatoPadre.objects.all()
-    productoPlato = ProductoPlato.objects.all()
+    platoPadre = PlatoPadre.objects.all() # PlatoPadre has many Producto Plato
+    productoPlato = ProductoPlato.objects.all() #ProductoPadre has many has many ProductoPlato
     productoPadre = ProductoPadre.objects.all()
     
     json_platoPadre = serializers.serialize("json", platoPadre)  
+    json_productoPlato= serializers.serialize("json", productoPlato)  
+    json_productoPadre= serializers.serialize("json", productoPadre)  
   
     return render(request, 'editar_platos.html', locals())
 

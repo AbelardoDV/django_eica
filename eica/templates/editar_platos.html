@@ -292,19 +292,23 @@
     function cargar_plato(selectedValue) {
 
         var json_platoPadre = JSON.parse('{{ json_platoPadre | safe}}');
+        var json_productoPlato= JSON.parse('{{ json_productoPlato | safe}}');
         var plato_seleccionado = json_platoPadre.filter(element => element.fields.pk == selectedValue);
 
-s      
+        var productosPlato = json_productoPlato.filter(p => p.fields.id_plato_padre == selectedValue);
+        console.log(producto)
 
-
+        console.log()
     };
 
     function cargar_producto(selectedValue) {
 
-        var json_producto_hijo = JSON.parse('{{  json_producto_hijo | safe }}');
         var json_producto_padre = JSON.parse('{{  json_producto_padre | safe }}');
 
         var json_producto_padre_filtrado = json_producto_padre.filter(p => p.fields.nombre == selectedValue);
+
+
+   
 
         $('#unidad')[0].value = json_producto_padre_filtrado[0].fields.unidad;
     };
