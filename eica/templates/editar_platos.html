@@ -18,6 +18,8 @@
 <!-- Tempus Dominus Bootstrap 4 -->
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+<!-- iCheck for checkboxes and radio inputs -->
+<link rel="stylesheet" href="{% static '/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
 
 {% endblock cabecera %}
 
@@ -104,37 +106,87 @@
                                 <!-- Table row -->
                                 <div class="row">
                                     <div class="col-12 table-responsive">
+                                        Productos que conforman el plato:
                                         <table class="table table-striped" data-name="my_table">
                                             <thead>
                                                 <tr>
                                                     <th>Producto</th>
                                                     <th>Cantidad</th>
                                                     <th>Unidad</th>
-                                                    <th>Acción</th>
+                                                    <th>Elimiar</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="tabla_compras">
+
+                                            <tbody id="tabla_existe_producto">
+                                                <tr id="fila_existe_1">
+                                                    <td>
+                                                        <input readonly="readonly" type="text" class="form-control"
+                                                            name="Producto_existe" value="Nombre Producto">
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" step="00.01" placeholder='00.00'
+                                                            value='00.00' min="0" class="form-control"
+                                                            name="Cantidad_existe_1">
+                                                    </td>
+                                                    <td>
+                                                        <input readonly="readonly" type="text" class="form-control"
+                                                            id="Unidad_existe_1">
+                                                    </td>
+
+                                                    <td>
+                                                        <div class="icheck-danger d-inline">
+                                                            <input type="checkbox" checked id="checkboxDanger1">
+                                                            <label for="checkboxDanger1">
+                                                            </label>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                        Agregar productos al plato:
+                                        <table class="table table-striped" data-name="my_table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Producto</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Unidad</th>
+                                                    <th>Elimiar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tabla_agregar_producto">
                                                 <tr id="fila_1">
                                                     <td>
                                                         <select class="form-control select2bs4" style="width: 100%;"
-                                                            onchange="cargar_producto(this.value)" name="default">
+                                                            onchange="cargar_producto(this.value,this.name)"
+                                                            name="id_producto_padre_1">
                                                             {% for producto in productoPadre %}
-                                                            <option>{{producto.nombre}}</option>
+                                                            {% if forloop.last %}
+                                                            <option selected="selected" value="{{producto.pk}}">
+                                                                {{producto.nombre}}</option>
+                                                            {% else %}
+                                                            <option value="{{producto.pk}}">{{producto.nombre}}</option>
+                                                            {% endif %}
                                                             {% endfor %}
+
+                                                        </select>
                                                     </td>
                                                     <td>
-                                                        <input type="number" step="1" placeholder='0' value='0' min="0"
-                                                            class="form-control" name="default">
+                                                        <input type="number" step="00.01" placeholder='00.00'
+                                                            value='00.00' min="0" class="form-control"
+                                                            name="Cantidad_1">
                                                     </td>
                                                     <td>
-                                                        <input id="unidad" readonly="readonly" type="text"
-                                                            class="form-control" name="default">
+                                                        <input readonly="readonly" type="text" class="form-control"
+                                                            id="Unidad_1">
                                                     </td>
+
                                                     <td>
-                                                        <a class="btn btn-danger btn-sm" href="#"
-                                                            onclick="deleteRow(this)">
+                                                        <a class="btn btn-danger btn-sm" href=""
+                                                            onclick="deleteRow(this); return false;">
                                                             <i class="fas fa-trash"> </i>
-                                                            Borrar
+
                                                         </a>
                                                     </td>
 
@@ -142,7 +194,8 @@
 
                                             </tbody>
                                         </table>
-                                        <div class="text-center"><a id="agregar_fila" href="javascript:void(0);">
+                                        <div class="text-center"><a id="agregar_fila"
+                                                href="javascript:void(0);return false;">
                                                 Agregar fila
                                                 <i class="fas fa-plus-circle fa-lg"></i> </a> </div>
                                     </div>
@@ -218,41 +271,62 @@
 
 <!-- Script to add new row  and delete-->
 <script type="text/javascript">
+    /* ADD ROW ON CLICK - Para nuevo Producto en Plato*/
+    $('#agregar_fila').click(function () {
+        addRowNuevoProducto();
+        return false;
+    });
+
     /* ADD ROW*/
     var cantidad_rows = 1;
-    $('#agregar_fila').click(function () {
 
-        /* Se cpñ*/
-        var tablita = $('#tabla_compras')[0];
+    function addRowNuevoProducto() {
+        var tablita = $('#tabla_agregar_producto')[0];
         var rowCount = tablita.rows.length;
-
         objeto_primera_fila = $('#fila_1')
         primera_fila = objeto_primera_fila[0];
 
         objeto_primera_fila.children(":first").children("select").select2("destroy");
 
-        copia_primera_fila = primera_fila.cloneNode(true);
-
+        copia_primera_fila = objeto_primera_fila.clone(true, true)[0];
 
         objeto_primera_fila.children(":first").children("select").select2({
             theme: "bootstrap4"
         });
 
         copia_primera_fila.id = "fila_" + (cantidad_rows + 1);
+        copia_primera_fila.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (
+            cantidad_rows + 1));
+        copia_primera_fila.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (cantidad_rows + 1));
+        copia_primera_fila.childNodes[5].childNodes[1].setAttribute("id", "Unidad_" + (cantidad_rows + 1));
 
 
         cantidad_rows++;
+
         tablita.append(copia_primera_fila);
 
         $('#fila_' + cantidad_rows).children(":first").children("select").select2({
             theme: "bootstrap4"
         });
+        /*Actualizar Ids de las filas*/
+        var tablita = $('#tabla_agregar_producto')[0];
+        var rowCount = tablita.rows.length;
+        for (var i = 0; i < rowCount; i++) {
 
-    });
+            var row = tablita.rows[i];
+            row.id = "fila_" + (i + 1);
+            row.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (i + 1));
+            row.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (i + 1));
+            row.childNodes[5].childNodes[1].setAttribute("id", "Unidad_" + (i + 1));
+
+
+        };
+
+    };
     /* DELETE ROW*/
     function deleteRow(currentRow) {
         try {
-            var tablita = $('#tabla_compras')[0];
+            var tablita = $('#tabla_agregar_producto')[0];
             var rowCount = tablita.rows.length;
             for (var i = 0; i < rowCount; i++) {
                 var row = tablita.rows[i];
@@ -271,78 +345,117 @@
                     tablita.deleteRow(i);
                     rowCount--;
                     i--;
+
                 }
             }
+            /*Actualizar Ids de las filas*/
+            for (var i = 0; i < rowCount; i++) {
+                var row = tablita.rows[i];
+                row.id = "fila_" + (i + 1);
+                row.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (i + 1));
+                row.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (i + 1));
+                row.childNodes[5].childNodes[1].setAttribute("id", "Unidad_" + (i + 1));
+
+
+            };
         } catch (e) {
             alert(e);
         }
-        //getValues();
-    }
+
+    };
+
+    /*ADD ROW para Productos existentes dentro de Plato*/
+    var cantidad_rows = 1;
+
+    function addRowExisteProducto(productoPadre,productoPlato) {
+        var tablita = $('#tabla_existe_producto')[0];
+        var rowCount = tablita.rows.length;
+        objeto_primera_fila = $('#fila_existe_1')
+        primera_fila = objeto_primera_fila[0];
+
+        objeto_primera_fila.children(":first").children("select").select2("destroy");
+
+        copia_primera_fila = objeto_primera_fila.clone(true, true)[0];
+
+        objeto_primera_fila.children(":first").children("select").select2({
+            theme: "bootstrap4"
+        });
+
+        copia_primera_fila.id = "fila_" + (cantidad_rows + 1);
+        copia_primera_fila.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (cantidad_rows + 1));
+        copia_primera_fila.childNodes[1].childNodes[1].setAttribute("value",productoPadre.fields.nombre);
+        copia_primera_fila.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_existe_" + (cantidad_rows + 1));
+        copia_primera_fila.childNodes[3].childNodes[1].setAttribute("value",productoPlato.fields.cantidad);
+        copia_primera_fila.childNodes[5].childNodes[1].setAttribute("id", "Unidad_existe_" + (cantidad_rows + 1));
+        copia_primera_fila.childNodes[5].childNodes[1].setAttribute("value",productoPadre.fields.unidad);
+        
+
+        cantidad_rows++;
+
+        tablita.append(copia_primera_fila);
+
+        $('#fila_' + cantidad_rows).children(":first").children("select").select2({
+            theme: "bootstrap4"
+        });
+        /*Actualizar Ids de las filas*/
+        var tablita = $('#tabla_agregar_producto')[0];
+        var rowCount = tablita.rows.length;
+        for (var i = 0; i < rowCount; i++) {
+
+            var row = tablita.rows[i];
+            row.id = "fila_" + (i + 1);
+            row.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (i + 1));
+            row.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (i + 1));
+            row.childNodes[5].childNodes[1].setAttribute("id", "Unidad_" + (i + 1));
+
+
+        };
+
+    };
 </script>
 <!-- Script to load data when proveedor is selected  -->
 <script type="text/javascript">
-    $(document).ready(function () {
-        //var json_proveedores = JSON.parse('{{ json_proveedores | safe}}');
-        //var data_filter = json_proveedores.filter(element => element.pk == 1);
-        //$('#ruc')[0].value = data_filter[0].fields.ruc;
-        //$('#celular')[0].value = data_filter[0].fields.celular;
-        //$('#correo')[0].value = data_filter[0].fields.correo;
-    });
-
     function cargar_plato(selectedValue) {
 
+        console.log('valor seleccionado ' + selectedValue);
         var json_platoPadre = JSON.parse('{{ json_platoPadre | safe}}');
-        var json_productoPlato= JSON.parse('{{ json_productoPlato | safe}}');
-        var plato_seleccionado = json_platoPadre.filter(element => element.fields.pk == selectedValue);
+        var json_productoPlato = JSON.parse('{{ json_productoPlato | safe}}');
+        var json_productoPadre = JSON.parse('{{json_productoPadre | safe}}');
 
-        var productosPlato = json_productoPlato.filter(p => p.fields.id_plato_padre == selectedValue);
-        console.log(producto)
+        var platoSeleccionado = json_platoPadre.filter(element => element.pk == selectedValue);
+        var productosPlato = json_productoPlato.filter(p => p.fields.id_plato_padre ==
+            selectedValue); //Productos que conforman el plato
 
-        console.log()
+        for (i in productosPlato) {
+            console.log(json_productoPadre.filter(p => p.pk == productosPlato[i].fields.id_producto_padre)[0].fields
+                .nombre); //Contiene los nombre de los Productos
+
+
+        };
+        /*Borrar productos mostrados del plato anterior*/
+       
+        $("#tabla_existe_producto").remove();
+
+
+        /* Mostrar los productos que tiene el plato*/
+        var producto;
+        for (i in productosPlato) {
+            producto = json_productoPadre.filter(p => p.pk == productosPlato[i].fields.id_producto_padre)[0]
+            addRowExisteProducto(producto,productosPlato[i]);
+        };
+
     };
 
-    function cargar_producto(selectedValue) {
-
-        var json_producto_padre = JSON.parse('{{  json_producto_padre | safe }}');
-
-        var json_producto_padre_filtrado = json_producto_padre.filter(p => p.fields.nombre == selectedValue);
+    function cargar_producto(selectedValue, name) {
 
 
-   
+        var json_producto_padre = JSON.parse('{{  json_productoPadre | safe }}');
+        var json_producto_padre_filtrado = json_producto_padre.filter(p => p.pk == selectedValue);
 
-        $('#unidad')[0].value = json_producto_padre_filtrado[0].fields.unidad;
+        $('#Unidad_' + (name.slice(-1)))[0].value = json_producto_padre_filtrado[0].fields.unidad;
+
+
     };
-
-    $(function () {
-        $("#btnGuardar").on("click", function () {
-
-            var i = 0;
-            var columnas = 3;
-            var num_fila = 0;
-
-            $('.form-control').each(function () {
-                if (i == 0) {
-                    //nothing id
-                } else if (i == 1) {
-                    // nothing
-                } else if (i == 2) {
-                    $(this).attr('name', "nombre_plato");
-                } else {
-                    if (i % columnas == 0) {
-                        $(this).attr('name', "productos[" + num_fila + "].producto");
-                    }
-                    if (i % columnas == 1) {
-                        $(this).attr('name', "productos[" + num_fila + "].cantidad");
-                    }
-                    if (i % columnas == 2) {
-                        $(this).attr('name', "productos[" + num_fila + "].unidad");
-                        num_fila++;
-                    }
-                }
-                i++;
-            });
-        })
-    });
 </script>
 
 {% endblock pie %}
