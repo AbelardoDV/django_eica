@@ -21,6 +21,7 @@ import datetime
 
 @login_required(login_url='/accounts/login')
 def dashboard_view(request):
+    
     nombre_vista = 'Dashboard'
     ruta_vista = ['Dashboard']
 
@@ -52,7 +53,8 @@ def dashboard_view(request):
 
 @login_required(login_url='/accounts/login')
 def dashboard_reporte_economico_view(request):
-    nombre_vista = 'Reporte económico'
+
+    nombre_vista = 'Dashboard | Reporte económico'
     ruta_vista = ['Dashboard', 'Reporte económico']
 
 

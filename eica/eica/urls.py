@@ -40,6 +40,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
 
     # -----------------Inicio Dashboard --------------------------
+    path('dashboard/', dashboard_view, name='dashboard'),
     path('dashboard/reporte_economico', dashboard_reporte_economico_view, name='reporte_economico'),
 
     # -----------------Fin Dashboard --------------------------
