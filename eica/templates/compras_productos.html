@@ -573,9 +573,7 @@
             var rowCount = tablita.rows.length;
             for (var i = 0; i < rowCount; i++) {
                 var row = tablita.rows[i];
-                /*var chkbox = row.cells[0].childNodes[0];*/
-                /*if (null != chkbox && true == chkbox.checked)*/
-
+               
                 if (row == currentRow.parentNode.parentNode) {
                     tablita.deleteRow(i);
                     rowCount--;
