@@ -653,7 +653,7 @@
         $('#agregar_fila').click(function () {
 
             var tablita = $('#tabla_compras')[0];
-            var rowCount = tablita.rows.length;         
+            var rowCount = tablita.rows.length;
 
 
             objeto_copia_primera_fila = objetos_globales.fila_original.clone(true, true);
@@ -681,8 +681,9 @@
             /*Actualizar Ids de las filas*/
             var tablita = $('#tabla_compras')[0];
             var rowCount = tablita.rows.length;
+
             for (var i = 0; i < rowCount; i++) {
-            
+
                 var row = tablita.rows[i];
                 row.id = "fila_" + (i + 1);
                 row.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (i + 1));
@@ -698,7 +699,7 @@
 
         /*Hallar el monto total de la boleta*/
         $('.precio').on('change', function () {
-            
+
             var total = 0.0;
             $('.precio').each(function () {
                 var $this = $(this);
