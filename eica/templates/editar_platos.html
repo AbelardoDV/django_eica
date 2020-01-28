@@ -113,7 +113,7 @@
                                                     <th>Producto</th>
                                                     <th>Cantidad</th>
                                                     <th>Unidad</th>
-                                                    <th>Elimiar</th>
+                                                    <th>Eliminar</th>
                                                 </tr>
                                             </thead>
 
@@ -152,7 +152,7 @@
                                                     <th>Producto</th>
                                                     <th>Cantidad</th>
                                                     <th>Unidad</th>
-                                                    <th>Elimiar</th>
+                                                    <th>Eliminar</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="tabla_agregar_producto">
@@ -255,22 +255,20 @@
 <!-- Page script -->
 <script type="text/javascript">
     $(function () {
-        //Initialize Select2 Elements
-        $(".select2").select2({});
 
-        //Initialize Select2 Elements
-        $(".select2bs4").select2({
-            theme: "bootstrap4"
-        });
-
-        //Add here more functions
 
 
     });
 </script>
 
-<!-- Script to add new row  and delete-->
 <script type="text/javascript">
+    //------------------------------------------OUTSIDE DOCUMENT.READY---------------------------------------
+
+
+    /*COPIA DE LA PRIMERA FILA*/
+    var objetos_globales = {};
+
+
     /* ADD ROW ON CLICK - Para nuevo Producto en Plato*/
     $('#agregar_fila').click(function () {
         addRowNuevoProducto();
@@ -281,19 +279,16 @@
     var cantidad_rows = 1;
 
     function addRowNuevoProducto() {
+
         var tablita = $('#tabla_agregar_producto')[0];
         var rowCount = tablita.rows.length;
-        objeto_primera_fila = $('#fila_1')
-        primera_fila = objeto_primera_fila[0];
 
-        objeto_primera_fila.children(":first").children("select").select2("destroy");
 
-        copia_primera_fila = objeto_primera_fila.clone(true, true)[0];
-
-        objeto_primera_fila.children(":first").children("select").select2({
+        objeto_copia_primera_fila = objetos_globales.fila_original.clone(true, true);
+        objeto_copia_primera_fila.children(":first").children("select").select2({
             theme: "bootstrap4"
         });
-
+        copia_primera_fila = objeto_copia_primera_fila[0];
         copia_primera_fila.id = "fila_" + (cantidad_rows + 1);
         copia_primera_fila.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (
             cantidad_rows + 1));
@@ -334,14 +329,7 @@
                 /*if (null != chkbox && true == chkbox.checked)*/
 
                 if (row == currentRow.parentNode.parentNode) {
-                    if (rowCount <= 1) {
-                        alert("No se pueden borrar todas las filas!");
-                        break;
-                    }
-                    if (i == 0) {
-                        alert("No se puede borrar la primera fila!");
-                        break;
-                    }
+
                     tablita.deleteRow(i);
                     rowCount--;
                     i--;
@@ -364,57 +352,52 @@
 
     };
 
+
     /*ADD ROW para Productos existentes dentro de Plato*/
-    var cantidad_rows = 1;
+    var cantidad_rows = 0;
 
-    function addRowExisteProducto(productoPadre,productoPlato) {
+    function addRowExisteProducto(productoPadre, productoPlato) {
+
         var tablita = $('#tabla_existe_producto')[0];
-        var rowCount = tablita.rows.length;
-        objeto_primera_fila = $('#fila_existe_1')
-        primera_fila = objeto_primera_fila[0];
 
-        objeto_primera_fila.children(":first").children("select").select2("destroy");
 
-        copia_primera_fila = objeto_primera_fila.clone(true, true)[0];
+        objeto_copia_primera_fila = objetos_globales.fila_existe_original.clone(true, true);
 
-        objeto_primera_fila.children(":first").children("select").select2({
-            theme: "bootstrap4"
-        });
+        copia_primera_fila = objeto_copia_primera_fila[0];
 
-        copia_primera_fila.id = "fila_" + (cantidad_rows + 1);
+
+        copia_primera_fila.id = "fila_existe_" + (cantidad_rows + 1);
         copia_primera_fila.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (cantidad_rows + 1));
-        copia_primera_fila.childNodes[1].childNodes[1].setAttribute("value",productoPadre.fields.nombre);
+        copia_primera_fila.childNodes[1].childNodes[1].setAttribute("value", productoPadre.fields.nombre);
         copia_primera_fila.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_existe_" + (cantidad_rows + 1));
-        copia_primera_fila.childNodes[3].childNodes[1].setAttribute("value",productoPlato.fields.cantidad);
+        copia_primera_fila.childNodes[3].childNodes[1].setAttribute("value", productoPlato.fields.cantidad);
         copia_primera_fila.childNodes[5].childNodes[1].setAttribute("id", "Unidad_existe_" + (cantidad_rows + 1));
-        copia_primera_fila.childNodes[5].childNodes[1].setAttribute("value",productoPadre.fields.unidad);
-        
+        copia_primera_fila.childNodes[5].childNodes[1].setAttribute("value", productoPadre.fields.unidad);
+
 
         cantidad_rows++;
 
         tablita.append(copia_primera_fila);
 
-        $('#fila_' + cantidad_rows).children(":first").children("select").select2({
+        $('#fila_existe_' + cantidad_rows).children(":first").children("select").select2({
             theme: "bootstrap4"
         });
         /*Actualizar Ids de las filas*/
-        var tablita = $('#tabla_agregar_producto')[0];
+        var tablita = $('#tabla_existe_producto')[0];
         var rowCount = tablita.rows.length;
         for (var i = 0; i < rowCount; i++) {
 
             var row = tablita.rows[i];
-            row.id = "fila_" + (i + 1);
+            row.id = "fila_existe_" + (i + 1);
             row.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (i + 1));
-            row.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (i + 1));
-            row.childNodes[5].childNodes[1].setAttribute("id", "Unidad_" + (i + 1));
+            row.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_existe_" + (i + 1));
+            row.childNodes[5].childNodes[1].setAttribute("id", "Unidad_existe_" + (i + 1));
 
 
         };
 
     };
-</script>
-<!-- Script to load data when proveedor is selected  -->
-<script type="text/javascript">
+
     function cargar_plato(selectedValue) {
 
         console.log('valor seleccionado ' + selectedValue);
@@ -426,25 +409,24 @@
         var productosPlato = json_productoPlato.filter(p => p.fields.id_plato_padre ==
             selectedValue); //Productos que conforman el plato
 
-        for (i in productosPlato) {
-            console.log(json_productoPadre.filter(p => p.pk == productosPlato[i].fields.id_producto_padre)[0].fields
-                .nombre); //Contiene los nombre de los Productos
 
-
-        };
-        /*Borrar productos mostrados del plato anterior*/
-       
-        $("#tabla_existe_producto").remove();
+        //   $("#tabla_existe_producto").remove();
 
 
         /* Mostrar los productos que tiene el plato*/
+        while ($('#tabla_existe_producto')[0].rows.length) {
+            $('#tabla_existe_producto')[0].deleteRow(0);
+        }
         var producto;
         for (i in productosPlato) {
-            producto = json_productoPadre.filter(p => p.pk == productosPlato[i].fields.id_producto_padre)[0]
-            addRowExisteProducto(producto,productosPlato[i]);
+            producto = json_productoPadre.filter(p => p.pk == productosPlato[i].fields.id_producto_padre)[
+                0];
+            addRowExisteProducto(producto, productosPlato[i]);
         };
 
     };
+
+
 
     function cargar_producto(selectedValue, name) {
 
@@ -456,6 +438,35 @@
 
 
     };
+    //------------------------------------------INDISE DOCUMENT.READY---------------------------------------
+
+
+    $(document).ready(function () {
+
+        //Initialize Select2 Elements
+        $(".select2").select2({});
+
+        //Initialize Select2 Elements
+        $(".select2bs4").select2({
+            theme: "bootstrap4"
+        });
+
+        /*COPIA DE LA PRIMERA FILA DE PRODUCTOS EXISTENTES*/
+        objeto_primera_fila = $('#fila_existe_1');
+        copy_primera_fila = objeto_primera_fila.clone(true, true);
+        objetos_globales.fila_existe_original = copy_primera_fila;
+
+
+        /*COPIA DE LA PRIMERA FILA DE PRODUCTOS NUEVOS*/
+        objeto_primera_fila = $('#fila_1');
+        objeto_primera_fila.children(":first").children("select").select2("destroy");
+        copy_primera_fila = objeto_primera_fila.clone(true, true);
+        objetos_globales.fila_original = copy_primera_fila;
+        objeto_primera_fila.children(":first").children("select").select2({
+            theme: "bootstrap4"
+        });
+
+    });
 </script>
 
 {% endblock pie %}
