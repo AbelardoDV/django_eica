@@ -206,7 +206,7 @@
                           <th>Acción</th>
                         </tr>
                       </thead>
-                      <tbody id="tabla_compras">
+                      <tbody id="tabla_ventas">
                         <tr id="fila_1">
                           <td>
                             <select class="form-control select2bs4" style="width: 100%;"
@@ -222,19 +222,19 @@
                           </td>
                           <td>
                             <input type="number" step="1" placeholder='0' value='0' min="0"
-                              onclick="obtener_importe(this.value)" class="form-control" name="Cantidad_1">
+                              class="form-control cantidad" name="Cantidad_1">
                           </td>
                           <td>
-                            <input readonly="readonly" type="text" class="form-control" id="PrecioUnitario_1"
-                              placeholder='0'>
+                            <input type="number" class="form-control precio_unitario" step="00.01" placeholder='00.00'
+                              value='00.0' min="0" name=" PrecioUnitario_1">
                           </td>
                           <td>
-                            <input id="Importe_1" type="number" readonly="readonly" class="form-control importe"
-                              name=" Importe_1" placeholder='0'>
+                            <input type="number" readonly class="form-control" step="00.01" placeholder='00.00'
+                              value='00.0' min="0" name="Importe_1">
                           </td>
                           <td>
                             <a class="btn btn-danger btn-sm" href="" onclick="deleteRow(this);return false;">
-                              <i class="fas fa-trash"></i>
+                              <i class="fas fa-trash"> </i>
                               Borrar
                             </a>
                           </td>
@@ -268,7 +268,7 @@
                       código qr
                       </p>
                     </div> 
-                  -->
+                    -->
 
                   <!-- /.col -->
                   <div class="col-6">
@@ -468,9 +468,58 @@
 
 <!-- Add here more js -->
 
-<!-- Page script -->
+<!-- Script to add new row  and delete-->
 <script type="text/javascript">
+  var objetos_globales = {};
+  /* DELETE ROW*/
+  function deleteRow(currentRow) {
+    try {
+      var tabla = $('#tabla_ventas')[0];
+      var rowCount = tabla.rows.length;
+      for (var i = 0; i < rowCount; i++) {
+        var row = tabla.rows[i];
+        /*var chkbox = row.cells[0].childNodes[0];*/
+        /*if (null != chkbox && true == chkbox.checked)*/
+
+        if (row == currentRow.parentNode.parentNode) {
+          tabla.deleteRow(i);
+          rowCount--;
+          i--;
+
+        }
+      }
+      /*Actualizar Ids de las filas*/
+      for (var i = 0; i < rowCount; i++) {
+        var row = tabla.rows[i];
+        row.id = "fila_" + (i + 1);
+        row.childNodes[1].childNodes[1].setAttribute("name", "id_plato_padre_" + (i + 1));
+        row.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (i + 1));
+        row.childNodes[5].childNodes[1].setAttribute("name", "PrecioUnitario_" + (i + 1));
+        row.childNodes[7].childNodes[1].setAttribute("name", "Importe_" + (i + 1));
+
+      };
+    } catch (e) {
+      alert(e);
+    }
+
+  };
+
+
+  function cargar_plato(selectedValue, name) {
+    // Nada
+  };
+
   $(function () {
+    $("#btnGuardar").on("click", function () {
+      //falta
+    })
+  });
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+
     //Initialize Select2 Elements
     $(".select2").select2({});
 
@@ -488,125 +537,73 @@
     //Date mask
     $("[data-mask]").inputmask();
 
-    //Add here more functions
+    /* Add row */
 
+    var cantidad_rows = 1;
+    $('#agregar_fila').click(function () {
 
+      var tabla = $('#tabla_ventas')[0];
+      var rowCount = tabla.rows.length;
+
+      objeto_plantilla_fila = objetos_globales.fila_plantilla.clone(true, true);
+      objeto_plantilla_fila.children(":first").children("select").select2({
+        theme: "bootstrap4"
+      });
+      copia_fila = objeto_plantilla_fila[0];
+      copia_fila.id = 'fila_' + (cantidad_rows + 1);
+
+      copia_fila.childNodes[1].childNodes[1].setAttribute("name", "id_plato_padre_" + (cantidad_rows + 1));
+      copia_fila.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (cantidad_rows + 1));
+      copia_fila.childNodes[5].childNodes[1].setAttribute("name", "PrecioUnitario_" + (cantidad_rows + 1));
+      copia_fila.childNodes[7].childNodes[1].setAttribute("name", "Importe_" + (cantidad_rows + 1));
+
+      cantidad_rows++;
+      tabla.append(copia_fila);
+
+      $('#fila_' + cantidad_rows).children(":first").children("select").select2({
+        theme: "bootstrap4"
+      });
+      /*Actualizar Ids de las filas*/
+      var tabla = $('#tabla_ventas')[0];
+      var rowCount = tabla.rows.length;
+
+      for (var i = 0; i < rowCount; i++) {
+
+        var row = tabla.rows[i];
+        row.id = "fila_" + (i + 1);
+        row.childNodes[1].childNodes[1].setAttribute("name", "id_plato_padre_" + (i + 1));
+        row.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (i + 1));
+        row.childNodes[5].childNodes[1].setAttribute("name", "PrecioUnitario_" + (i + 1));
+        row.childNodes[7].childNodes[1].setAttribute("name", "Importe_" + (i + 1));
+
+      };
+    });
+
+    /*Hallar el monto total de la boleta*/
+
+    $('.importe').on('change', function () {
+      console.log('Se ha cambiado el importe');
+      var total = 0.0;
+      $('.importe').each(function () {
+        var $this = $(this);
+        var importe = parseFloat($this.val());
+        total += importe;
+      })
+      total = total.toFixed(2);
+      $('.total_importe').text(total);
+    });
+    $('.importe').trigger('change');
+
+    /* COPIAR FILA PLANTILLA */
+    objeto_plantilla_fila = $('#fila_1');
+    objeto_plantilla_fila.children(":first").children("select").select2("destroy");
+    copia_primera_fila = objeto_plantilla_fila.clone(true, true);
+    objetos_globales.fila_plantilla = copia_primera_fila;
+    objeto_plantilla_fila.children(":first").children("select").select2({
+      theme: 'bootstrap4'
+    });
   });
 </script>
 
-<!-- Script to add new row  and delete-->
-<script type="text/javascript">
-  /* ADD ROW*/
-  var cantidad_rows = 1;
-  $('#agregar_fila').click(function () {
-
-    // xd
-
-  });
-  /* DELETE ROW*/
-  function deleteRow(currentRow) {
-    //xd
-  }
-
-  /*Hallar el monto total de la boleta*/
-  $('.importe_parcial').on('click', function () {
-    console.log('Se ha cambiado el importe_parcial');
-    var total = 0.0;
-    $('.importe_parcial').each(function () {
-      var $this = $(this);
-      var price = parseFloat($this.val());
-      total += price;
-
-    })
-    total = total.toFixed(2);
-    $('.total_importe').text(total);
-
-  });
-  $('.importe_parcial').trigger('change');
-</script>
-<!-- Script to load data when proveedor is selected  -->
-<script type="text/javascript">
-  $(document).ready(function () {
-    //var json_proveedores = JSON.parse('{{ json_proveedores | safe}}');
-    //var data_filter = json_proveedores.filter(element => element.pk == 1);
-    //$('#ruc')[0].value = data_filter[0].fields.ruc;
-    //$('#celular')[0].value = data_filter[0].fields.celular;
-    //$('#correo')[0].value = data_filter[0].fields.correo;
-  });
-
-  function cargar_cliente(selectedValue) {
-    //var json_proveedores = JSON.parse('{{ json_proveedores | safe}}');
-    //var data_filter = json_proveedores.filter(element => element.fields.nombre == selectedValue);
-    //$('#ruc')[0].value = data_filter[0].fields.ruc;
-    //$('#celular')[0].value = data_filter[0].fields.celular;
-    //$('#correo')[0].value = data_filter[0].fields.correo;
-  };
-
-  function cargar_plato(selectedValue, name) {
-
-
-    var json_platoHijoVenta = JSON.parse('{{ json_platoHijoVenta | safe }}');
-    var json_platoPadre = JSON.parse('{{ json_platoPadre | safe }}');
-
-
-    //var plato_seleccionado = json_platoPadre.filter(array => array.pk == selectedValue);
-
-    //var precio_venta = json_platoHijoVenta.filter(array=>array.fields.id_plato_padre==plato_seleccionado[0].pk)
-    //console.log(precio_venta);
-
-
-
-
-  };
-
-  function obtener_importe(selectedValue) {
-
-    precio_unitario = $('#precio_unitario')[0].value;
-
-    $('#importe')[0].value = precio_unitario * selectedValue;
-
-  };
-
-
-  $(function () {
-    $("#btnGuardar").on("click", function () {
-
-      //var i = 0;
-      //var columnas = 4;
-      //var num_fila = 0;
-      //$('.form-control').each(function () {
-      //  if (i == 0) {
-      //    // nothing
-      //  } else if (i == 1) {
-      //    $(this).attr('name', "fecha");
-      //  } else if (i == 2) {
-      //    $(this).attr('name', "cliente");
-      //  } else if (i == 3) {
-      //    $(this).attr('name', "dni");
-      //  } else if (i == 4) {
-      //    $(this).attr('name', "celular");
-      //  } else if (i == 5) {
-      //    $(this).attr('name', "correo");
-      //  } else {
-      //    if (i % columnas == 2) {
-      //      $(this).attr('name', "productos[" + num_fila + "].producto");
-      //    }
-      //    if (i % columnas == 3) {
-      //      $(this).attr('name', "productos[" + num_fila + "].cantidad");
-      //    }
-      //    if (i % columnas == 0) {
-      //      $(this).attr('name', "productos[" + num_fila + "].precio_unitario");
-      //    }
-      //    if (i % columnas == 1) {
-      //      $(this).attr('name', "productos[" + num_fila + "].importe");
-      //      num_fila++;
-      //    }
-      //  }
-      //  i++;
-      //});
-      //console.log($("#myForm").serializeToJSON());
-    })
-  });
-</script>
 
 {% endblock pie %}
