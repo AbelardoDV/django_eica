@@ -1,4 +1,4 @@
-{%load static%}
+{% load static %}
 
 <!-- cabecera , contenido , pie-->
 <!DOCTYPE html>
@@ -6,7 +6,7 @@
 
 <head>
 
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!-- Título de la página  -->
   <title>EICA | {{nombre_vista}}</title>
@@ -214,12 +214,12 @@
                with font-awesome or any other icon font library -->
 
             <!-- Resumen general -->
-            {% if nombre_vista == 'Dashboard'  %}
+            {% if nombre_vista == 'Dashboard' or nombre_vista == 'Dashboard | Reporte económico' %}
             <li class="nav-item has-treeview menu-open">
               {% else  %}
             <li class="nav-item has-treeview">
               {% endif  %}
-              {% if nombre_vista == 'Dashboard'  %}
+              {% if nombre_vista == 'Dashboard' or nombre_vista == 'Dashboard | Reporte económico'  %}
               <a href="#" class="nav-link active">
                 {% else  %}
                 <a href="#" class="nav-link">
@@ -234,9 +234,9 @@
                   <!-- Submenu -->
                   <li class="nav-item">
                     {% if nombre_vista == 'Dashboard'  %}
-                    <a href="../dashboard" class="nav-link active">
+                    <a href="../dashboard/" class="nav-link active">
                       {% else  %}
-                      <a href="../dashboard" class="nav-link">
+                      <a href="../dashboard/" class="nav-link">
                         {% endif  %}
                         <i class="far fa-circle nav-icon"></i>
                         <p>Resumen general</p>
