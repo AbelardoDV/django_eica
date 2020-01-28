@@ -26,3 +26,5 @@ sudo apt-get install postgresql-11 pgadmin4
 
 # Debian 10 screenshotter
 https://itsfoss.com/flameshot/
+
+# Pgmodeler
