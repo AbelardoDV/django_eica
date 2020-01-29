@@ -718,7 +718,7 @@
 
 
         /*Hallar el monto total de la boleta*/
-        $('.precio').on('change', function () {
+        $('.precio').on('keyup change paste', function () {
 
             var total = 0.0;
             $('.precio').each(function () {
