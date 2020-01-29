@@ -20,11 +20,14 @@ ban = ['django_session',
 class BoletaCompraAdmin(admin.ModelAdmin):
     list_display = ('id',
                     'comentario',
+                    'id_proveedor',
                     'fecha_compra',
                     'fecha_creado',
                     'fecha_modifcado')
 
+
 admin.site.register(BoletaCompra, BoletaCompraAdmin)
+
 
 class BoletaVentaRestauranteAdmin(admin.ModelAdmin):
     list_display = ('id',
@@ -34,13 +37,17 @@ class BoletaVentaRestauranteAdmin(admin.ModelAdmin):
                     'fecha_creado',
                     'fecha_modificado')
 
+
 admin.site.register(BoletaVentaRestaurante, BoletaVentaRestauranteAdmin)
+
 
 class PlatoPadreAdmin(admin.ModelAdmin):
     list_display = ('id',
                     'nombre')
 
+
 admin.site.register(PlatoPadre, PlatoPadreAdmin)
+
 
 class PlatoHijoVentaAdmin(admin.ModelAdmin):
     list_display = ('id',
@@ -49,17 +56,20 @@ class PlatoHijoVentaAdmin(admin.ModelAdmin):
                     'id_plato_padre',
                     'id_boleta_venta_restaurante')
 
+
 admin.site.register(PlatoHijoVenta, PlatoHijoVentaAdmin)
+
 
 class ProductoHijoCompraAdmin(admin.ModelAdmin):
     list_display = ('id',
                     'precio',
-                    'id_proveedor',
                     'cantidad',
                     'id_boleta_compra',
                     'id_producto_padre')
 
+
 admin.site.register(ProductoHijoCompra, ProductoHijoCompraAdmin)
+
 
 class ProductoHijoVentaAdmin(admin.ModelAdmin):
     list_display = ('id',
@@ -69,13 +79,16 @@ class ProductoHijoVentaAdmin(admin.ModelAdmin):
                     'id_producto_padre',
                     'cliente_name')
 
+
 admin.site.register(ProductoHijoVenta, ProductoHijoVentaAdmin)
+
 
 class ProductoPadreAdmin(admin.ModelAdmin):
     list_display = ('nombre',
                     'descripcion',
                     'unidad')
-    
+
+
 admin.site.register(ProductoPadre, ProductoPadreAdmin)
 
 
@@ -85,7 +98,9 @@ class ProductoPlatoAdmin(admin.ModelAdmin):
                     'id_producto_padre',
                     'id_plato_padre')
 
+
 admin.site.register(ProductoPlato, ProductoPlatoAdmin)
+
 
 class ProveedorAdmin(admin.ModelAdmin):
     list_display = ('id',
@@ -96,11 +111,14 @@ class ProveedorAdmin(admin.ModelAdmin):
                     'fecha_creado',
                     'fecha_modificado')
 
+
 admin.site.register(Proveedor, ProveedorAdmin)
+
 
 class VentaBodegaAdmin(admin.ModelAdmin):
     list_display = ('id',
                     'comentario')
+
 
 admin.site.register(VentaBodega, VentaBodegaAdmin)
 

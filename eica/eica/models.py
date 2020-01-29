@@ -76,6 +76,8 @@ class AuthUserUserPermissions(models.Model):
 
 class BoletaCompra(models.Model):
     comentario = models.CharField(max_length=500, blank=True, null=True)
+    id_proveedor = models.ForeignKey('Proveedor', models.DO_NOTHING, db_column='id_proveedor', blank=True, null=True)
+    responsable = models.CharField(max_length=30, blank=True, null=True)
     fecha_compra = models.DateTimeField(blank=True, null=True)
     fecha_creado = models.DateTimeField(blank=True, null=True)
     fecha_modifcado = models.DateTimeField(blank=True, null=True)
@@ -171,7 +173,6 @@ class PlatoHijoVenta(models.Model):
 class ProductoHijoCompra(models.Model):
     precio = models.FloatField()
     cantidad = models.FloatField(blank=True, null=True)
-    id_proveedor = models.ForeignKey('Proveedor', models.DO_NOTHING, db_column='id_proveedor', blank=True, null=True)
     id_boleta_compra = models.ForeignKey(BoletaCompra, models.DO_NOTHING, db_column='id_boleta_compra', blank=True, null=True)
     id_producto_padre = models.ForeignKey('ProductoPadre', models.DO_NOTHING, db_column='id_producto_padre', blank=True, null=True)
 

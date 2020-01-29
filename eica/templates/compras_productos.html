@@ -420,11 +420,11 @@
                                     <thead>
                                         <tr>
                                             <th>Boleta</th>
-                                            <th>Comentarios</th>
-                                            <th>Fecha compra (D/M/Y)</th>
+                                            <th>Comentarios</th>                                            
                                             <th>Proveedor</th>
                                             <th>Nro. de productos</th>
                                             <th>Total (S/.)</th>
+                                            <th>Fecha compra (D/M/Y)</th>
                                             {% comment %}
                                             <th>Fecha</th>
                                             {% endcomment %}
@@ -441,17 +441,18 @@
                                             <td>
                                                 {{boleta.id_boleta_compra.comentario |default_if_none:"- - - -"}}
                                             </td>
+                                           
                                             <td>
-                                                {{boleta.id_boleta_compra.fecha_compra | date:"d/m/yy"}}
-                                            </td>
-                                            <td>
-                                                {{boleta.id_proveedor.nombre}}
+                                                {{boleta.id_boleta_compra.id_proveedor.nombre}}
                                             </td>
                                             <td>
                                                 {{boleta.nro_productos}}
                                             </td>
                                             <td>
                                                 S/. {{boleta.precio_total}}
+                                            </td>
+                                             <td>
+                                                {{boleta.id_boleta_compra.fecha_compra | date:"d/m/yy"}}
                                             </td>
                                             {% comment %}
                                             <td>{{producto.id_boleta_compra.fecha_compra}}</td>
