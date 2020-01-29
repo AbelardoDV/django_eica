@@ -228,7 +228,21 @@
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            <!-- Responsable -->
+                                            <div class="form-group row">
+                                                <label for="inputProveedor" class="col-3 col-sm-2 col-form-label">
+                                                    <strong>Responsable:</strong>
+                                                </label>
+                                                <div class="col-9 col-sm-10">
+                                                    <div class="input-group">                                                      
+                                                        <select class="form-control select2bs4" style="width: 100%;"
+                                                            name="responsable">
+                                                            <option selected="selected">Teodoro</option>
+                                                            <option>Susana</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <!-- Comentarios -->
                                             <div class="form-group row">
                                                 <label for="inputComentarios" class="col-3 col-sm-2 col-form-label">
@@ -573,7 +587,7 @@
             var rowCount = tablita.rows.length;
             for (var i = 0; i < rowCount; i++) {
                 var row = tablita.rows[i];
-               
+
                 if (row == currentRow.parentNode.parentNode) {
                     tablita.deleteRow(i);
                     rowCount--;
@@ -607,7 +621,7 @@
             $('#ruc')[0].value = '';
             $('#celular')[0].value = '';
             $('#correo')[0].value = '';
-            $('#nuevo_proveedor')[0].value='';
+            $('#nuevo_proveedor')[0].value = '';
             $('#ruc').removeAttr("readonly");
             $('#celular').removeAttr("readonly");
             $('#correo').removeAttr("readonly");
@@ -618,7 +632,7 @@
             $('#ruc')[0].value = '';
             $('#celular')[0].value = '';
             $('#correo')[0].value = '';
-            $('#nuevo_proveedor')[0].value='';
+            $('#nuevo_proveedor')[0].value = '';
             $("#simbolo_agregar").attr("class", "fas fa-plus-circle fa-2x");
             $("#simbolo_agregar").attr("title", "Agregar Nuevo Proveedor");
             $("#seleccionar_proveedor").show();
@@ -682,7 +696,7 @@
                 theme: "bootstrap4"
             });
             $('#fila_' + cantidad_rows).children(":first").children("select").change();
-            
+
             /*Actualizar Ids de las filas*/
             var tablita = $('#tabla_compras')[0];
             var rowCount = tablita.rows.length;
