@@ -228,15 +228,15 @@
                           </td>
                           <td>
                             <input type="number" step="1" placeholder='0' value='0' min="0"
-                              class="form-control cantidad" name="Cantidad_1">
+                              class="auto-calc cantidad form-control" name="Cantidad_1">
                           </td>
                           <td>
-                            <input type="number" class="form-control precio_unitario" step="00.01" placeholder='00.00'
-                              value='00.0' min="0" name=" Precio_unitario_1">
+                            <input type="number" class="auto-calc precio_unitario form-control" step="00.01"
+                              placeholder='00.00' value='00.0' min="0" name=" Precio_unitario_1">
                           </td>
                           <td>
-                            <input type="number" readonly class="form-control" step="00.01" placeholder='00.00'
-                              value='00.0' min="0" name="Importe_1">
+                            <input type="number" readonly class="importe form-control" step="00.01" placeholder='00.00'
+                              value='00.0' min="0" data-in="" name="Importe_1">
                           </td>
                           <td>
                             <a class="btn btn-danger btn-sm" href="" onclick="deleteRow(this);return false;">
@@ -282,14 +282,10 @@
 
                     <div class="table-responsive">
                       <table class="table">
-                        <!-- <tr>
-                        <th>Shipping:</th>
-                        <td>$5.80</td>
-                        </tr> -->
                         <tr>
                         <tr>
                           <th style="width:50%">Total:</th>
-                          <td class="total_importe">0</td>
+                          <td id="importe_total">0</td>
                         </tr>
                         </tr>
                       </table>
@@ -521,6 +517,37 @@
       //falta
     })
   });
+
+
+  // Add event trigger to inputs with class auto-calc
+  $(document).on("keyup change paste", "td > input.auto-calc", function () {
+
+    // Determine parent row
+    row = $(this).closest("tr");
+
+    // Get first and second input values
+    first = row.find("td input.cantidad").val();
+    second = row.find("td input.precio_unitario").val();
+
+    // Print input values to output cell
+    row.find(".importe").val(first * second);
+
+
+    // Update total invoice value
+    var sum = 0;
+    // Cycle through each input with class total-cost
+    $("input.importe").each(function () {
+      // Add value to sum
+      sum += +$(this).val();
+    });
+
+    // Assign sum to text of #total-invoice
+    // Using the id here as there is only one of these
+    $("#importe_total").text(sum);
+
+
+  });
+
 </script>
 
 
@@ -586,20 +613,10 @@
       };
     });
 
+
     /*Hallar el monto total de la boleta*/
 
-    $('.importe').on('change', function () {
-      console.log('Se ha cambiado el importe');
-      var total = 0.0;
-      $('.importe').each(function () {
-        var $this = $(this);
-        var importe = parseFloat($this.val());
-        total += importe;
-      })
-      total = total.toFixed(2);
-      $('.total_importe').text(total);
-    });
-    $('.importe').trigger('change');
+
 
     /* COPIAR FILA PLANTILLA */
     objeto_plantilla_fila = $('#fila_1');
