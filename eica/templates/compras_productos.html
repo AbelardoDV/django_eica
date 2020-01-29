@@ -607,6 +607,7 @@
             $('#ruc')[0].value = '';
             $('#celular')[0].value = '';
             $('#correo')[0].value = '';
+            $('#nuevo_proveedor')[0].value='';
             $('#ruc').removeAttr("readonly");
             $('#celular').removeAttr("readonly");
             $('#correo').removeAttr("readonly");
@@ -614,6 +615,10 @@
 
         } else {
             //Buscar Proveedor
+            $('#ruc')[0].value = '';
+            $('#celular')[0].value = '';
+            $('#correo')[0].value = '';
+            $('#nuevo_proveedor')[0].value='';
             $("#simbolo_agregar").attr("class", "fas fa-plus-circle fa-2x");
             $("#simbolo_agregar").attr("title", "Agregar Nuevo Proveedor");
             $("#seleccionar_proveedor").show();

@@ -165,7 +165,7 @@ def compras_productos_view(request):
         celular=int(request.POST.get('celular').replace("-",""))
         correo=request.POST.get('correo')
         
-        if nombre_proveedor != None:
+        if not(nombre_proveedor == None or nombre_proveedor == ''):
             Proveedor.objects.create(nombre=nombre_proveedor,ruc=ruc,celular=celular,correo=correo,fecha_creado=fecha,fecha_modificado=fecha)       
             id_proveedor=Proveedor.objects.get(nombre=nombre_proveedor).pk
 
