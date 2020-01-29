@@ -21,7 +21,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title"><strong>Historial de boletas de venta</strong></h3>
+                        <h3 class="card-title"><strong>Historial de boletas de compra</strong></h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -29,58 +29,62 @@
                             <thead>
                                 <tr>
                                     <th>Boleta</th>
-                                    <th>Comentarios</th>
-                                    <th>Fecha compra (D/M/Y)</th>
+                                    <th>Responsable</th>
                                     <th>Proveedor</th>
                                     <th>Nro. de productos</th>
                                     <th>Total (S/.)</th>
+                                    <th>Comentarios</th>
+                                    <th>Fecha compra (D/M/Y)</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for boleta in tablaBoletas %}
-                                        {% if  forloop.counter <= 1000 %}
-                                        <tr>
-                                            <td>
-                                                <a href="#">N° {{boleta.id_boleta_compra}}</a>
-                                            </td>
-                                            <td>
-                                                {{boleta.id_boleta_compra.comentario |default_if_none:"- - - -"}}
-                                            </td>
-                                            <td>
-                                                {{boleta.id_boleta_compra.fecha_compra | date:"d/m/yy"}}
-                                            </td>
-                                            <td>
-                                                {{boleta.id_proveedor.nombre}}
-                                            </td>
-                                            <td>
-                                                {{boleta.nro_productos}}
-                                            </td>
-                                            <td>
-                                                S/. {{boleta.precio_total}}
-                                            </td>
-                                            {% comment %}
-                                            <td>{{producto.id_boleta_compra.fecha_compra}}</td>
-                                            {% endcomment %}
-                                            {% comment %}
-                                            <td class="project-actions text-right">
-                                                <a class="btn btn-primary btn-sm" href="">
-                                                    <i class="fas fa-folder"> </i>
-                                                    View
-                                                </a>
-                                                <a class="btn btn-info btn-sm" href="">
-                                                    <i class="fas fa-pencil-alt"> </i>
-                                                    Edit
-                                                </a>
-                                                <a class="btn btn-danger btn-sm" href="">
-                                                    <i class="fas fa-trash"> </i>
-                                                    Delete
-                                                </a>
-                                            </td>
-                                            {% endcomment %}
+                                {% if  forloop.counter <= 1000 %}
+                                <tr>
+                                    <td>
+                                        <a href="#">N° {{boleta.id_boleta_compra}}</a>
+                                    </td>
+                                    <td>
+                                        {{boleta.id_boleta_compra.responsable}}
+                                    </td>
+                                    <td>
+                                        {{boleta.id_boleta_compra.id_proveedor.nombre}}
+                                    </td>
+                                    <td>
+                                        {{boleta.nro_productos}}
+                                    </td>
+                                    <td>
+                                        S/. {{boleta.precio_total}}
+                                    </td>
+                                    <td>
+                                        {{boleta.id_boleta_compra.comentario |default_if_none:"- - - -"}}
+                                    </td>
+                                    <td>
+                                        {{boleta.id_boleta_compra.fecha_compra | date:"d/m/yy"}}
+                                    </td>
+                                    {% comment %}
+                                    <td>{{producto.id_boleta_compra.fecha_compra}}</td>
+                                    {% endcomment %}
+                                    {% comment %}
+                                    <td class="project-actions text-right">
+                                        <a class="btn btn-primary btn-sm" href="">
+                                            <i class="fas fa-folder"> </i>
+                                            View
+                                        </a>
+                                        <a class="btn btn-info btn-sm" href="">
+                                            <i class="fas fa-pencil-alt"> </i>
+                                            Edit
+                                        </a>
+                                        <a class="btn btn-danger btn-sm" href="">
+                                            <i class="fas fa-trash"> </i>
+                                            Delete
+                                        </a>
+                                    </td>
+                                    {% endcomment %}
 
-                                        </tr>
-                                        {% endif %}
-                                        {% endfor %}
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
                             </tbody>
                             <tfoot>
                                 <tr>

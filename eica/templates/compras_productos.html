@@ -186,7 +186,7 @@
                                                             </span>
                                                         </div>
                                                         <input id="ruc" readonly type="text" class="form-control"
-                                                            name="ruc" data-inputmask='"mask":"9 9999 9999 9"'
+                                                            name="ruc" data-inputmask='"mask":"9 9999 9999 99"'
                                                             data-mask />
                                                     </div>
                                                 </div>
@@ -234,7 +234,7 @@
                                                     <strong>Responsable:</strong>
                                                 </label>
                                                 <div class="col-9 col-sm-10">
-                                                    <div class="input-group">                                                      
+                                                    <div class="input-group">
                                                         <select class="form-control select2bs4" style="width: 100%;"
                                                             name="responsable">
                                                             <option selected="selected">Teodoro</option>
@@ -420,11 +420,15 @@
                                     <thead>
                                         <tr>
                                             <th>Boleta</th>
-                                            <th>Comentarios</th>                                            
+                                            <th>Responsable</th>
                                             <th>Proveedor</th>
                                             <th>Nro. de productos</th>
                                             <th>Total (S/.)</th>
+                                            <th>Comentarios</th>
                                             <th>Fecha compra (D/M/Y)</th>
+                                            <th>Fecha creado (D/M/Y)</th>
+                                            <th>Fecha modificado (D/M/Y)</th>
+                                            <th>Válido</th>
                                             {% comment %}
                                             <th>Fecha</th>
                                             {% endcomment %}
@@ -439,9 +443,8 @@
                                                 <a href="#">N° {{boleta.id_boleta_compra}}</a>
                                             </td>
                                             <td>
-                                                {{boleta.id_boleta_compra.comentario |default_if_none:"- - - -"}}
+                                                {{boleta.id_boleta_compra.responsable}}
                                             </td>
-                                           
                                             <td>
                                                 {{boleta.id_boleta_compra.id_proveedor.nombre}}
                                             </td>
@@ -451,28 +454,30 @@
                                             <td>
                                                 S/. {{boleta.precio_total}}
                                             </td>
-                                             <td>
+                                            <td>
+                                                {{boleta.id_boleta_compra.comentario |default_if_none:"- - - -"}}
+                                            </td>
+                                            <td>
                                                 {{boleta.id_boleta_compra.fecha_compra | date:"d/m/yy"}}
                                             </td>
-                                            {% comment %}
-                                            <td>{{producto.id_boleta_compra.fecha_compra}}</td>
-                                            {% endcomment %}
-                                            {% comment %}
-                                            <td class="project-actions text-right">
-                                                <a class="btn btn-primary btn-sm" href="">
-                                                    <i class="fas fa-folder"> </i>
-                                                    View
-                                                </a>
-                                                <a class="btn btn-info btn-sm" href="">
-                                                    <i class="fas fa-pencil-alt"> </i>
-                                                    Edit
-                                                </a>
-                                                <a class="btn btn-danger btn-sm" href="">
-                                                    <i class="fas fa-trash"> </i>
-                                                    Delete
-                                                </a>
+                                            <td>
+                                                {{boleta.id_boleta_compra.fecha_creado | date:"d/m/yy"}}
                                             </td>
-                                            {% endcomment %}
+                                            <td>
+                                                {{boleta.id_boleta_compra.fecha_modificado | date:"d/m/yy - H:m"}} Hrs
+                                            </td>
+                                            <td>
+                                                {% if boleta.id_boleta_compra.valido == True %}
+                                                <input class="switch" type="checkbox" name="my-checkbox" checked data-bootstrap-switch
+                                                    data-on-text="SI" data-off-text="NO" data-off-color="danger"
+                                                    data-on-color="success" id="valido_{{boleta.id_boleta_compra.id}}">
+                                                {% else %}
+                                                <input class="switch" type="checkbox" name="my-checkbox" data-bootstrap-switch
+                                                    data-on-text="SI" data-off-text="NO" data-off-color="danger"
+                                                    data-on-color="success" id="valido_{{boleta.id_boleta_compra.id}}">
+                                                {% endif %}
+
+                                            </td>
 
                                         </tr>
                                         {% endif %}
@@ -546,7 +551,8 @@
 <script src="{% static 'plugins/inputmask/min/jquery.inputmask.bundle.min.js' %}"></script>
 <!-- serializeToJSON -->
 <script src="{% static 'plugins/formtojson/src/jquery.serializeToJSON.js' %}"></script>
-
+<!-- Bootstrap Switch -->
+<script src="{% static 'plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}"></script>
 
 <!-- Add here more js -->
 
@@ -648,6 +654,23 @@
 
     //------------------------------------------INDISE DOCUMENT.READY---------------------------------------
     $(document).ready(function () {
+        //AJAX para actualizar si la boleta es válida
+
+        $(".switch").click(function () {
+            console.log('se hizo click');
+            $.ajax({
+                url: "www.google.com",
+                success: function (result) {
+                   console.log("AJAX ok");
+                }
+            });
+        });
+
+        //Incializar switch
+        $("input[data-bootstrap-switch]").each(function () {
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        });
+
         //Initialize Select2 Elements
         $(".select2").select2({});
 

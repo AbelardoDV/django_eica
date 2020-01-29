@@ -76,11 +76,12 @@ class AuthUserUserPermissions(models.Model):
 
 class BoletaCompra(models.Model):
     comentario = models.CharField(max_length=500, blank=True, null=True)
+    valido = models.BooleanField(default=True,blank=False, null=False)
     id_proveedor = models.ForeignKey('Proveedor', models.DO_NOTHING, db_column='id_proveedor', blank=True, null=True)
     responsable = models.CharField(max_length=30, blank=True, null=True)
     fecha_compra = models.DateTimeField(blank=True, null=True)
     fecha_creado = models.DateTimeField(blank=True, null=True)
-    fecha_modifcado = models.DateTimeField(blank=True, null=True)
+    fecha_modificado = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = True

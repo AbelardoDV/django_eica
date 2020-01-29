@@ -20,10 +20,11 @@ ban = ['django_session',
 class BoletaCompraAdmin(admin.ModelAdmin):
     list_display = ('id',
                     'comentario',
+                    'valido',
                     'id_proveedor',
                     'fecha_compra',
                     'fecha_creado',
-                    'fecha_modifcado')
+                    'fecha_modificado')
 
 
 admin.site.register(BoletaCompra, BoletaCompraAdmin)
