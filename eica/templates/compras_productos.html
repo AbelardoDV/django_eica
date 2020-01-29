@@ -681,6 +681,8 @@
             $('#fila_' + cantidad_rows).children(":first").children("select").select2({
                 theme: "bootstrap4"
             });
+            $('#fila_' + cantidad_rows).children(":first").children("select").change();
+            
             /*Actualizar Ids de las filas*/
             var tablita = $('#tabla_compras')[0];
             var rowCount = tablita.rows.length;
@@ -728,6 +730,10 @@
             "cursor": "pointer"
         });
 
+        //Inicializar el producto de la primera fila
+        console.log($("#fila_1").children(":first").children("select")[0]);
+        $("#fila_1").children(":first").children("select").change();
+
         /*COPIA DE LA PRIMERA FILA*/
         objeto_primera_fila = $('#fila_1');
         objeto_primera_fila.children(":first").children("select").select2("destroy");
@@ -736,6 +742,8 @@
         objeto_primera_fila.children(":first").children("select").select2({
             theme: "bootstrap4"
         });
+
+
     });
 </script>
 
