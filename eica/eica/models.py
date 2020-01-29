@@ -89,6 +89,7 @@ class BoletaCompra(models.Model):
 
 class BoletaVentaRestaurante(models.Model):
     comentario = models.CharField(max_length=500, blank=True, null=True)
+    cliente=models.CharField(max_length=200, blank=True, null=True)
     fecha_venta = models.DateTimeField(blank=True, null=True)
     fecha_creado = models.DateTimeField(blank=True, null=True)
     fecha_modificado = models.DateTimeField(blank=True, null=True)
@@ -156,9 +157,10 @@ class PlatoPadre(models.Model):
 
 class PlatoHijoVenta(models.Model):
     precio_venta = models.FloatField(blank=True, null=True)
+    cantidad=models.FloatField(blank=True, null=True)
     id_plato_padre = models.ForeignKey(PlatoPadre, models.DO_NOTHING, db_column='id_plato_padre', blank=True, null=True)
     id_boleta_venta_restaurante = models.ForeignKey(BoletaVentaRestaurante, models.DO_NOTHING, db_column='id_boleta_venta_restaurante', blank=True, null=True)
-
+    
     class Meta:
         managed = True
         db_table = 'plato_hijo_venta'

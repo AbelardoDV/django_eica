@@ -29,6 +29,7 @@ admin.site.register(BoletaCompra, BoletaCompraAdmin)
 class BoletaVentaRestauranteAdmin(admin.ModelAdmin):
     list_display = ('id',
                     'comentario',
+                    'cliente',
                     'fecha_venta',
                     'fecha_creado',
                     'fecha_modificado')
@@ -44,6 +45,7 @@ admin.site.register(PlatoPadre, PlatoPadreAdmin)
 class PlatoHijoVentaAdmin(admin.ModelAdmin):
     list_display = ('id',
                     'precio_venta',
+                    'cantidad',
                     'id_plato_padre',
                     'id_boleta_venta_restaurante')
 

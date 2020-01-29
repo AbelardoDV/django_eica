@@ -71,27 +71,31 @@ def ventas_restaurante_view(request):
 
     #Aquí se recoje toda la información a insertar
     if request.method == 'POST':
-
+        
         fecha= datetime.datetime.strptime(request.POST.get('fecha_venta'), "%d/%m/%Y")
-        cantidad=request.POST.get('cantidad') #El proveedor es el mismo para todos
-        importe = request.POST.get('importe')
-        id_plato_padre = request.POST.get('id_plato_padre')
-        id_boleta_venta_restaurante= request.POST.get('id_boleta_venta_restaurante')
+        comentarios =str(request.POST.get('comentarios'))
+        cliente =request.POST.get('cliente')
+        BoletaVentaRestaurante.objects.create(fecha_venta=fecha,comentario=comentarios,cliente=cliente)
+        
+        id_boleta_venta_restaurante = int(request.POST.get('id_boleta_venta_restaurante'))
 
-        BoletaVentaRestaurante.objects.create(fecha_venta=fecha)
-        
-        
-        # Obtener información de los productos
         for key, value in request.POST.items():
-            if "id_producto_padre" in key:   
-                id_producto_padre = int(value)
-            if "Cantidad" in key:
-                cantidad = float(value)
-            if "Precio" in key:
-                precio = float(value)
-                #Solo cuando tenga Precio se agrega, el key y value pues son del producto
-                ProductoHijoCompra.objects.create(id_proveedor=Proveedor.objects.get(pk=id_proveedor),id_boleta_compra=BoletaCompra.objects.get(pk=id_boleta_compra),id_producto_padre=ProductoPadre.objects.get(pk=id_producto_padre),precio=precio,cantidad=cantidad)
+
+            if "id_plato_padre_" in key:   
+                id_plato_padre = int(value)
             
+            if "Cantidad_" in key:
+                cantidad = float(value)
+
+            if "Precio_unitario_" in key:
+                precio_venta = float(value)
+                
+                
+                PlatoHijoVenta.objects.create(precio_venta=precio_venta,
+                                                cantidad=cantidad,
+                                                id_plato_padre=PlatoPadre.objects.get(pk=id_plato_padre),
+                                                id_boleta_venta_restaurante=BoletaVentaRestaurante.objects.get(pk=id_boleta_venta_restaurante))
+
     else:
         0
 
@@ -120,8 +124,10 @@ def ventas_restaurante_view(request):
 # Ventas de bodega
 @login_required(login_url='/accounts/login')
 def ventas_bodega_view(request):
+
     nombre_vista = 'Ventas de Bodega'
     ruta_vista = ['Ventas de Bodega']
+
     return render(request, 'ventas_bodega.html', locals())
 
 # Historial de Ventas
@@ -149,7 +155,8 @@ def compras_productos_view(request):
         fecha= datetime.datetime.strptime(request.POST.get('fecha_compra'), "%d/%m/%Y")
         id_proveedor=request.POST.get('id_proveedor') #El proveedor es el mismo para todos
         id_boleta_compra = int(request.POST.get('id_boleta_compra'))
-        BoletaCompra.objects.create(fecha_compra=fecha)
+        comentarios=str(request.POST.get('comentarios'))
+        BoletaCompra.objects.create(fecha_compra=fecha,comentario=comentarios)
                
        #Si se envia el parámetro "nuevo_proveedor" significa que se debe crear un nuevo_proveedor:
         nombre_proveedor = request.POST.get('nuevo_proveedor')
@@ -164,14 +171,18 @@ def compras_productos_view(request):
 
         #Obtener información de los productos
         for key, value in request.POST.items():
-            if "id_producto_padre" in key:   
+            if "id_producto_padre_" in key:   
                 id_producto_padre = int(value)
-            if "Cantidad" in key:
+            if "Cantidad_" in key:
                 cantidad = float(value)
-            if "Precio" in key:
+            if "Precio_" in key:
                 precio = float(value)
                 #Solo cuando tenga Precio se agrega, el key y value pues son del producto
-                ProductoHijoCompra.objects.create(id_proveedor=Proveedor.objects.get(pk=id_proveedor),id_boleta_compra=BoletaCompra.objects.get(pk=id_boleta_compra),id_producto_padre=ProductoPadre.objects.get(pk=id_producto_padre),precio=precio,cantidad=cantidad)
+                ProductoHijoCompra.objects.create(id_proveedor=Proveedor.objects.get(pk=id_proveedor),
+                                                id_boleta_compra=BoletaCompra.objects.get(pk=id_boleta_compra),
+                                                id_producto_padre=ProductoPadre.objects.get(pk=id_producto_padre),
+                                                precio=precio,
+                                                cantidad=cantidad)
 
     else:
         0
@@ -237,8 +248,10 @@ def editar_plato_view(request):
 # ------------------------------Inicio Seccion Agregar---------------------------------
 @login_required(login_url='/accounts/login')
 def agregar_plato_view(request):
+
     nombre_vista = 'Agregar plato'
     ruta_vista = ['Agregar plato']
+
     return render(request, 'agregar_plato.html', locals())
 
 # ------------------------------Fin Seccion Agregar---------------------------------
@@ -247,11 +260,13 @@ def agregar_plato_view(request):
 # ---------------------------Inicio Páginas 404 y 500---------------------------
 
 def error_404_view(request, exception):
+
     data = {"example": "text.com"}
     return render(request, 'eica/404.html', data)
 
 
 def error_500_view(request, exception):
+
     data = {"example": "text.com"}
     return render(request, 'eica/500.html', data)
 

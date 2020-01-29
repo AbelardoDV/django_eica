@@ -62,13 +62,19 @@
             <!-- form start -->
 
             <form id="myForm" action="#" method="POST">
+              <!-- csrf token -->
+              {% csrf_token %}
+              <input type="hidden" name="id_boleta_venta_restaurante"
+                value="{{boletaVentaRestaurante.last.id |add:"1"}}">
               <!-- Grupo 1 formulario -->
               <div class="invoice p-3 mb-3">
                 <!-- title row -->
                 <div class="row">
                   <div class="col-12">
                     <h5>
-                      <i class="fas fa-shopping-cart"></i> Boleta nueva N°
+
+                      <i class="fas fa-shopping-cart"></i>
+                      Boleta nueva N°
                       {{ boletaVentaRestaurante.last.id |add:"1"  }}
                       <small class="float-right">
                         <div class="form-group">
@@ -98,7 +104,7 @@
                           <strong>Cliente:</strong>
                         </label>
                         <div class="col-7 col-sm-9">
-                          <input id="cliente" type="text" class="form-control" />
+                          <input type="text" class="form-control" name="cliente" />
                         </div>
                         <div class="col-2 col-sm-1" style="text-align: center">
                           <i id="simbolo_agregar" class="fas fa-plus-circle fa-2x" style="color: #007bff;"></i>
@@ -182,7 +188,7 @@
                           <strong>Comentarios:</strong>
                         </label>
                         <div class="col-9 col-sm-10">
-                          <textarea class="form-control" rows="3"
+                          <textarea class="form-control" rows="3" name="comentarios"
                             placeholder="Es opcional dejar un comentario ..."></textarea>
                         </div>
                       </div>
@@ -226,7 +232,7 @@
                           </td>
                           <td>
                             <input type="number" class="form-control precio_unitario" step="00.01" placeholder='00.00'
-                              value='00.0' min="0" name=" PrecioUnitario_1">
+                              value='00.0' min="0" name=" Precio_unitario_1">
                           </td>
                           <td>
                             <input type="number" readonly class="form-control" step="00.01" placeholder='00.00'
@@ -297,7 +303,8 @@
                   <div class="col-12">
                     <!--   <a href="#" target="_blank" class="btn btn-default"><i
                                               class="fas fa-print"></i> Imprimir ahora</a> -->
-                    <button id="btnGuardar" type="button" class="btn btn-success float-right">
+                    <button id="btnGuardar" class="btn btn-success float-right" type="submit" value="Guardar"
+                      name="_save">
                       <i class="far fa-credit-card"></i> Guardar <strong>venta</strong>
                     </button>
                     <!--       <button type="button" class="btn btn-primary float-right"
@@ -369,7 +376,7 @@
                         {{boleta.id_boleta_venta_restaurante.fecha_venta}}
                       </td>
                       <td>
-                        Falta setear cliente
+                        {{boleta.id_boleta_venta_restaurante.cliente}}
                       </td>
                       <td>
                         {{boleta.nro_productos}}
@@ -494,7 +501,7 @@
         row.id = "fila_" + (i + 1);
         row.childNodes[1].childNodes[1].setAttribute("name", "id_plato_padre_" + (i + 1));
         row.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (i + 1));
-        row.childNodes[5].childNodes[1].setAttribute("name", "PrecioUnitario_" + (i + 1));
+        row.childNodes[5].childNodes[1].setAttribute("name", "Precio_unitario_" + (i + 1));
         row.childNodes[7].childNodes[1].setAttribute("name", "Importe_" + (i + 1));
 
       };
@@ -554,7 +561,7 @@
 
       copia_fila.childNodes[1].childNodes[1].setAttribute("name", "id_plato_padre_" + (cantidad_rows + 1));
       copia_fila.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (cantidad_rows + 1));
-      copia_fila.childNodes[5].childNodes[1].setAttribute("name", "PrecioUnitario_" + (cantidad_rows + 1));
+      copia_fila.childNodes[5].childNodes[1].setAttribute("name", "Precio_unitario_" + (cantidad_rows + 1));
       copia_fila.childNodes[7].childNodes[1].setAttribute("name", "Importe_" + (cantidad_rows + 1));
 
       cantidad_rows++;
@@ -573,7 +580,7 @@
         row.id = "fila_" + (i + 1);
         row.childNodes[1].childNodes[1].setAttribute("name", "id_plato_padre_" + (i + 1));
         row.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (i + 1));
-        row.childNodes[5].childNodes[1].setAttribute("name", "PrecioUnitario_" + (i + 1));
+        row.childNodes[5].childNodes[1].setAttribute("name", "Precio_unitario_" + (i + 1));
         row.childNodes[7].childNodes[1].setAttribute("name", "Importe_" + (i + 1));
 
       };
