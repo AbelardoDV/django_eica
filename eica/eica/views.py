@@ -230,13 +230,18 @@ def compras_historial_view(request):
 
 #Aquí se procesa AJAX para BoletaCompra.valido
 @login_required(login_url='/accounts/login')
-def actualizar_boletaCompra_valido(request):
+def actualizar_boletaCompra_valido_ajax(request):
     if request.method == 'POST':
         id_boleta_compra = int(request.POST.get('id_boleta_compra'))
         nuevo_booleano = not(BoletaCompra.objects.filter(pk=id_boleta_compra)[0].valido)
         BoletaCompra.objects.filter(pk=id_boleta_compra).update(valido=nuevo_booleano,fecha_modificado=datetime.datetime.now(tz=get_current_timezone()))
     return HttpResponse(status=200)
 
+#Aquí se procesa AJAX para Importe BoletaCompra
+@login_required(login_url='/accounts/login')
+def importe_compra_fecha_rango_ajax(request):
+ 
+    return HttpResponse(status=200)
 # ---------------------------------Fin Seccion Productos---------------------------------
 
 
