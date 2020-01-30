@@ -39,7 +39,6 @@
 <!-- Select2 -->
 <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}" />
 <link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}" />
-
 <!-- Font Awesome -->
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
     integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
@@ -59,13 +58,16 @@
 {% endblock cabecera %}
 
 {% block contenido %}
-<!--Loader-->
+
+<!-- Loader -->
 <div id="loader_bg" style="display: none;">
     <div class="box_layer yellow"></div>
     <div class="box_layer yellowDark"></div>
     <div class="box_layer orange"></div>
     <div class="box_layer orangeDark"></div>
 </div>
+
+<!-- Fin Loaders-->
 
 <!-- Fin Loader -->
 <section class="content">
@@ -583,7 +585,7 @@
     integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
 <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js">
-</script>
+    </script>
 <!-- InputMask -->
 <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
 <script src="{% static 'plugins/inputmask/min/jquery.inputmask.bundle.min.js' %}"></script>
@@ -600,7 +602,6 @@
 <!-- Script to add new row and delete-->
 <script type="text/javascript">
     //------------------------------------------OUTSIDE DOCUMENT.READY---------------------------------------
-
 
     /*COPIA DE LA PRIMERA FILA*/
     var objetos_globales = {};
@@ -697,52 +698,6 @@
     //------------------------------------------INDISE DOCUMENT.READY---------------------------------------
     $(document).ready(function () {
 
-        //AJAX para actualizar si la boleta es válida
-
-        $('.switch').on('switchChange.bootstrapSwitch', function (e, data) {
-            objetos_globales.numero_switch = e.target.value;
-            $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch('state', !data, true);
-            $('#showModal').modal({
-                backdrop: 'static',
-                keyboard: false
-            });
-        });
-
-        $(".modal-footer .btn-primary").click(function () {
-            $('#showModal').modal('hide');
-            $("#loader_bg").show();
-            $.ajax({
-                type: 'POST',
-                url: '../actualizar_valido/',
-                data: {
-                    id_boleta_compra: objetos_globales.numero_switch,
-                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-                    action: 'post'
-                },
-                success: function (json) {
-                    $("#loader_bg").hide();
-                    $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch(
-                        'toggleState', true, true);
-                    toastr.success('Se cambio la validez de la boleta #' +
-                        objetos_globales.numero_switch);
-                },
-                error: function (xhr, errmsg, err) {
-                    console.log(xhr.status + ": " + xhr
-                        .responseText
-                    ); // provide a bit more info about the error to the console
-                    $("#loader_bg").hide();
-                    toastr.error('No se pudo cambiar la validez de la boleta #' +
-                        objetos_globales.numero_switch);
-                }
-            });
-
-        });
-
-        //Incializar switch
-        $("input[data-bootstrap-switch]").each(function () {
-            $(this).bootstrapSwitch('state', $(this).prop('checked'));
-        });
-
         //Initialize Select2 Elements
         $(".select2").select2({});
 
@@ -757,9 +712,14 @@
             date: moment(), // Fecha de hoy predifinida
             format: "DD/MM/YYYY"
         });
+
         //Date mask
         $("[data-mask]").inputmask();
 
+        //Incializar switch
+        $("input[data-bootstrap-switch]").each(function () {
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        });
 
         /* ADD ROW*/
         var cantidad_rows = 1;
@@ -855,6 +815,47 @@
             theme: "bootstrap4"
         });
 
+
+        //AJAX para actualizar si la boleta es válida
+
+        $('.switch').on('switchChange.bootstrapSwitch', function (e, data) {
+            objetos_globales.numero_switch = e.target.value;
+            $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch('state', !data, true);
+            $('#showModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        });
+
+        $(".modal-footer .btn-primary").click(function () {
+            $('#showModal').modal('hide');
+            $("#loader_bg").show();
+            $.ajax({
+                type: 'POST',
+                url: '../compras/actualizar_valido/',
+                data: {
+                    id_boleta_compra: objetos_globales.numero_switch,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                    action: 'post'
+                },
+                success: function (json) {
+                    $("#loader_bg").hide();
+                    $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch(
+                        'toggleState', true, true);
+                    toastr.success('Se cambio la validez de la boleta #' +
+                        objetos_globales.numero_switch);
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log(xhr.status + ": " + xhr
+                        .responseText
+                    ); // provide a bit more info about the error to the console
+                    $("#loader_bg").hide();
+                    toastr.error('No se pudo cambiar la validez de la boleta #' +
+                        objetos_globales.numero_switch);
+                }
+            });
+
+        });
 
     });
 </script>

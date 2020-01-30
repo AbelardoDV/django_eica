@@ -142,18 +142,18 @@ def ventas_historial_view(request):
 
     return render(request, 'ventas_historial.html', locals())
 
+#Aquí se procesa AJAX para BoletaCompra.valido
+@login_required(login_url='/accounts/login')
+def actualizar_boletaVentaRestaurante_valido(request):
+    if request.method == 'POST':
+        id_boleta_venta_restaurante = int(request.POST.get('id_boleta_venta_restaurante'))
+        nuevo_booleano = not(BoletaVentaRestaurante.objects.filter(pk=id_boleta_venta_restaurante)[0].valido)
+        BoletaVentaRestaurante.objects.filter(pk=id_boleta_venta_restaurante).update(valido=nuevo_booleano,fecha_modificado=datetime.datetime.now(tz=get_current_timezone()))
+    return HttpResponse(status=200)
+
 # ---------------------------------Fin Seccion Ventas---------------------------------
 
 # ---------------------------------Inicio Seccion Productos---------------------------------
-
-#Aquí se procesa AJAX para BoletaCompra.valido
-@login_required(login_url='/accounts/login')
-def actualizar_boletaCompra_valido(request):
-    if request.method == 'POST':
-        id_boleta_compra = int(request.POST.get('id_boleta_compra'))
-        nuevo_booleano = not(BoletaCompra.objects.filter(pk=id_boleta_compra)[0].valido)
-        BoletaCompra.objects.filter(pk=id_boleta_compra).update(valido=nuevo_booleano,fecha_modificado=datetime.datetime.now(tz=get_current_timezone()))
-    return HttpResponse(status=200)
 
 #Aquí se registran las compras
 @login_required(login_url='/accounts/login')
@@ -227,6 +227,15 @@ def compras_historial_view(request):
 
     return render(request, 'compras_historial.html', locals())
 
+
+#Aquí se procesa AJAX para BoletaCompra.valido
+@login_required(login_url='/accounts/login')
+def actualizar_boletaCompra_valido(request):
+    if request.method == 'POST':
+        id_boleta_compra = int(request.POST.get('id_boleta_compra'))
+        nuevo_booleano = not(BoletaCompra.objects.filter(pk=id_boleta_compra)[0].valido)
+        BoletaCompra.objects.filter(pk=id_boleta_compra).update(valido=nuevo_booleano,fecha_modificado=datetime.datetime.now(tz=get_current_timezone()))
+    return HttpResponse(status=200)
 
 # ---------------------------------Fin Seccion Productos---------------------------------
 

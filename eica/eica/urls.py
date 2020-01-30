@@ -21,6 +21,7 @@ from eica.views import dashboard_reporte_economico_view
 from eica.views import ventas_restaurante_view
 from eica.views import ventas_bodega_view
 from eica.views import ventas_historial_view
+from eica.views import actualizar_boletaVentaRestaurante_valido
 
 from eica.views import compras_productos_view
 from eica.views import compras_historial_view
@@ -43,7 +44,7 @@ urlpatterns = [
     path('dashboard/', dashboard_view, name='dashboard'),
     path('dashboard/reporte_economico', dashboard_reporte_economico_view, name='reporte_economico'),
 
-    # -----------------Fin Dashboard --------------------------
+    # -----------------Fin Dashboard ----------------------------
 
     # -----------------Inicio páginas por defecto-----------------
 
@@ -56,13 +57,14 @@ urlpatterns = [
     path('ventas_restaurante/', ventas_restaurante_view, name='ventas_restaurante'),
     path('ventas_bodega/', ventas_bodega_view, name='ventas_bodega'),
     path('ventas_historial/', ventas_historial_view, name='ventas_historial'),
+    path('ventas/actualizar_valido/', actualizar_boletaVentaRestaurante_valido, name='actualizar_valido'),
     # -----------------Fin seccion de ventas-----------------
 
 
     # -----------------Inicio seccion de Compra-----------------
     path('compras_productos/', compras_productos_view, name='compras_productos'),
     path('compras_historial/', compras_historial_view, name='compras_historial'),
-    path('actualizar_valido/', actualizar_boletaCompra_valido, name='actualizar_valido'),
+    path('compras/actualizar_valido/', actualizar_boletaCompra_valido, name='actualizar_valido'),
     # -----------------Fin seccion de Compra-----------------
 
     # -----------------Inicio seccion agregar plato-----------------
