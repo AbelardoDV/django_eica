@@ -51,12 +51,22 @@
 <!-- Tempus Dominus Bootstrap 4 -->
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+<!-- Full page loader style https://codepen.io/tasawarmahmood/pen/EQoMPg-->
+<link rel="stylesheet" href="{% static 'custom/loader_full_page.css' %}" />
 
 
 {% endblock cabecera %}
 
 {% block contenido %}
+<!--Loader-->
+<div id="loader_bg" style="display: none;">
+    <div class="box_layer yellow"></div>
+    <div class="box_layer yellowDark"></div>
+    <div class="box_layer orange"></div>
+    <div class="box_layer orangeDark"></div>
+</div>
 
+<!-- Fin Loader -->
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -472,17 +482,15 @@
                                                     data-bootstrap-switch data-on-text="SI" data-off-text="NO"
                                                     data-off-color="danger" data-on-color="success"
                                                     id="switch_{{boleta.id_boleta_compra.id}}"
-                                                    value="{{boleta.id_boleta_compra.id}}"
-                                                    data-backdrop="static" data-keyboard="false" 
-                                                    >
+                                                    value="{{boleta.id_boleta_compra.id}}" data-backdrop="static"
+                                                    data-keyboard="false">
                                                 {% else %}
                                                 <input class="switch" type="checkbox" name="my-checkbox"
                                                     data-bootstrap-switch data-on-text="SI" data-off-text="NO"
                                                     data-off-color="danger" data-on-color="success"
                                                     id="switch_{{boleta.id_boleta_compra.id}}"
-                                                    value="{{boleta.id_boleta_compra.id}}"
-                                                    data-backdrop="static" data-keyboard="false" 
-                                                    >
+                                                    value="{{boleta.id_boleta_compra.id}}" data-backdrop="static"
+                                                    data-keyboard="false">
                                                 {% endif %}
 
                                             </td>
@@ -684,10 +692,11 @@
 
         //------------------------------------------INDISE DOCUMENT.READY---------------------------------------
         $(document).ready(function () {
-            
+
             //AJAX para actualizar si la boleta es válida
 
             $('.switch').on('switchChange.bootstrapSwitch', function (e, data) {
+                objetos_globales.booleano=data;
                 objetos_globales.numero_switch = e.target.value;
                 $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch('state', !data, true);
                 $('#showModal').modal({
@@ -697,9 +706,28 @@
             });
 
             $(".modal-footer .btn-primary").click(function () {
-                console.log("numero switch"+ objetos_globales.numero_switch);
-                $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch('toggleState', true, true);
+                $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch('toggleState', true,true);
                 $('#showModal').modal('hide')
+                $("#loader_bg").show();
+                $.ajax({
+                    type: 'POST',
+                    url: '../actualizar_valido/',
+                    data: {
+                        id_boleta_compra: objetos_globales.numero_switch,
+                        valor_switch: objetos_globales.booleano,
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                        action: 'post'
+                    },
+                    success: function (json) {
+                       $("#loader_bg").hide();
+                        
+                    },
+                    error: function (xhr, errmsg, err) {
+                        console.log(xhr.status + ": " + xhr
+                        .responseText); // provide a bit more info about the error to the console
+                    }
+                });
+
             })
 
             //Incializar switch

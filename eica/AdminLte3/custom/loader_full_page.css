@@ -1,0 +1,62 @@
+
+#loader_bg {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  background-color: rgba(255,255,255,0.76);
+}
+#loader_bg .box_layer {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  position: absolute;
+  top: calc(50% - 60px);
+  left: calc(50% - 60px);
+  animation-name: box_layer;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-in-out;
+  animation-direction: alternate-reverse;
+  animation-iteration-count: infinite;
+  transform: scale(0);
+  opacity: 0.6;
+}
+#loader_bg .yellow {
+  background-color: #ffb342;
+}
+#loader_bg .yellowDark {
+  animation-delay: -250ms;
+  background-color: #ffb342;
+}
+#loader_bg .orange {
+  animation-delay: -500ms;
+  background-color: #ff5900;
+}
+#loader_bg .orangeDark {
+  animation-delay: -750ms;
+  background-color: #ff5900;
+}
+
+@keyframes box_layer {
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin-reverse {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+.spinning {
+  animation-name: spin;
+  animation-duration: 1.5s;
+  animation-timing-function: steps(8, end);
+  animation-iteration-count: infinite;
+}

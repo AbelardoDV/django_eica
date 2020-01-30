@@ -1,5 +1,6 @@
 from django.core import serializers
 from django.http import HttpResponse
+from django.http import JsonResponse
 ###########################################################
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -144,6 +145,16 @@ def ventas_historial_view(request):
 # ---------------------------------Fin Seccion Ventas---------------------------------
 
 # ---------------------------------Inicio Seccion Productos---------------------------------
+
+#Aquí se procesa AJAX para BoletaCompra.valido
+@login_required(login_url='/accounts/login')
+def actualizar_boletaCompra_valido(request):
+    if request.method == 'POST':
+        id_boleta_compra = int(request.POST.get('id_boleta_compra'))
+        nuevo_booleano = not(bool(request.POST.get('valor_switch')))
+        BoletaCompra.objects.filter(pk=id_boleta_compra).update(valido=nuevo_booleano)
+    return HttpResponse(status=200)
+
 #Aquí se registran las compras
 @login_required(login_url='/accounts/login')
 def compras_productos_view(request):
