@@ -5,6 +5,8 @@
 
 {% block cabecera %}
 <!-- Agregar aquí contenido de <head>-->
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
 
 {% endblock cabecera %}
 
@@ -38,79 +40,136 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        
-
-                            
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-
-                                            <th>Producto</th>
-                                            <th style="width: 10px">Unidad</th>
-                                            <th style="width: 40px">Cantidad Comprada</th>
-                                            <th style="width: 40px">Cantidad Usada</th>
-                                            <th>Porcentaje de consumo</th>
-                                            <th style="width: 40px">Label</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Pollo</td>
-                                            <td>Pollo</td>
-                                            <td>100</td>
-                                            <td>90</td>
-                                            <td>
-                                                <div class="progress progress-xs">
-                                                    <div class="progress-bar progress-bar-danger" style="width: 90%">
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><span class="badge bg-danger">90%</span></td>
-                                        </tr>
-                                        <tr>
-
-                                            <td>Arroz</td>
-                                            <td>Kg</td>
-                                            <td>200</td>
-                                            <td>50</td>
-                                            <td>
-                                                <div class="progress progress-xs">
-                                                    <div class="progress-bar bg-warning" style="width: 70%"></div>
-                                                </div>
-                                            </td>
-                                            <td><span class="badge bg-warning">25%</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Papa</td>
-                                            <td>Kg</td>
-                                            <td>200</td>
-                                            <td>50</td>
-                                            <td>
-                                                <div class="progress progress-xs progress-striped active">
-                                                    <div class="progress-bar bg-primary" style="width: 30%"></div>
-                                                </div>
-                                            </td>
-                                            <td><span class="badge bg-primary">30%</span></td>
-                                        </tr>
-                                        <tr>
-
-                                            <td>Lomo Fino</td>
-                                            <td>Kg</td>
-                                            <td>200</td>
-                                            <td>50</td>
-                                            <td>
-                                                <div class="progress progress-xs progress-striped active">
-                                                    <div class="progress-bar bg-success" style="width: 90%"></div>
-                                                </div>
-                                            </td>
-                                            <td><span class="badge bg-success">90%</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                           
 
 
-                        
+
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+
+                                    <th>Producto</th>
+                                    <th style="width: 10px">Unidad</th>
+                                    <th style="width: 40px">Cantidad Comprada</th>
+                                    <th style="width: 40px">Cantidad Usada</th>
+                                    <th>Porcentaje de consumo</th>
+                                    <th style="width: 40px">Label</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Pollo</td>
+                                    <td>Pollo</td>
+                                    <td>100</td>
+                                    <td>90</td>
+                                    <td>
+                                        <div class="progress progress-xs">
+                                            <div class="progress-bar progress-bar-danger" style="width: 90%">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-danger">90%</span></td>
+                                </tr>
+                                <tr>
+
+                                    <td>Arroz</td>
+                                    <td>Kg</td>
+                                    <td>200</td>
+                                    <td>50</td>
+                                    <td>
+                                        <div class="progress progress-xs">
+                                            <div class="progress-bar bg-warning" style="width: 70%"></div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-warning">25%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Papa</td>
+                                    <td>Kg</td>
+                                    <td>200</td>
+                                    <td>50</td>
+                                    <td>
+                                        <div class="progress progress-xs progress-striped active">
+                                            <div class="progress-bar bg-primary" style="width: 30%"></div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-primary">30%</span></td>
+                                </tr>
+                                <tr>
+
+                                    <td>Lomo Fino</td>
+                                    <td>Kg</td>
+                                    <td>200</td>
+                                    <td>50</td>
+                                    <td>
+                                        <div class="progress progress-xs progress-striped active">
+                                            <div class="progress-bar bg-success" style="width: 90%"></div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-success">90%</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+
+
+                    </div>
+                    <!-- ./card-body -->
+                    <div class="card-footer">
+                        <div class="row">
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.card-footer -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Reporte de gastos</h5>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fas fa-wrench"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <a href="#" class="dropdown-item">Falta agregar acciones</a>
+                                    <a class="dropdown-divider"></a> <!-- Es un divisor-->
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+
+                        <!-- Date range -->
+                        <div class="form-group col-md-6">
+                            <label>Rango de fecha para Compras:</label>
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="far fa-calendar-alt"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control float-right" id="reservation">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                        <!-- /.form group -->
+
+
+
+
                     </div>
                     <!-- ./card-body -->
                     <div class="card-footer">
@@ -133,10 +192,19 @@
 {% endblock contenido %}
 
 
-{% block pie %}
+{% block pie %}<!-- Agregar aquí JS-->
 
-<!-- Agregar aquí JS-->
+<!-- date-range-picker -->
+<script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+<script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
 
+<script type="text/javascript">
+ $(document).ready(function () {
+   //Date range picker
+    $('#reservation').daterangepicker();
+ });
+
+</script>
 
 
 {% endblock pie %}

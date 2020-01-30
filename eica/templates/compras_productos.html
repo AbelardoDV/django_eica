@@ -475,7 +475,7 @@
                                                 {{boleta.id_boleta_compra.fecha_creado | date:"d/m/yy"}}
                                             </td>
                                             <td>
-                                                {{boleta.id_boleta_compra.fecha_modificado | date:"d/m/yy - H:m"}} Hrs
+                                                {{boleta.id_boleta_compra.fecha_modificado | date:"d/m/yy - H:i"}} Hrs
                                             </td>
                                             <td>
                                                 {% if boleta.id_boleta_compra.valido == True %}
@@ -555,10 +555,11 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Confirmation</h4>
+                <h4 class="modal-title" id="myModalLabel">Confirmación</h4>
             </div>
             <div class="modal-body">
-                Are you sure you want to change this?
+                ¿Está seguro que desea cambiar la validez de la boleta?<br>
+                Esto afectará al libro contable y balance económico.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -699,7 +700,6 @@
         //AJAX para actualizar si la boleta es válida
 
         $('.switch').on('switchChange.bootstrapSwitch', function (e, data) {
-            objetos_globales.booleano = data;
             objetos_globales.numero_switch = e.target.value;
             $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch('state', !data, true);
             $('#showModal').modal({
@@ -716,7 +716,6 @@
                 url: '../actualizar_valido/',
                 data: {
                     id_boleta_compra: objetos_globales.numero_switch,
-                    valor_switch: objetos_globales.booleano,
                     csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
                     action: 'post'
                 },

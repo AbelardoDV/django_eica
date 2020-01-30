@@ -15,7 +15,7 @@ from .models import PlatoPadre
 from .models import PlatoHijoVenta
 from .models import BoletaVentaRestaurante
 
-
+from django.utils.timezone import get_current_timezone
 import datetime
 
 # -------------------------Inicio Dashboard-------------------------
@@ -151,8 +151,8 @@ def ventas_historial_view(request):
 def actualizar_boletaCompra_valido(request):
     if request.method == 'POST':
         id_boleta_compra = int(request.POST.get('id_boleta_compra'))
-        nuevo_booleano = (bool(request.POST.get('valor_switch')))
-        BoletaCompra.objects.filter(pk=id_boleta_compra).update(valido=nuevo_booleano)
+        nuevo_booleano = not(BoletaCompra.objects.filter(pk=id_boleta_compra)[0].valido)
+        BoletaCompra.objects.filter(pk=id_boleta_compra).update(valido=nuevo_booleano,fecha_modificado=datetime.datetime.now(tz=get_current_timezone()))
     return HttpResponse(status=200)
 
 #Aquí se registran las compras
@@ -180,7 +180,7 @@ def compras_productos_view(request):
             Proveedor.objects.create(nombre=nombre_proveedor,ruc=ruc,celular=celular,correo=correo,fecha_creado=fecha,fecha_modificado=fecha)       
             id_proveedor=Proveedor.objects.get(nombre=nombre_proveedor).pk
 
-        BoletaCompra.objects.create(fecha_compra=fecha,fecha_creado=datetime.now(),fecha_modificado=datetime.now(),comentario=comentario,id_proveedor=Proveedor.objects.get(pk=id_proveedor),responsable=responsable)
+        BoletaCompra.objects.create(fecha_compra=fecha,fecha_creado=datetime.datetime.now(tz=get_current_timezone()),fecha_modificado=datetime.datetime.now(tz=get_current_timezone()),comentario=comentario,id_proveedor=Proveedor.objects.get(pk=id_proveedor),responsable=responsable)
         #Obtener información de los productos
         for key, value in request.POST.items():
             if "id_producto_padre_" in key:   
