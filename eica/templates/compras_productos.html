@@ -53,7 +53,8 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
 <!-- Full page loader style https://codepen.io/tasawarmahmood/pen/EQoMPg-->
 <link rel="stylesheet" href="{% static 'custom/loader_full_page.css' %}" />
-
+<!-- Toastr -->
+<link rel="stylesheet" href="{% static 'plugins/toastr/toastr.min.css' %}">
 
 {% endblock cabecera %}
 
@@ -548,7 +549,7 @@
 </div>
 
 <!-- Modal para confirmación de BoletaCompra.Valido-->
-<<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -565,291 +566,299 @@
             </div>
         </div>
     </div>
-    </div>
-    <!-- /.modal -->
+</div>
+<!-- /.modal -->
 
-    <!-- /.MODALS-->
+<!-- /.MODALS-->
 
-    {% endblock contenido %}
+{% endblock contenido %}
 
-    {% block pie %}
+{% block pie %}
 
-    <!-- Select2 -->
-    <script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
-    <!-- date-range-picker -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
-        integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js">
-    </script>
-    <!-- InputMask -->
-    <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
-    <script src="{% static 'plugins/inputmask/min/jquery.inputmask.bundle.min.js' %}"></script>
-    <!-- serializeToJSON -->
-    <script src="{% static 'plugins/formtojson/src/jquery.serializeToJSON.js' %}"></script>
-    <!-- Bootstrap Switch -->
-    <script src="{% static 'plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}"></script>
+<!-- Select2 -->
+<script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
+<!-- date-range-picker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
+    integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js">
+</script>
+<!-- InputMask -->
+<script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+<script src="{% static 'plugins/inputmask/min/jquery.inputmask.bundle.min.js' %}"></script>
+<!-- serializeToJSON -->
+<script src="{% static 'plugins/formtojson/src/jquery.serializeToJSON.js' %}"></script>
+<!-- Bootstrap Switch -->
+<script src="{% static 'plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}"></script>
+<!-- Toastr -->
+<script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
 
-    <!-- Add here more js -->
-
-
-    <!-- Script to add new row and delete-->
-    <script type="text/javascript">
-        //------------------------------------------OUTSIDE DOCUMENT.READY---------------------------------------
+<!-- Add here more js -->
 
 
-        /*COPIA DE LA PRIMERA FILA*/
-        var objetos_globales = {};
-
-        //DECLARACION DE FUNCIONES
-        function cargar_producto(selectedValue, name) {
-
-            var json_producto_hijo = JSON.parse('{{  json_producto_hijo | safe }}');
-            var json_producto_padre = JSON.parse('{{  json_producto_padre | safe }}');
-            var json_producto_padre_filtrado = json_producto_padre.filter(p => p.pk == selectedValue);
-
-            $('#Unidad_' + (name.slice(-1)))[0].value = json_producto_padre_filtrado[0].fields.unidad;
+<!-- Script to add new row and delete-->
+<script type="text/javascript">
+    //------------------------------------------OUTSIDE DOCUMENT.READY---------------------------------------
 
 
-        };
+    /*COPIA DE LA PRIMERA FILA*/
+    var objetos_globales = {};
 
-        function cargar_proveedor(selectedValue) {
+    //DECLARACION DE FUNCIONES
+    function cargar_producto(selectedValue, name) {
 
-            var json_proveedores = JSON.parse('{{ json_proveedores | safe}}');
-            var data_filter = json_proveedores.filter(element => element.pk == selectedValue);
-            $('#ruc')[0].value = data_filter[0].fields.ruc;
-            $('#celular')[0].value = data_filter[0].fields.celular;
-            $('#correo')[0].value = data_filter[0].fields.correo;
+        var json_producto_hijo = JSON.parse('{{  json_producto_hijo | safe }}');
+        var json_producto_padre = JSON.parse('{{  json_producto_padre | safe }}');
+        var json_producto_padre_filtrado = json_producto_padre.filter(p => p.pk == selectedValue);
+
+        $('#Unidad_' + (name.slice(-1)))[0].value = json_producto_padre_filtrado[0].fields.unidad;
 
 
-        };
-        /* DELETE ROW*/
-        function deleteRow(currentRow) {
-            try {
-                var tablita = $('#tabla_compras')[0];
-                var rowCount = tablita.rows.length;
-                for (var i = 0; i < rowCount; i++) {
-                    var row = tablita.rows[i];
+    };
 
-                    if (row == currentRow.parentNode.parentNode) {
-                        tablita.deleteRow(i);
-                        rowCount--;
-                        i--;
+    function cargar_proveedor(selectedValue) {
 
-                    }
+        var json_proveedores = JSON.parse('{{ json_proveedores | safe}}');
+        var data_filter = json_proveedores.filter(element => element.pk == selectedValue);
+        $('#ruc')[0].value = data_filter[0].fields.ruc;
+        $('#celular')[0].value = data_filter[0].fields.celular;
+        $('#correo')[0].value = data_filter[0].fields.correo;
+
+
+    };
+    /* DELETE ROW*/
+    function deleteRow(currentRow) {
+        try {
+            var tablita = $('#tabla_compras')[0];
+            var rowCount = tablita.rows.length;
+            for (var i = 0; i < rowCount; i++) {
+                var row = tablita.rows[i];
+
+                if (row == currentRow.parentNode.parentNode) {
+                    tablita.deleteRow(i);
+                    rowCount--;
+                    i--;
+
                 }
-                /*Actualizar Ids de las filas*/
-                for (var i = 0; i < rowCount; i++) {
-                    var row = tablita.rows[i];
-                    row.id = "fila_" + (i + 1);
-                    row.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (i + 1));
-                    row.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (i + 1));
-                    row.childNodes[5].childNodes[1].setAttribute("id", "Unidad_" + (i + 1));
-                    row.childNodes[7].childNodes[3].setAttribute("name", "Precio_" + (i + 1));
-
-                };
-            } catch (e) {
-                alert(e);
             }
+            /*Actualizar Ids de las filas*/
+            for (var i = 0; i < rowCount; i++) {
+                var row = tablita.rows[i];
+                row.id = "fila_" + (i + 1);
+                row.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (i + 1));
+                row.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (i + 1));
+                row.childNodes[5].childNodes[1].setAttribute("id", "Unidad_" + (i + 1));
+                row.childNodes[7].childNodes[3].setAttribute("name", "Precio_" + (i + 1));
 
-        };
-        // AGREGAR NUEVO PROVEEDOR
-        function agregar_nuevo_proveedor(objeto) {
-            if ($("#simbolo_agregar").attr("class") != "fas fa-search fa-2x") {
-                //Agregar Nuevo Proveedor
-                $("#simbolo_agregar").attr("class", "fas fa-search fa-2x");
-                $("#simbolo_agregar").attr("title", "Buscar Proveedores");
-                $("#seleccionar_proveedor").hide();
-                $("#input_proveedor").show();
-                $('#ruc')[0].value = '';
-                $('#celular')[0].value = '';
-                $('#correo')[0].value = '';
-                $('#nuevo_proveedor')[0].value = '';
-                $('#ruc').removeAttr("readonly");
-                $('#celular').removeAttr("readonly");
-                $('#correo').removeAttr("readonly");
-
-
-            } else {
-                //Buscar Proveedor
-                $('#ruc')[0].value = '';
-                $('#celular')[0].value = '';
-                $('#correo')[0].value = '';
-                $('#nuevo_proveedor')[0].value = '';
-                $("#simbolo_agregar").attr("class", "fas fa-plus-circle fa-2x");
-                $("#simbolo_agregar").attr("title", "Agregar Nuevo Proveedor");
-                $("#seleccionar_proveedor").show();
-                $("#seleccionar_proveedor").children("select").val(1).change();
-                $("#input_proveedor").hide();
-                $('#ruc').attr("readonly", "readonly");
-                $('#celular').attr("readonly", "readonly");
-                $('#correo').attr("readonly", "readonly");
-
-            }
+            };
+        } catch (e) {
+            alert(e);
         }
 
-        objetos_globales.numero_switch = 0;
+    };
+    // AGREGAR NUEVO PROVEEDOR
+    function agregar_nuevo_proveedor(objeto) {
+        if ($("#simbolo_agregar").attr("class") != "fas fa-search fa-2x") {
+            //Agregar Nuevo Proveedor
+            $("#simbolo_agregar").attr("class", "fas fa-search fa-2x");
+            $("#simbolo_agregar").attr("title", "Buscar Proveedores");
+            $("#seleccionar_proveedor").hide();
+            $("#input_proveedor").show();
+            $('#ruc')[0].value = '';
+            $('#celular')[0].value = '';
+            $('#correo')[0].value = '';
+            $('#nuevo_proveedor')[0].value = '';
+            $('#ruc').removeAttr("readonly");
+            $('#celular').removeAttr("readonly");
+            $('#correo').removeAttr("readonly");
 
-        //------------------------------------------INDISE DOCUMENT.READY---------------------------------------
-        $(document).ready(function () {
 
-            //AJAX para actualizar si la boleta es válida
+        } else {
+            //Buscar Proveedor
+            $('#ruc')[0].value = '';
+            $('#celular')[0].value = '';
+            $('#correo')[0].value = '';
+            $('#nuevo_proveedor')[0].value = '';
+            $("#simbolo_agregar").attr("class", "fas fa-plus-circle fa-2x");
+            $("#simbolo_agregar").attr("title", "Agregar Nuevo Proveedor");
+            $("#seleccionar_proveedor").show();
+            $("#seleccionar_proveedor").children("select").val(1).change();
+            $("#input_proveedor").hide();
+            $('#ruc').attr("readonly", "readonly");
+            $('#celular').attr("readonly", "readonly");
+            $('#correo').attr("readonly", "readonly");
 
-            $('.switch').on('switchChange.bootstrapSwitch', function (e, data) {
-                objetos_globales.booleano=data;
-                objetos_globales.numero_switch = e.target.value;
-                $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch('state', !data, true);
-                $('#showModal').modal({
-                    backdrop: 'static',
-                    keyboard: false
-                });
+        }
+    }
+
+    objetos_globales.numero_switch = 0;
+
+    //------------------------------------------INDISE DOCUMENT.READY---------------------------------------
+    $(document).ready(function () {
+
+        //AJAX para actualizar si la boleta es válida
+
+        $('.switch').on('switchChange.bootstrapSwitch', function (e, data) {
+            objetos_globales.booleano = data;
+            objetos_globales.numero_switch = e.target.value;
+            $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch('state', !data, true);
+            $('#showModal').modal({
+                backdrop: 'static',
+                keyboard: false
             });
+        });
 
-            $(".modal-footer .btn-primary").click(function () {
-                $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch('toggleState', true,true);
-                $('#showModal').modal('hide')
-                $("#loader_bg").show();
-                $.ajax({
-                    type: 'POST',
-                    url: '../actualizar_valido/',
-                    data: {
-                        id_boleta_compra: objetos_globales.numero_switch,
-                        valor_switch: objetos_globales.booleano,
-                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-                        action: 'post'
-                    },
-                    success: function (json) {
-                       $("#loader_bg").hide();
-                        
-                    },
-                    error: function (xhr, errmsg, err) {
-                        console.log(xhr.status + ": " + xhr
-                        .responseText); // provide a bit more info about the error to the console
-                    }
-                });
-
-            })
-
-            //Incializar switch
-            $("input[data-bootstrap-switch]").each(function () {
-                $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        $(".modal-footer .btn-primary").click(function () {
+            $('#showModal').modal('hide');
+            $("#loader_bg").show();
+            $.ajax({
+                type: 'POST',
+                url: '../actualizar_valido/',
+                data: {
+                    id_boleta_compra: objetos_globales.numero_switch,
+                    valor_switch: objetos_globales.booleano,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                    action: 'post'
+                },
+                success: function (json) {
+                    $("#loader_bg").hide();
+                    $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch(
+                        'toggleState', true, true);
+                    toastr.success('Se cambio la validez de la boleta #' +
+                        objetos_globales.numero_switch);
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log(xhr.status + ": " + xhr
+                        .responseText
+                    ); // provide a bit more info about the error to the console
+                    $("#loader_bg").hide();
+                    toastr.error('No se pudo cambiar la validez de la boleta #' +
+                        objetos_globales.numero_switch);
+                }
             });
-
-            //Initialize Select2 Elements
-            $(".select2").select2({});
-
-            //Initialize Select2 Elements
-            $(".select2bs4").select2({
-                theme: "bootstrap4"
-            });
-            //Date picker
-            $("#datetimepicker4").datetimepicker({
-                locale: "es",
-                format: "L",
-                date: moment(), // Fecha de hoy predifinida
-                format: "DD/MM/YYYY"
-            });
-            //Date mask
-            $("[data-mask]").inputmask();
-
-
-            /* ADD ROW*/
-            var cantidad_rows = 1;
-            $('#agregar_fila').click(function () {
-
-                var tablita = $('#tabla_compras')[0];
-                var rowCount = tablita.rows.length;
-
-
-                objeto_copia_primera_fila = objetos_globales.fila_original.clone(true, true);
-                objeto_copia_primera_fila.children(":first").children("select").select2({
-                    theme: "bootstrap4"
-                });
-                copia_primera_fila = objeto_copia_primera_fila[0];
-                copia_primera_fila.id = "fila_" + (cantidad_rows + 1);
-                copia_primera_fila.childNodes[1].childNodes[1].setAttribute("name",
-                    "id_producto_padre_" + (
-                        cantidad_rows + 1));
-                copia_primera_fila.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (
-                    cantidad_rows + 1));
-                copia_primera_fila.childNodes[5].childNodes[1].setAttribute("id", "Unidad_" + (
-                    cantidad_rows + 1));
-                copia_primera_fila.childNodes[7].childNodes[3].setAttribute("name", "Precio_" + (
-                    cantidad_rows + 1));
-
-                cantidad_rows++;
-
-                tablita.append(copia_primera_fila);
-
-                $('#fila_' + cantidad_rows).children(":first").children("select").select2({
-                    theme: "bootstrap4"
-                });
-                $('#fila_' + cantidad_rows).children(":first").children("select").change();
-
-                /*Actualizar Ids de las filas*/
-                var tablita = $('#tabla_compras')[0];
-                var rowCount = tablita.rows.length;
-
-                for (var i = 0; i < rowCount; i++) {
-
-                    var row = tablita.rows[i];
-                    row.id = "fila_" + (i + 1);
-                    row.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (i +
-                        1));
-                    row.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (i + 1));
-                    row.childNodes[5].childNodes[1].setAttribute("id", "Unidad_" + (i + 1));
-                    row.childNodes[7].childNodes[3].setAttribute("name", "Precio_" + (i + 1));
-
-                };
-            });
-
-
-
-
-            /*Hallar el monto total de la boleta*/
-            $('.precio').on('keyup change paste', function () {
-
-                var total = 0.0;
-                $('.precio').each(function () {
-                    var $this = $(this);
-                    var price = parseFloat($this.val());
-                    total += price;
-                })
-                total = total.toFixed(2);
-                $('.total').text(total);
-
-            });
-            $('.precio').trigger('change');
-
-            /* Script to load data when proveedor is selected */
-
-            var json_proveedores = JSON.parse('{{ json_proveedores | safe}}');
-            var data_filter = json_proveedores.filter(element => element.pk == 1);
-
-            $('#ruc')[0].value = data_filter[0].fields.ruc;
-            $('#celular')[0].value = data_filter[0].fields.celular;
-            $('#correo')[0].value = data_filter[0].fields.correo;
-
-            $("#simbolo_agregar").css({
-                "cursor": "pointer"
-            });
-
-            //Inicializar el producto de la primera fila
-            console.log($("#fila_1").children(":first").children("select")[0]);
-            $("#fila_1").children(":first").children("select").change();
-
-            /*COPIA DE LA PRIMERA FILA*/
-            objeto_primera_fila = $('#fila_1');
-            objeto_primera_fila.children(":first").children("select").select2("destroy");
-            copy_primera_fila = objeto_primera_fila.clone(true, true);
-            objetos_globales.fila_original = copy_primera_fila;
-            objeto_primera_fila.children(":first").children("select").select2({
-                theme: "bootstrap4"
-            });
-
 
         });
-    </script>
+
+        //Incializar switch
+        $("input[data-bootstrap-switch]").each(function () {
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        });
+
+        //Initialize Select2 Elements
+        $(".select2").select2({});
+
+        //Initialize Select2 Elements
+        $(".select2bs4").select2({
+            theme: "bootstrap4"
+        });
+        //Date picker
+        $("#datetimepicker4").datetimepicker({
+            locale: "es",
+            format: "L",
+            date: moment(), // Fecha de hoy predifinida
+            format: "DD/MM/YYYY"
+        });
+        //Date mask
+        $("[data-mask]").inputmask();
 
 
-    {% endblock pie %}
+        /* ADD ROW*/
+        var cantidad_rows = 1;
+        $('#agregar_fila').click(function () {
+
+            var tablita = $('#tabla_compras')[0];
+            var rowCount = tablita.rows.length;
+
+
+            objeto_copia_primera_fila = objetos_globales.fila_original.clone(true, true);
+            objeto_copia_primera_fila.children(":first").children("select").select2({
+                theme: "bootstrap4"
+            });
+            copia_primera_fila = objeto_copia_primera_fila[0];
+            copia_primera_fila.id = "fila_" + (cantidad_rows + 1);
+            copia_primera_fila.childNodes[1].childNodes[1].setAttribute("name",
+                "id_producto_padre_" + (
+                    cantidad_rows + 1));
+            copia_primera_fila.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (
+                cantidad_rows + 1));
+            copia_primera_fila.childNodes[5].childNodes[1].setAttribute("id", "Unidad_" + (
+                cantidad_rows + 1));
+            copia_primera_fila.childNodes[7].childNodes[3].setAttribute("name", "Precio_" + (
+                cantidad_rows + 1));
+
+            cantidad_rows++;
+
+            tablita.append(copia_primera_fila);
+
+            $('#fila_' + cantidad_rows).children(":first").children("select").select2({
+                theme: "bootstrap4"
+            });
+            $('#fila_' + cantidad_rows).children(":first").children("select").change();
+
+            /*Actualizar Ids de las filas*/
+            var tablita = $('#tabla_compras')[0];
+            var rowCount = tablita.rows.length;
+
+            for (var i = 0; i < rowCount; i++) {
+
+                var row = tablita.rows[i];
+                row.id = "fila_" + (i + 1);
+                row.childNodes[1].childNodes[1].setAttribute("name", "id_producto_padre_" + (i +
+                    1));
+                row.childNodes[3].childNodes[1].setAttribute("name", "Cantidad_" + (i + 1));
+                row.childNodes[5].childNodes[1].setAttribute("id", "Unidad_" + (i + 1));
+                row.childNodes[7].childNodes[3].setAttribute("name", "Precio_" + (i + 1));
+
+            };
+        });
+
+
+
+
+        /*Hallar el monto total de la boleta*/
+        $('.precio').on('keyup change paste', function () {
+
+            var total = 0.0;
+            $('.precio').each(function () {
+                var $this = $(this);
+                var price = parseFloat($this.val());
+                total += price;
+            })
+            total = total.toFixed(2);
+            $('.total').text(total);
+
+        });
+        $('.precio').trigger('change');
+
+        /* Script to load data when proveedor is selected */
+
+        var json_proveedores = JSON.parse('{{ json_proveedores | safe}}');
+        var data_filter = json_proveedores.filter(element => element.pk == 1);
+
+        $('#ruc')[0].value = data_filter[0].fields.ruc;
+        $('#celular')[0].value = data_filter[0].fields.celular;
+        $('#correo')[0].value = data_filter[0].fields.correo;
+
+        $("#simbolo_agregar").css({
+            "cursor": "pointer"
+        });
+
+        //Inicializar el producto de la primera fila
+        console.log($("#fila_1").children(":first").children("select")[0]);
+        $("#fila_1").children(":first").children("select").change();
+
+        /*COPIA DE LA PRIMERA FILA*/
+        objeto_primera_fila = $('#fila_1');
+        objeto_primera_fila.children(":first").children("select").select2("destroy");
+        copy_primera_fila = objeto_primera_fila.clone(true, true);
+        objetos_globales.fila_original = copy_primera_fila;
+        objeto_primera_fila.children(":first").children("select").select2({
+            theme: "bootstrap4"
+        });
+
+
+    });
+</script>
+
+
+{% endblock pie %}

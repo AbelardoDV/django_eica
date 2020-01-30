@@ -14,7 +14,7 @@ from .models import ProductoPlato
 from .models import PlatoPadre
 from .models import PlatoHijoVenta
 from .models import BoletaVentaRestaurante
-from .models import Proveedor
+
 
 import datetime
 
@@ -151,7 +151,7 @@ def ventas_historial_view(request):
 def actualizar_boletaCompra_valido(request):
     if request.method == 'POST':
         id_boleta_compra = int(request.POST.get('id_boleta_compra'))
-        nuevo_booleano = not(bool(request.POST.get('valor_switch')))
+        nuevo_booleano = (bool(request.POST.get('valor_switch')))
         BoletaCompra.objects.filter(pk=id_boleta_compra).update(valido=nuevo_booleano)
     return HttpResponse(status=200)
 
