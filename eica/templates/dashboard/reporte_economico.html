@@ -5,8 +5,8 @@
 
 {% block cabecera %}
 <!-- Agregar aquí contenido de <head>-->
-  <!-- daterange picker -->
-  <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
+<!-- daterange picker -->
+<link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
 
 {% endblock cabecera %}
 
@@ -49,8 +49,9 @@
 
                                     <th>Producto</th>
                                     <th style="width: 10px">Unidad</th>
-                                    <th style="width: 40px">Cantidad Comprada</th>
-                                    <th style="width: 40px">Cantidad Usada</th>
+                                    <th style="width: 40px">Comprado</th>
+                                    <th style="width: 40px">Usado</th>
+                                    <th style="width: 40px">Saldo</th>
                                     <th>Porcentaje de consumo</th>
                                     <th style="width: 40px">Label</th>
                                 </tr>
@@ -61,6 +62,7 @@
                                     <td>Pollo</td>
                                     <td>100</td>
                                     <td>90</td>
+                                    <td>10</td>
                                     <td>
                                         <div class="progress progress-xs">
                                             <div class="progress-bar progress-bar-danger" style="width: 90%">
@@ -75,6 +77,7 @@
                                     <td>Kg</td>
                                     <td>200</td>
                                     <td>50</td>
+                                    <td>150</td>
                                     <td>
                                         <div class="progress progress-xs">
                                             <div class="progress-bar bg-warning" style="width: 70%"></div>
@@ -87,6 +90,7 @@
                                     <td>Kg</td>
                                     <td>200</td>
                                     <td>50</td>
+                                    <td>150</td>
                                     <td>
                                         <div class="progress progress-xs progress-striped active">
                                             <div class="progress-bar bg-primary" style="width: 30%"></div>
@@ -100,6 +104,7 @@
                                     <td>Kg</td>
                                     <td>200</td>
                                     <td>50</td>
+                                    <td>150</td>
                                     <td>
                                         <div class="progress progress-xs progress-striped active">
                                             <div class="progress-bar bg-success" style="width: 90%"></div>
@@ -150,10 +155,38 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
+                        <div class="row">
+                            <!-- Date range -->
+                            <div class="form-group col-md-6">
+                                <label>Rango de fecha para Compras:</label>
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control float-right" id="rango_fecha_compras">
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label>Importe de compras:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            S/.
+                                        </span>
+                                    </div>
+                                    <input type="number"  class="form-control float-right" value="1" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.form group -->
 
                         <!-- Date range -->
                         <div class="form-group col-md-6">
-                            <label>Rango de fecha para Compras:</label>
+                            <label>Rango de fecha para Ventas:</label>
 
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -161,14 +194,26 @@
                                         <i class="far fa-calendar-alt"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control float-right" id="reservation">
+                                <input type="text" class="form-control float-right" id="rango_fecha_ventas">
                             </div>
                             <!-- /.input group -->
                         </div>
                         <!-- /.form group -->
+                        <!-- Date range -->
+                        <div class="form-group col-md-6">
+                            <label>Rango de fecha para Ventas-Compra:</label>
 
-
-
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="far fa-calendar-alt"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control float-right" id="rango_fecha_balance_economico">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                        <!-- /.form group -->
 
                     </div>
                     <!-- ./card-body -->
@@ -192,18 +237,20 @@
 {% endblock contenido %}
 
 
-{% block pie %}<!-- Agregar aquí JS-->
+{% block pie %}
+<!-- Agregar aquí JS-->
 
 <!-- date-range-picker -->
 <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
 <script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
 
 <script type="text/javascript">
- $(document).ready(function () {
-   //Date range picker
-    $('#reservation').daterangepicker();
- });
-
+    $(document).ready(function () {
+        //Date range picker
+        $('#rango_fecha_compras').daterangepicker();
+        $('#rango_fecha_ventas').daterangepicker();
+        $('#rango_fecha_balance_economico').daterangepicker();
+    });
 </script>
 
 
