@@ -66,7 +66,7 @@ urlpatterns = [
     path('compras_productos/', compras_productos_view, name='compras_productos'),
     path('compras_historial/', compras_historial_view, name='compras_historial'),
     path('compras/actualizar_valido/', actualizar_boletaCompra_valido_ajax, name='actualizar_valido'),
-    path('compras/actualizar_valido/', importe_compra_fecha_rango_ajax, name='actualizar_valido'),
+    path('compras/importe_compra_fecha_rango/', importe_compra_fecha_rango_ajax, name='importe_compra_fecha_rango'),
     # -----------------Fin seccion de Compra-----------------
 
     # -----------------Inicio seccion agregar plato-----------------

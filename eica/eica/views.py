@@ -14,9 +14,11 @@ from .models import ProductoPlato
 from .models import PlatoPadre
 from .models import PlatoHijoVenta
 from .models import BoletaVentaRestaurante
-
+###########################################################
 from django.utils.timezone import get_current_timezone
 import datetime
+##########################################################
+from django.db.models import Count
 
 # -------------------------Inicio Dashboard-------------------------
 
@@ -240,8 +242,17 @@ def actualizar_boletaCompra_valido_ajax(request):
 #Aquí se procesa AJAX para Importe BoletaCompra
 @login_required(login_url='/accounts/login')
 def importe_compra_fecha_rango_ajax(request):
- 
-    return HttpResponse(status=200)
+    response_data={}
+    if request.method == 'POST':
+        print(request.POST.get('startDate'))
+        print(request.POST.get('endDate'))
+        startDate= datetime.datetime.strptime(request.POST.get('startDate'), "%Y-%m-%d")
+        endDate= datetime.datetime.strptime(request.POST.get('endDate'), "%Y-%m-%d")
+        print(startDate)
+        print(endDate)
+        boletas=BoletaCompra.objects.filter(valido=True,fecha_compra__range=[startDate,endDate]).annotate(cantidad=Count('id'))
+        response_data['cantidad_boletas']=boletas[0].cantidad
+    return JsonResponse(response_data)
 # ---------------------------------Fin Seccion Productos---------------------------------
 
 

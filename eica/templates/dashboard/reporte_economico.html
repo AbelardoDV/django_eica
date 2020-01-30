@@ -279,8 +279,36 @@
         //Date range picker
         $('#rango_fecha_compras').daterangepicker();
         $('#rango_fecha_compras').on('apply.daterangepicker', function (ev, picker) {
-            console.log(picker.startDate.format('YYYY-MM-DD'));
-            console.log(picker.endDate.format('YYYY-MM-DD'));
+            startDate=picker.startDate.format('YYYY-MM-DD');
+            endDate=picker.endDate.format('YYYY-MM-DD');
+            console.log(picker.startDate);
+            console.log(startDate);
+            console.log(endDate);
+            $("#loader_bg").show();
+            $.ajax({
+                type: 'POST',
+                url: '../compras/importe_compra_fecha_rango/',
+                data: {
+                    startDate :startDate,
+                    endDate: endDate,
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+                success: function (json) {
+                    $("#loader_bg").hide();
+                    console.log(json.cantidad_boletas);
+                    console.log("Hola mundo");
+
+                    toastr.success('Se obtuvo satisfactoriamente el importe');
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log(xhr.status + ": " + xhr
+                        .responseText
+                    ); // provide a bit more info about the error to the console
+                    $("#loader_bg").hide();
+                    toastr.error('No se pudo obtener el importe');
+                }
+            });
         });
         $('#rango_fecha_ventas').daterangepicker();
         $('#rango_fecha_ventas').on('apply.daterangepicker', function (ev, picker) {
