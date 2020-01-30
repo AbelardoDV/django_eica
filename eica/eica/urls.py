@@ -25,7 +25,8 @@ from eica.views import actualizar_boletaVentaRestaurante_valido
 
 from eica.views import compras_productos_view
 from eica.views import compras_historial_view
-from eica.views import actualizar_boletaCompra_valido
+from eica.views import actualizar_boletaCompra_valido_ajax
+from eica.views import importe_compra_fecha_rango_ajax
 
 from eica.views import agregar_plato_view
 from eica.views import editar_plato_view

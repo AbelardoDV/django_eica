@@ -171,51 +171,81 @@
                                 <!-- /.input group -->
                             </div>
                             <div class="form-group col-md-6">
-                              <label>Importe de compras:</label>
+                                <label>Importe de compras:</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             S/.
                                         </span>
                                     </div>
-                                    <input type="number"  class="form-control float-right" value="1" readonly/>
+                                    <input type="number" class="form-control float-right" value="1" readonly />
                                 </div>
                             </div>
                         </div>
+                        <hr
+                            style="background:none; border:dotted 1px #999999; border-width:1px 0 0 0; height:1px; width:100%; margin:0px 0px 0px 0px; padding-top:10px;padding-bottom:10px;">
                         <!-- /.form group -->
+                        <div class="row">
+                            <!-- Date range -->
+                            <div class="form-group col-md-6">
+                                <label>Rango de fecha para Ventas:</label>
 
-                        <!-- Date range -->
-                        <div class="form-group col-md-6">
-                            <label>Rango de fecha para Ventas:</label>
-
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="far fa-calendar-alt"></i>
-                                    </span>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control float-right" id="rango_fecha_ventas">
                                 </div>
-                                <input type="text" class="form-control float-right" id="rango_fecha_ventas">
+                                <!-- /.input group -->
                             </div>
-                            <!-- /.input group -->
-                        </div>
-                        <!-- /.form group -->
-                        <!-- Date range -->
-                        <div class="form-group col-md-6">
-                            <label>Rango de fecha para Ventas-Compra:</label>
-
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="far fa-calendar-alt"></i>
-                                    </span>
+                            <!-- /.form group -->
+                            <!-- Date range -->
+                            <div class="form-group col-md-6">
+                                <label>Importe de ventas:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            S/.
+                                        </span>
+                                    </div>
+                                    <input type="number" class="form-control float-right" value="1" readonly />
                                 </div>
-                                <input type="text" class="form-control float-right" id="rango_fecha_balance_economico">
                             </div>
-                            <!-- /.input group -->
                         </div>
-                        <!-- /.form group -->
+                        <hr
+                            style="background:none; border:dotted 1px #999999; border-width:1px 0 0 0; height:1px; width:100%; margin:0px 0px 0px 0px; padding-top:10px;padding-bottom:10px;">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label>Rango de fecha para Ventas-Compra:</label>
 
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control float-right"
+                                        id="rango_fecha_balance_economico">
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <!-- /.form group -->
+                            <div class="form-group col-md-6">
+                                <label>Importe de Ventas-Compra:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            S/.
+                                        </span>
+                                    </div>
+                                    <input type="number" class="form-control float-right" value="1" readonly />
+                                </div>
+                            </div>
+                        </div> <!-- row -->
                     </div>
+
                     <!-- ./card-body -->
                     <div class="card-footer">
                         <div class="row">
@@ -248,8 +278,20 @@
     $(document).ready(function () {
         //Date range picker
         $('#rango_fecha_compras').daterangepicker();
+        $('#rango_fecha_compras').on('apply.daterangepicker', function (ev, picker) {
+            console.log(picker.startDate.format('YYYY-MM-DD'));
+            console.log(picker.endDate.format('YYYY-MM-DD'));
+        });
         $('#rango_fecha_ventas').daterangepicker();
+        $('#rango_fecha_ventas').on('apply.daterangepicker', function (ev, picker) {
+            console.log(picker.startDate.format('YYYY-MM-DD'));
+            console.log(picker.endDate.format('YYYY-MM-DD'));
+        });
         $('#rango_fecha_balance_economico').daterangepicker();
+        $('#rango_fecha_balance_economico').on('apply.daterangepicker', function (ev, picker) {
+            console.log(picker.startDate.format('YYYY-MM-DD'));
+            console.log(picker.endDate.format('YYYY-MM-DD'));
+        });
     });
 </script>
 
