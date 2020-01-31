@@ -2,39 +2,6 @@
 {% load static %}
 
 {% block cabecera %}
-<!--Para mostrar la moneda S/.-->
-<style>
-    .input-icon {
-        position: relative;
-    }
-
-    .input-icon>i {
-        position: absolute;
-        display: block;
-        transform: translate(0, -50%);
-        top: 50%;
-        https: //www.linkedin.com/jobs/search/?f_TPR=a1580278458-&geoId=102927786&keywords=mecatronica&location=Per%C3%BA
-            pointer-events: none;
-        width: 25px;
-        text-align: center;
-        font-style: normal;
-    }
-
-    .input-icon>input {
-        padding-left: 25px;
-        padding-right: 0;
-    }
-
-    .input-icon-right>i {
-        right: 0;
-    }
-
-    .input-icon-right>input {
-        padding-left: 0;
-        padding-right: 25px;
-        text-align: right;
-    }
-</style>
 
 
 <!-- Select2 -->
@@ -305,7 +272,7 @@
                                                         <input readonly="readonly" type="text" class="form-control"
                                                             id="Unidad_1">
                                                     </td>
-                                                    <td class="input-icon"> <i>S/.</i> <input type="number" step="00.01"
+                                                    <td class="input-icon">  <input type="number" step="00.01"
                                                             placeholder='00.00' value='00.0' min="0"
                                                             class="form-control precio" name="Precio_1">
                                                     </td>
@@ -824,7 +791,7 @@
                 url: '../compras/actualizar_valido/',
                 data: {
                     id_boleta_compra: objetos_globales.numero_switch,
-                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                    csrfmiddlewaretoken: '{{csrf_token}}',
                     action: 'post'
                 },
                 success: function (json) {
