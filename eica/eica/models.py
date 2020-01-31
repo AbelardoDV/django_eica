@@ -213,6 +213,20 @@ class ProductoPadre(models.Model):
 
     def __str__(self):
         return '{}'.format(self.nombre)
+    
+class ProductoHijoTransaccion(models.Model):
+    cantidad = models.FloatField(blank=True, null=True)
+    fecha_transaccion = models.DateTimeField(blank=True, null=True)
+    fecha_creado = models.DateTimeField(blank=True, null=True)
+    fecha_modificado = models.DateTimeField(blank=True, null=True)
+    producto_padre = models.ForeignKey('ProductoPadre', models.DO_NOTHING, db_column='id_producto_padre', blank=True, null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'producto_hijo_transaccion'
+
+    def __str__(self):
+        return '{}'.format(self.id)
 
 class ProductoPlato(models.Model):
     cantidad = models.FloatField(blank=True, null=True)
