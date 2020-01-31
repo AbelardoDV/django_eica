@@ -450,16 +450,16 @@
                                     <tbody>
 
                                         {% for boleta in tablaBoletas %}
-                                        {% if  forloop.counter <= 10 %}
+                                      
                                         <tr>
                                             <td>
-                                                <a href="#">N° {{boleta.id_boleta_compra}}</a>
+                                                <a href="#">N° {{boleta.boleta_compra}}</a>
                                             </td>
                                             <td>
-                                                {{boleta.id_boleta_compra.responsable}}
+                                                {{boleta.boleta_compra.responsable}}
                                             </td>
                                             <td>
-                                                {{boleta.id_boleta_compra.id_proveedor.nombre}}
+                                                {{boleta.boleta_compra.proveedor.nombre}}
                                             </td>
                                             <td>
                                                 {{boleta.nro_productos}}
@@ -468,38 +468,38 @@
                                                 S/. {{boleta.precio_total}}
                                             </td>
                                             <td>
-                                                {{boleta.id_boleta_compra.comentario |default_if_none:"- - - -"}}
+                                                {{boleta.boleta_compra.comentario |default_if_none:"- - - -"}}
                                             </td>
                                             <td>
-                                                {{boleta.id_boleta_compra.fecha_compra | date:"d/m/yy"}}
+                                                {{boleta.boleta_compra.fecha_compra | date:"d/m/yy"}}
                                             </td>
                                             <td>
-                                                {{boleta.id_boleta_compra.fecha_creado | date:"d/m/yy"}}
+                                                {{boleta.boleta_compra.fecha_creado | date:"d/m/yy"}}
                                             </td>
                                             <td>
-                                                {{boleta.id_boleta_compra.fecha_modificado | date:"d/m/yy - H:i"}} Hrs
+                                                {{boleta.boleta_compra.fecha_modificado | date:"d/m/yy - H:i"}} Hrs
                                             </td>
                                             <td>
-                                                {% if boleta.id_boleta_compra.valido == True %}
+                                                {% if boleta.boleta_compra.valido == True %}
                                                 <input class="switch" type="checkbox" name="my-checkbox" checked
                                                     data-bootstrap-switch data-on-text="SI" data-off-text="NO"
                                                     data-off-color="danger" data-on-color="success"
-                                                    id="switch_{{boleta.id_boleta_compra.id}}"
-                                                    value="{{boleta.id_boleta_compra.id}}" data-backdrop="static"
+                                                    id="switch_{{boleta.boleta_compra.id}}"
+                                                    value="{{boleta.boleta_compra.id}}" data-backdrop="static"
                                                     data-keyboard="false">
                                                 {% else %}
                                                 <input class="switch" type="checkbox" name="my-checkbox"
                                                     data-bootstrap-switch data-on-text="SI" data-off-text="NO"
                                                     data-off-color="danger" data-on-color="success"
-                                                    id="switch_{{boleta.id_boleta_compra.id}}"
-                                                    value="{{boleta.id_boleta_compra.id}}" data-backdrop="static"
+                                                    id="switch_{{boleta.boleta_compra.id}}"
+                                                    value="{{boleta.boleta_compra.id}}" data-backdrop="static"
                                                     data-keyboard="false">
                                                 {% endif %}
 
                                             </td>
 
                                         </tr>
-                                        {% endif %}
+                                      
                                         {% endfor %}
                                     </tbody>
                                 </table>

@@ -42,13 +42,13 @@
                                 {% if  forloop.counter <= 1000 %}
                                 <tr>
                                     <td>
-                                        <a href="#">N° {{boleta.id_boleta_compra}}</a>
+                                        <a href="#">N° {{boleta.boleta_compra}}</a>
                                     </td>
                                     <td>
-                                        {{boleta.id_boleta_compra.responsable}}
+                                        {{boleta.boleta_compra.responsable}}
                                     </td>
                                     <td>
-                                        {{boleta.id_boleta_compra.id_proveedor.nombre}}
+                                        {{boleta.boleta_compra.proveedor.nombre}}
                                     </td>
                                     <td>
                                         {{boleta.nro_productos}}
@@ -57,10 +57,10 @@
                                         S/. {{boleta.precio_total}}
                                     </td>
                                     <td>
-                                        {{boleta.id_boleta_compra.comentario |default_if_none:"- - - -"}}
+                                        {{boleta.boleta_compra.comentario |default_if_none:"- - - -"}}
                                     </td>
                                     <td>
-                                        {{boleta.id_boleta_compra.fecha_compra | date:"d/m/yy"}}
+                                        {{boleta.boleta_compra.fecha_compra | date:"d/m/yy"}}
                                     </td>
                                     {% comment %}
                                     <td>{{producto.id_boleta_compra.fecha_compra}}</td>

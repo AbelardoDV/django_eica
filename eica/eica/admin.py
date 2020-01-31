@@ -21,7 +21,7 @@ class BoletaCompraAdmin(admin.ModelAdmin):
     list_display = ('id',
                     'comentario',
                     'valido',
-                    'id_proveedor',
+                    'proveedor',
                     'fecha_compra',
                     'fecha_creado',
                     'fecha_modificado')
@@ -54,8 +54,8 @@ class PlatoHijoVentaAdmin(admin.ModelAdmin):
     list_display = ('id',
                     'precio_venta',
                     'cantidad',
-                    'id_plato_padre',
-                    'id_boleta_venta_restaurante')
+                    'plato_padre',
+                    'boleta_venta_restaurante')
 
 
 admin.site.register(PlatoHijoVenta, PlatoHijoVentaAdmin)
@@ -65,8 +65,8 @@ class ProductoHijoCompraAdmin(admin.ModelAdmin):
     list_display = ('id',
                     'precio',
                     'cantidad',
-                    'id_boleta_compra',
-                    'id_producto_padre')
+                    'boleta_compra',
+                    'producto_padre')
 
 
 admin.site.register(ProductoHijoCompra, ProductoHijoCompraAdmin)
@@ -76,8 +76,8 @@ class ProductoHijoVentaAdmin(admin.ModelAdmin):
     list_display = ('id',
                     'precio',
                     'cantidad',
-                    'id_venta_bodega',
-                    'id_producto_padre',
+                    'venta_bodega',
+                    'producto_padre',
                     'cliente_name')
 
 
@@ -96,8 +96,8 @@ admin.site.register(ProductoPadre, ProductoPadreAdmin)
 class ProductoPlatoAdmin(admin.ModelAdmin):
     list_display = ('id',
                     'cantidad',
-                    'id_producto_padre',
-                    'id_plato_padre')
+                    'producto_padre',
+                    'plato_padre')
 
 
 admin.site.register(ProductoPlato, ProductoPlatoAdmin)

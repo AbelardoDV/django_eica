@@ -377,19 +377,19 @@
                   </thead>
                   <tbody>
                     {% for boleta in tablaBoletasVenta %}
-                    {% if  forloop.counter <= 10 %}
+                  
                     <tr>
                       <td>
-                        <a href="#">N° {{boleta.id_boleta_venta_restaurante}}</a>
+                        <a href="#">N° {{boleta.boleta_venta_restaurante}}</a>
                       </td>
                       <td>
-                        {{boleta.id_boleta_venta_restaurante.comentario}}
+                        {{boleta.boleta_venta_restaurante.comentario}}
                       </td>
                       <td>
-                        {{boleta.id_boleta_venta_restaurante.cliente}}
+                        {{boleta.boleta_venta_restaurante.cliente}}
                       </td>
                       <td>
-                        {{boleta.id_boleta_venta_restaurante.tipo}}
+                        {{boleta.boleta_venta_restaurante.tipo}}
                       </td>
                       <td>
                         {{boleta.nro_productos}}
@@ -398,32 +398,32 @@
                         S/. {{boleta.precio_total}}
                       </td>
                       <td>
-                        {{boleta.id_boleta_venta_restaurante.fecha_venta | date:"d/m/yy"}}
+                        {{boleta.boleta_venta_restaurante.fecha_venta | date:"d/m/yy"}}
                       </td>
                       <td>
-                        {{boleta.id_boleta_venta_restaurante.fecha_creado | date:"d/m/yy"}}
+                        {{boleta.boleta_venta_restaurante.fecha_creado | date:"d/m/yy"}}
                       </td>
                       <td>
-                        {{boleta.id_boleta_venta_restaurante.fecha_modificado | date:"d/m/yy"}}
+                        {{boleta.boleta_venta_restaurante.fecha_modificado | date:"d/m/yy"}}
                       </td>
                       <td>
-                        {% if boleta.id_boleta_venta_restaurante.valido == True %}
+                        {% if boleta.boleta_venta_restaurante.valido == True %}
                         <input class="switch" type="checkbox" name="my-checkbox" checked data-bootstrap-switch
                           data-on-text="SI" data-off-text="NO" data-off-color="danger" data-on-color="success"
-                          id="switch_{{boleta.id_boleta_venta_restaurante.id}}"
-                          value="{{boleta.id_boleta_venta_restaurante.id}}" data-backdrop="static"
+                          id="switch_{{boleta.boleta_venta_restaurante.id}}"
+                          value="{{boleta.boleta_venta_restaurante.id}}" data-backdrop="static"
                           data-keyboard="false">
                         {% else %}
                         <input class="switch" type="checkbox" name="my-checkbox" data-bootstrap-switch data-on-text="SI"
                           data-off-text="NO" data-off-color="danger" data-on-color="success"
-                          id="switch_{{boleta.id_boleta_venta_restaurante.id}}"
-                          value="{{boleta.id_boleta_venta_restaurante.id}}" data-backdrop="static"
+                          id="switch_{{boleta.boleta_venta_restaurante.id}}"
+                          value="{{boleta.boleta_venta_restaurante.id}}" data-backdrop="static"
                           data-keyboard="false">
                         {% endif %}
                       </td>
 
                     </tr>
-                    {% endif %}
+           
                     {% endfor %}
                   </tbody>
                 </table>

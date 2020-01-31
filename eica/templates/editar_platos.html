@@ -411,8 +411,8 @@
         var json_productoPadre = JSON.parse('{{json_productoPadre | safe}}');
 
         var platoSeleccionado = json_platoPadre.filter(element => element.pk == selectedValue);
-        var productosPlato = json_productoPlato.filter(p => p.fields.id_plato_padre ==
-            selectedValue); //Productos que conforman el plato
+        var productosPlato = json_productoPlato.filter(p => p.fields.plato_padre == selectedValue);
+        //Productos que conforman el plato
 
 
         //   $("#tabla_existe_producto").remove();
@@ -424,7 +424,7 @@
         }
         var producto;
         for (i in productosPlato) {
-            producto = json_productoPadre.filter(p => p.pk == productosPlato[i].fields.id_producto_padre)[
+            producto = json_productoPadre.filter(p => p.pk == productosPlato[i].fields.producto_padre)[
                 0];
             addRowExisteProducto(producto, productosPlato[i]);
         };

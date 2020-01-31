@@ -96,8 +96,8 @@ def ventas_restaurante_view(request):
                 
                 PlatoHijoVenta.objects.create(precio_venta=precio_venta,
                                                 cantidad=cantidad,
-                                                id_plato_padre=PlatoPadre.objects.get(pk=id_plato_padre),
-                                                id_boleta_venta_restaurante=BoletaVentaRestaurante.objects.get(pk=id_boleta_venta_restaurante))
+                                                plato_padre=PlatoPadre.objects.get(pk=id_plato_padre),
+                                                boleta_venta_restaurante=BoletaVentaRestaurante.objects.get(pk=id_boleta_venta_restaurante))
 
     else:
         0
@@ -113,7 +113,7 @@ def ventas_restaurante_view(request):
     
     # Para mostrar en tabla vamos a usar GROUPBY
     # tutorial sacado de https://stackoverflow.com/a/629600/10491422
-    tablaBoletasVenta = PlatoHijoVenta.objects.raw('SELECT MIN(id) AS id, MAX(id_boleta_venta_restaurante) AS id_boleta_venta_restaurante, SUM(precio_venta) AS precio_total,  COUNT(*) AS nro_productos  FROM plato_hijo_venta GROUP BY id_boleta_venta_restaurante ORDER BY id_boleta_venta_restaurante DESC;')
+    tablaBoletasVenta = PlatoHijoVenta.objects.raw('SELECT MIN(id) AS id, MAX(id_boleta_venta_restaurante) AS id_boleta_venta_restaurante, SUM(precio_venta) AS precio_total,  COUNT(*) AS nro_productos  FROM plato_hijo_venta GROUP BY id_boleta_venta_restaurante ORDER BY id_boleta_venta_restaurante DESC LIMIT 10;')
 
 
     json_productoPlato = serializers.serialize("json", productoPlato)  # Usado para autocompletado
@@ -174,15 +174,15 @@ def compras_productos_view(request):
        #Si se envia el parámetro "nuevo_proveedor" significa que se debe crear un nuevo_proveedor:
         nombre_proveedor = request.POST.get('nuevo_proveedor')
         print(nombre_proveedor)
-        ruc=int(request.POST.get('ruc').replace(" ",""))
-        celular=int(request.POST.get('celular').replace("-",""))
+        ruc=int(request.POST.get('ruc').replace(" ","").replace("_","").replace("-",""))
+        celular=int(request.POST.get('celular').replace(" ","").replace("_","").replace("-",""))
         correo=request.POST.get('correo')
         
         if not(nombre_proveedor == None or nombre_proveedor == ''):
             Proveedor.objects.create(nombre=nombre_proveedor,ruc=ruc,celular=celular,correo=correo,fecha_creado=fecha,fecha_modificado=fecha)       
             id_proveedor=Proveedor.objects.get(nombre=nombre_proveedor).pk
 
-        BoletaCompra.objects.create(fecha_compra=fecha,fecha_creado=datetime.datetime.now(tz=get_current_timezone()),fecha_modificado=datetime.datetime.now(tz=get_current_timezone()),comentario=comentario,id_proveedor=Proveedor.objects.get(pk=id_proveedor),responsable=responsable)
+        BoletaCompra.objects.create(fecha_compra=fecha,fecha_creado=datetime.datetime.now(tz=get_current_timezone()),fecha_modificado=datetime.datetime.now(tz=get_current_timezone()),comentario=comentario,proveedor=Proveedor.objects.get(pk=id_proveedor),responsable=responsable)
         #Obtener información de los productos
         for key, value in request.POST.items():
             if "id_producto_padre_" in key:   
@@ -192,8 +192,8 @@ def compras_productos_view(request):
             if "Precio_" in key:
                 precio = float(value)
                 #Solo cuando tenga Precio se agrega, el key y value pues son del producto
-                ProductoHijoCompra.objects.create(id_boleta_compra=BoletaCompra.objects.get(pk=id_boleta_compra),
-                                                    id_producto_padre=ProductoPadre.objects.get(pk=id_producto_padre),
+                ProductoHijoCompra.objects.create(boleta_compra=BoletaCompra.objects.get(pk=id_boleta_compra),
+                                                    producto_padre=ProductoPadre.objects.get(pk=id_producto_padre),
                                                     precio=precio,
                                                     cantidad=cantidad)
 
@@ -210,7 +210,7 @@ def compras_productos_view(request):
 
     # Mostrar tabla boletas solo 10 ultimos
     # tutorial sacado de https://stackoverflow.com/a/629600/10491422
-    tablaBoletas = ProductoHijoCompra.objects.raw('SELECT MIN(id) AS id,MAX(id_boleta_compra) AS id_boleta_compra, SUM(precio) AS precio_total, COUNT(*) AS nro_productos FROM producto_hijo_compra GROUP BY id_boleta_compra ORDER BY id_boleta_compra DESC;')
+    tablaBoletas = ProductoHijoCompra.objects.raw('SELECT MIN(id) AS id,MAX(id_boleta_compra) AS id_boleta_compra, SUM(precio) AS precio_total, COUNT(*) AS nro_productos FROM producto_hijo_compra GROUP BY id_boleta_compra ORDER BY id_boleta_compra DESC LIMIT 10;')
 
     json_proveedores = serializers.serialize("json", proveedores)  # Usado para autocompletado
     json_producto_hijo = serializers.serialize("json", productoHijoCompra)  

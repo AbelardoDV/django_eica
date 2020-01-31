@@ -77,7 +77,7 @@ class AuthUserUserPermissions(models.Model):
 class BoletaCompra(models.Model):
     comentario = models.CharField(max_length=500, blank=True, null=True)
     valido = models.BooleanField(default=True,blank=False, null=False)
-    id_proveedor = models.ForeignKey('Proveedor', models.DO_NOTHING, db_column='id_proveedor', blank=True, null=True)
+    proveedor = models.ForeignKey('Proveedor', models.DO_NOTHING, db_column='id_proveedor', blank=True, null=True)
     responsable = models.CharField(max_length=30, blank=True, null=True)
     fecha_compra = models.DateTimeField(blank=True, null=True)
     fecha_creado = models.DateTimeField(blank=True, null=True)
@@ -163,8 +163,8 @@ class PlatoPadre(models.Model):
 class PlatoHijoVenta(models.Model):
     precio_venta = models.FloatField(blank=True, null=True)
     cantidad=models.FloatField(blank=True, null=True)
-    id_plato_padre = models.ForeignKey(PlatoPadre, models.DO_NOTHING, db_column='id_plato_padre', blank=True, null=True)
-    id_boleta_venta_restaurante = models.ForeignKey(BoletaVentaRestaurante, models.DO_NOTHING, db_column='id_boleta_venta_restaurante', blank=True, null=True)
+    plato_padre = models.ForeignKey(PlatoPadre, models.DO_NOTHING, db_column='id_plato_padre', blank=True, null=True)
+    boleta_venta_restaurante = models.ForeignKey(BoletaVentaRestaurante, models.DO_NOTHING, db_column='id_boleta_venta_restaurante', blank=True, null=True)
     
     class Meta:
         managed = True
@@ -176,8 +176,8 @@ class PlatoHijoVenta(models.Model):
 class ProductoHijoCompra(models.Model):
     precio = models.FloatField()
     cantidad = models.FloatField(blank=True, null=True)
-    id_boleta_compra = models.ForeignKey(BoletaCompra, models.DO_NOTHING, db_column='id_boleta_compra', blank=True, null=True)
-    id_producto_padre = models.ForeignKey('ProductoPadre', models.DO_NOTHING, db_column='id_producto_padre', blank=True, null=True)
+    boleta_compra = models.ForeignKey(BoletaCompra, models.DO_NOTHING, db_column='id_boleta_compra', blank=True, null=True)
+    producto_padre = models.ForeignKey('ProductoPadre', models.DO_NOTHING, db_column='id_producto_padre', blank=True, null=True)
 
     class Meta:
         managed = True
@@ -190,8 +190,8 @@ class ProductoHijoVenta(models.Model):
     precio = models.FloatField()
     cantidad = models.FloatField(blank=True, null=True)
     cliente_name = models.CharField(max_length=50, blank=True, null=True)
-    id_venta_bodega = models.ForeignKey('VentaBodega', models.DO_NOTHING, db_column='id_venta_bodega', blank=True, null=True)
-    id_producto_padre = models.ForeignKey('ProductoPadre', models.DO_NOTHING, db_column='id_producto_padre', blank=True, null=True)
+    venta_bodega = models.ForeignKey('VentaBodega', models.DO_NOTHING, db_column='id_venta_bodega', blank=True, null=True)
+    producto_padre = models.ForeignKey('ProductoPadre', models.DO_NOTHING, db_column='id_producto_padre', blank=True, null=True)
 
     class Meta:
         managed = True
@@ -214,8 +214,8 @@ class ProductoPadre(models.Model):
 
 class ProductoPlato(models.Model):
     cantidad = models.FloatField(blank=True, null=True)
-    id_producto_padre = models.ForeignKey(ProductoPadre, models.DO_NOTHING, db_column='id_producto_padre', blank=True, null=True)
-    id_plato_padre = models.ForeignKey(PlatoPadre, models.DO_NOTHING, db_column='id_plato_padre', blank=True, null=True)
+    producto_padre = models.ForeignKey(ProductoPadre, models.DO_NOTHING, db_column='id_producto_padre', blank=True, null=True)
+    plato_padre = models.ForeignKey(PlatoPadre, models.DO_NOTHING, db_column='id_plato_padre', blank=True, null=True)
 
     class Meta:
         managed = True
