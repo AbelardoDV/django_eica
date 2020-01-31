@@ -7,7 +7,6 @@
 <!-- Select2 -->
 <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}" />
 <link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}" />
-
 <!-- Font Awesome -->
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
   integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
@@ -44,7 +43,7 @@
     <div class="row">
       <div class="col-12">
         <!-- Default box -->
-        <div class="card col-lg-8">
+        <div class="card col-lg-9">
           <div class="card-header ">
             <h4 class="card-title col-6">
               <strong>VENTAS | Empresa Isla de Canrash S.R.L.</strong>
@@ -110,6 +109,19 @@
                 <div class="row invoice-info">
                   <div class="col invoice-col">
                     <address>
+
+                      <!-- Vendedor -->
+                      <div class="form-group row">
+                        <label for="inputVendedor" class="col-3 col-sm-2 col-form-label">
+                          <strong>Vendedor:</strong>
+                        </label>
+                        <div class="col-9 col-sm-10">
+                          <select class="form-control" style="width: 100%;" name="vendedor">
+                            <option>Abelardo</option>
+                            <option>Violeta</option>
+                          </select>
+                        </div>
+                      </div>
 
                       <!-- Cliente -->
                       <div class="form-group row">
@@ -373,15 +385,16 @@
                   <thead>
                     <tr>
                       <th>Código</th>
-                      <th>#Boleta/#Factura</th>
+                      <th>#Boleta - #Factura</th>
+                      <th>Vendedor</th>
                       <th>Cliente</th>
                       <th>Comentarios</th>
                       <th>Tipo</th>
                       <th>Nro platos</th>
                       <th>Total (S/.)</th>
-                      <th>Fecha 1</th>
-                      <th>Fecha 2 </th>
-                      <th>Fecha 3</th>
+                      <th>Fecha compra (D/M/Y)</th>
+                      <th>Fecha creado (D/M/Y)</th>
+                      <th>Fecha modificado (D/M/Y)</th>
                       <th>Válido</th>
                     </tr>
                   </thead>
@@ -393,6 +406,9 @@
                       </td>
                       <td>
                         {{boleta.boleta_venta_restaurante.numero}}
+                      </td>
+                       <td>
+                        {{boleta.boleta_venta_restaurante.vendedor}}
                       </td>
                       <td>
                         {{boleta.boleta_venta_restaurante.cliente}}
@@ -434,17 +450,14 @@
                     </tr>
                     {% endfor %}
 
-                  </tbody>
-                </table>
+                    < </tbody> </table> </div> <!-- /.card-body -->
               </div>
-              <!-- /.card-body -->
+              <!-- /.card -->
             </div>
-            <!-- /.card -->
           </div>
         </div>
       </div>
     </div>
-  </div>
 </section>
 
 <!-- ADD MODALS HERE-->

@@ -22,6 +22,7 @@ class BoletaCompraAdmin(admin.ModelAdmin):
                     'comentario',
                     'valido',
                     'proveedor',
+                    'responsable',
                     'fecha_compra',
                     'fecha_creado',
                     'fecha_modificado')
@@ -33,7 +34,11 @@ admin.site.register(BoletaCompra, BoletaCompraAdmin)
 class BoletaVentaRestauranteAdmin(admin.ModelAdmin):
     list_display = ('id',
                     'comentario',
+                    'numero',
+                    'vendedor',
                     'cliente',
+                    'valido',
+                    'tipo',
                     'fecha_venta',
                     'fecha_creado',
                     'fecha_modificado')
@@ -85,7 +90,8 @@ admin.site.register(ProductoHijoVenta, ProductoHijoVentaAdmin)
 
 
 class ProductoPadreAdmin(admin.ModelAdmin):
-    list_display = ('nombre',
+    list_display = ('id',
+                    'nombre',
                     'descripcion',
                     'unidad')
 

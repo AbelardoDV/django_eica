@@ -9,6 +9,13 @@
 <link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
 <!-- DataTables -->
 <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.css' %}">
+<!-- Tempus Dominus Bootstrap 4 -->
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+<!-- Full page loader style https://codepen.io/tasawarmahmood/pen/EQoMPg-->
+<link rel="stylesheet" href="{% static 'custom/loader_full_page.css' %}" />
+<!-- Toastr -->
+<link rel="stylesheet" href="{% static 'plugins/toastr/toastr.min.css' %}">
 
 {% endblock cabecera %}
 
@@ -24,16 +31,23 @@
                         <h3 class="card-title"><strong>Historial de boletas de venta</strong></h3>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body">
-                        <table id="tablaHistorial" class="table table-bordered table-striped">
+                    <div class="card-body table-responsive p-0">
+                        {% csrf_token %}
+                        <table id="tablaHistorial" class="table table-hover table-striped">
                             <thead>
                                 <tr>
-                                    <th>Boleta</th>
-                                    <th>Comentarios</th>
-                                    <th>Fecha venta</th>
+                                    <th>Código</th>
+                                    <th>#Boleta - #Factura</th>
+                                    <th>Vendedor</th>
                                     <th>Cliente</th>
-                                    <th>Número de platos</th>
+                                    <th>Comentarios</th>
+                                    <th>Tipo</th>
+                                    <th>Nro platos</th>
                                     <th>Total (S/.)</th>
+                                    <th>Fecha compra (D/M/Y)</th>
+                                    <th>Fecha creado (D/M/Y)</th>
+                                    <th>Fecha modificado (D/M/Y)</th>
+                                    <th>Válido</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,16 +55,22 @@
                                 {% if  forloop.counter <= 1000 %}
                                 <tr>
                                     <td>
-                                        <a href="#">N° {{boleta.boleta_venta_restaurante}}</a>
+                                        <a href="#">{{boleta.boleta_venta_restaurante}}</a>
+                                    </td>
+                                    <td>
+                                        {{boleta.boleta_venta_restaurante.numero}}
+                                    </td>
+                                    <td>
+                                        {{boleta.boleta_venta_restaurante.vendedor}}
+                                    </td>
+                                    <td>
+                                        {{boleta.boleta_venta_restaurante.cliente}}
                                     </td>
                                     <td>
                                         {{boleta.boleta_venta_restaurante.comentario}}
                                     </td>
                                     <td>
-                                        {{boleta.boleta_venta_restaurante.fecha_venta}}
-                                    </td>
-                                    <td>
-                                        Falta setear cliente
+                                        {{boleta.boleta_venta_restaurante.tipo}}
                                     </td>
                                     <td>
                                         {{boleta.nro_productos}}
@@ -58,20 +78,31 @@
                                     <td>
                                         S/. {{boleta.precio_total}}
                                     </td>
-                                    {% comment %} <td class="project-actions text-right">
-                                        <a class="btn btn-warning btn-sm" href="#">
-                                            <i class="fas fa-folder"> </i>
-                                            Ver
-                                        </a>
-                                        <a class="btn btn-primary btn-sm" href="#">
-                                            <i class="fas fa-pencil-alt"> </i>
-                                            Editar
-                                        </a>
-                                        <a class="btn btn-danger btn-sm" href="#">
-                                            <i class="fas fa-trash"> </i>
-                                            Borrar
-                                        </a>
-                                    </td> {% endcomment %}
+                                    <td>
+                                        {{boleta.boleta_venta_restaurante.fecha_venta | date:"d/m/yy"}}
+                                    </td>
+                                    <td>
+                                        {{boleta.boleta_venta_restaurante.fecha_creado | date:"d/m/yy"}}
+                                    </td>
+                                    <td>
+                                        {{boleta.boleta_venta_restaurante.fecha_modificado | date:"d/m/yy"}}
+                                    </td>
+                                    <td>
+                                        {% if boleta.boleta_venta_restaurante.valido == True %}
+                                        <input class="switch" type="checkbox" name="my-checkbox" checked
+                                            data-bootstrap-switch data-on-text="SI" data-off-text="NO"
+                                            data-off-color="danger" data-on-color="success"
+                                            id="switch_{{boleta.boleta_venta_restaurante.id}}"
+                                            value="{{boleta.boleta_venta_restaurante.id}}" data-backdrop="static"
+                                            data-keyboard="false">
+                                        {% else %}
+                                        <input class="switch" type="checkbox" name="my-checkbox" data-bootstrap-switch
+                                            data-on-text="SI" data-off-text="NO" data-off-color="danger"
+                                            data-on-color="success" id="switch_{{boleta.boleta_venta_restaurante.id}}"
+                                            value="{{boleta.boleta_venta_restaurante.id}}" data-backdrop="static"
+                                            data-keyboard="false">
+                                        {% endif %}
+                                    </td>
                                 </tr>
                                 {% endif %}
                                 {% endfor %}
@@ -96,6 +127,35 @@
     </div>
 </section>
 
+
+<!-- ADD MODALS HERE-->
+
+<!-- Modal para confirmación de BoletaCompra.Valido-->
+<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Confirmación</h4>
+            </div>
+            <div class="modal-body">
+                ¿Está seguro que desea cambiar la validez de la boleta?<br>
+                Esto afectará al libro contable y balance económico.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+
+
+<!-- /.MODALS-->
+
 {% endblock contenido %}
 
 
@@ -106,13 +166,20 @@
 <!-- DataTables -->
 <script src="{% static 'plugins/datatables/jquery.dataTables.js' %}"></script>
 <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>
+<!-- Bootstrap Switch -->
+<script src="{% static 'plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}"></script>
+<!-- Toastr -->
+<script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
 
 <!-- Add here more js -->
 
 
 <!-- Page script -->
-<script>
-    $(function () {
+<script type="text/javascript">
+    var objetos_globales = {};
+
+    $(document).ready(function () {
+
         //Initialize Select2 Elements
         $('.select2').select2()
 
@@ -120,6 +187,12 @@
         $('.select2bs4').select2({
             theme: 'bootstrap4'
         })
+
+        //Initialize switch
+        $("input[data-bootstrap-switch]").each(function () {
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        });
+
         // Tabla Historial Datatable
         $('#tablaHistorial').DataTable({
             "oLanguage": {
@@ -151,6 +224,48 @@
                 },
             },
         });
+
+        //AJAX para actualizar si la boleta es válida
+
+        $('.switch').on('switchChange.bootstrapSwitch', function (e, data) {
+            objetos_globales.numero_switch = e.target.value;
+            $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch('state', !data, true);
+            $('#showModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        });
+
+        $(".modal-footer .btn-primary").click(function () {
+            $('#showModal').modal('hide');
+            $("#loader_bg").show();
+            $.ajax({
+                type: 'POST',
+                url: '../ventas/actualizar_valido/',
+                data: {
+                    id_boleta_venta_restaurante: objetos_globales.numero_switch,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                    action: 'post'
+                },
+                success: function (json) {
+                    $("#loader_bg").hide();
+                    $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch(
+                        'toggleState', true, true);
+                    toastr.success('Se cambio la validez de la boleta #' +
+                        objetos_globales.numero_switch);
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log(xhr.status + ": " + xhr
+                        .responseText
+                    ); // provide a bit more info about the error to the console
+                    $("#loader_bg").hide();
+                    toastr.error('No se pudo cambiar la validez de la boleta #' +
+                        objetos_globales.numero_switch);
+                }
+            });
+
+        });
+
         // Add here more scripts
     })
 </script>
