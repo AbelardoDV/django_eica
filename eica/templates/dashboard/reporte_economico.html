@@ -178,7 +178,8 @@
                                             S/.
                                         </span>
                                     </div>
-                                    <input type="number" class="form-control float-right" value="1" readonly id="importe_compras"/>
+                                    <input type="text" class="form-control float-right" value="" readonly
+                                        id="importe_compras" />
                                 </div>
                             </div>
                         </div>
@@ -210,7 +211,8 @@
                                             S/.
                                         </span>
                                     </div>
-                                    <input type="number" class="form-control float-right" value="1" readonly />
+                                    <input type="text" class="form-control float-right" value="" readonly
+                                        id="importe_ventas" />
                                 </div>
                             </div>
                         </div>
@@ -227,7 +229,7 @@
                                         </span>
                                     </div>
                                     <input type="text" class="form-control float-right"
-                                        id="rango_fecha_balance_economico">
+                                        id="rango_fecha_saldo_economico">
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -240,7 +242,8 @@
                                             S/.
                                         </span>
                                     </div>
-                                    <input type="number" class="form-control float-right" value="1" readonly />
+                                    <input type="text" class="form-control float-right" value="" readonly
+                                        id="saldo_economico" />
                                 </div>
                             </div>
                         </div> <!-- row -->
@@ -279,32 +282,30 @@
         //Date range picker
         $('#rango_fecha_compras').daterangepicker();
         $('#rango_fecha_compras').on('apply.daterangepicker', function (ev, picker) {
-            startDate=picker.startDate.format('YYYY-MM-DD');
-            endDate=picker.endDate.format('YYYY-MM-DD');
-            console.log(startDate);
-            console.log(endDate);
+            startDate = picker.startDate.format('YYYY-MM-DD');
+            endDate = picker.endDate.format('YYYY-MM-DD');
             $("#loader_bg").show();
             $.ajax({
                 type: 'POST',
                 url: '../compras/reporte_economico_ajax/',
                 data: {
-                    startDate :startDate,
+                    startDate: startDate,
                     endDate: endDate,
-                    reporte: "importe_compra_fecha_rango",
+                    reporte: 'importe_compra_fecha_rango',
                     csrfmiddlewaretoken: '{{ csrf_token }}',
                     action: 'post'
                 },
                 success: function (json) {
                     $("#loader_bg").hide();
-                    console.log(json.importe_compras);
-                    console.log("Hola mundo");
-                    $("#importe_compras").val(json.importe_compras);
+                    importe_compras = json.importe_compras.toString().replace(
+                        /\B(?=(\d{3})+(?!\d))/g, ","
+                    ) //Para mostrar coma en miles. ex: 1,984.30;
+                    $("#importe_compras").val(importe_compras);
                     toastr.success('Se obtuvo satisfactoriamente el importe');
                 },
                 error: function (xhr, errmsg, err) {
-                    console.log(xhr.status + ": " + xhr
-                        .responseText
-                    ); // provide a bit more info about the error to the console
+                    console.log(xhr.status + ": " + xhr.responseText);
+                    // provide a bit more info about the error to the console
                     $("#loader_bg").hide();
                     toastr.error('No se pudo obtener el importe');
                 }
@@ -312,14 +313,66 @@
         });
         $('#rango_fecha_ventas').daterangepicker();
         $('#rango_fecha_ventas').on('apply.daterangepicker', function (ev, picker) {
-            console.log(picker.startDate.format('YYYY-MM-DD'));
-            console.log(picker.endDate.format('YYYY-MM-DD'));
+            startDate = picker.startDate.format('YYYY-MM-DD');
+            endDate = picker.endDate.format('YYYY-MM-DD');
+            $("#loader_bg").show();
+            $.ajax({
+                type: 'POST',
+                url: '../compras/reporte_economico_ajax/',
+                data: {
+                    startDate: startDate,
+                    endDate: endDate,
+                    reporte: 'importe_venta_fecha_rango',
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+                success: function (json) {
+                    $("#loader_bg").hide();
+                    importe_ventas = json.importe_ventas.toString().replace(
+                        /\B(?=(\d{3})+(?!\d))/g, ",")
+                    //Para mostrar coma en miles. ex: 1,984.30
+                    $("#importe_ventas").val(importe_ventas);
+                    toastr.success('Se obtuvo satisfactoriamente el importe');
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log(xhr.status + ": " + xhr.responseText);
+                    // provide a bit more info about the error to the console
+                    $("#loader_bg").hide();
+                    toastr.error('No se pudo obtener el importe');
+                }
+            });
         });
-        $('#rango_fecha_balance_economico').daterangepicker();
-        $('#rango_fecha_balance_economico').on('apply.daterangepicker', function (ev, picker) {
-            console.log(picker.startDate.format('YYYY-MM-DD'));
-            console.log(picker.endDate.format('YYYY-MM-DD'));
-        });
+        $('#rango_fecha_saldo_economico').daterangepicker();
+        $('#rango_fecha_saldo_economico').on('apply.daterangepicker', function (ev, picker) {
+            startDate = picker.startDate.format('YYYY-MM-DD');
+            endDate = picker.endDate.format('YYYY-MM-DD');
+            $("#loader_bg").show();
+            $.ajax({
+                type: 'POST',
+                url: '../compras/reporte_economico_ajax/',
+                data: {
+                    startDate: startDate,
+                    endDate: endDate,
+                    reporte: 'importe_saldo_economico',
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+                success: function (json) {
+                    $("#loader_bg").hide();
+                    saldo_economico = json.saldo_economico.toString().replace(
+                        /\B(?=(\d{3})+(?!\d))/g, ",")
+                    //Para mostrar coma en miles. ex: 1,984.30
+                    $("#saldo_economico").val(saldo_economico);
+                    toastr.success('Se obtuvo satisfactoriamente el importe');
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log(xhr.status + ": " + xhr.responseText);
+                    // provide a bit more info about the error to the console
+                    $("#loader_bg").hide();
+                    toastr.error('No se pudo obtener el importe');
+                }
+            });
+        })
     });
 </script>
 

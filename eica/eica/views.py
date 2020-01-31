@@ -249,15 +249,27 @@ def actualizar_boletaCompra_valido_ajax(request):
 #Aquí se procesa AJAX para Importe BoletaCompra
 @login_required(login_url='/accounts/login')
 def reporte_economico_ajax(request):
-    response_data={}
+    response_data = {}
     if request.method == 'POST':
         if request.POST.get('reporte') =='importe_compra_fecha_rango':
-            startDate= datetime.datetime.strptime(request.POST.get('startDate'), "%Y-%m-%d")
-            endDate= datetime.datetime.strptime(request.POST.get('endDate'), "%Y-%m-%d")
-            boletas=BoletaCompra.objects.filter(fecha_compra__range=[startDate,endDate],valido=True)
-            query=ProductoHijoCompra.objects.filter(boleta_compra__valido=True,boleta_compra__fecha_compra__range=[startDate,endDate]).aggregate(Sum('precio'))     
-            response_data['importe_compras']=query['precio__sum']
-    return JsonResponse(response_data)
+            startDate = datetime.datetime.strptime(request.POST.get('startDate'), "%Y-%m-%d")
+            endDate = datetime.datetime.strptime(request.POST.get('endDate'), "%Y-%m-%d")
+            compras = ProductoHijoCompra.objects.filter(boleta_compra__valido=True,boleta_compra__fecha_compra__range=[startDate,endDate]).aggregate(Sum('precio'))     
+            response_data['importe_compras']=compras['precio__sum']
+            return JsonResponse(response_data)
+        if request.POST.get('reporte') =='importe_venta_fecha_rango':
+            startDate = datetime.datetime.strptime(request.POST.get('startDate'), "%Y-%m-%d")
+            endDate = datetime.datetime.strptime(request.POST.get('endDate'), "%Y-%m-%d")
+            ventas = PlatoHijoVenta.objects.filter(boleta_venta_restaurante__valido=True,boleta_venta_restaurante__fecha_venta__range=[startDate,endDate]).aggregate(Sum('precio_venta'))
+            response_data['importe_ventas']=ventas['precio_venta__sum']
+            return JsonResponse(response_data)
+        if request.POST.get('reporte') =='importe_saldo_economico':
+            startDate = datetime.datetime.strptime(request.POST.get('startDate'), "%Y-%m-%d")
+            endDate = datetime.datetime.strptime(request.POST.get('endDate'), "%Y-%m-%d")
+            compras = ProductoHijoCompra.objects.filter(boleta_compra__valido=True,boleta_compra__fecha_compra__range=[startDate,endDate]).aggregate(Sum('precio'))     
+            ventas = PlatoHijoVenta.objects.filter(boleta_venta_restaurante__valido=True,boleta_venta_restaurante__fecha_venta__range=[startDate,endDate]).aggregate(Sum('precio_venta'))
+            response_data['saldo_economico']=ventas['precio_venta__sum'] - compras['precio__sum']
+            return JsonResponse(response_data)
 # ---------------------------------Fin Seccion Productos---------------------------------
 
 
