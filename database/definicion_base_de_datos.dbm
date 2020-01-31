@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.1" last-position="0,329" last-zoom="0.95"
+<dbmodel pgmodeler-ver="0.9.1" last-position="0,276" last-zoom="0.95"
 	 default-schema="public" default-owner="postgres">
 <database name="restaurante" is-template="false" allow-conns="true">
 </database>
@@ -14,7 +14,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="proveedor" hide-ext-attribs="true">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="60" y="224.211"/>
+	<position x="60" y="220"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -74,7 +74,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="plato_padre">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1069.47" y="681.053"/>
+	<position x="580" y="600"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -102,7 +102,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="boleta_compra">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="560" y="1114.74"/>
+	<position x="560" y="1120"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -126,7 +126,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="boleta_venta_restaurante">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1049.47" y="1105.26"/>
+	<position x="1040" y="1100"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -150,7 +150,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="venta_bodega">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1446.32" y="1134.74"/>
+	<position x="1440" y="1140"/>
 	<column name="id" not-null="true">
 		<type name="smallint" length="0"/>
 	</column>
@@ -178,7 +178,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="producto_hijo_venta">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1401.05" y="240"/>
+	<position x="1400" y="240"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -269,7 +269,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="producto_plato">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1038.95" y="402.105"/>
+	<position x="1080" y="480"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -309,17 +309,17 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 dst-table="public.producto_plato"
 	 src-required="false" dst-required="false"/>
 
-<table name="plato_venta">
+<table name="plato_hijo_venta">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1027.37" y="858.947"/>
+	<position x="960" y="760"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
 	<column name="precio_venta">
 		<type name="real" length="0"/>
 	</column>
-	<constraint name="plato_venta_pk" type="pk-constr" table="public.plato_venta">
+	<constraint name="plato_venta_pk" type="pk-constr" table="public.plato_hijo_venta">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 
@@ -340,7 +340,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#40b55d"
 	 src-table="public.plato_padre"
-	 dst-table="public.plato_venta"
+	 dst-table="public.plato_hijo_venta"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="boleta_venta_restaurante_has_many_plato_venta" type="rel1n"
@@ -349,7 +349,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#3d65d3"
 	 src-table="public.boleta_venta_restaurante"
-	 dst-table="public.plato_venta"
+	 dst-table="public.plato_hijo_venta"
 	 src-required="false" dst-required="false">
 	<label ref-type="name-label">
 		<position x="0" y="0"/>

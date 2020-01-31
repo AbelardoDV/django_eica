@@ -20,6 +20,7 @@ import datetime
 ##########################################################
 from django.db.models import Count
 from django.db.models import Sum
+from django.db.models import F
 
 # -------------------------Inicio Dashboard-------------------------
 
@@ -60,8 +61,22 @@ def dashboard_reporte_economico_view(request):
 
     nombre_vista = 'Dashboard | Reporte económico'
     ruta_vista = ['Dashboard', 'Reporte económico']
-
-
+    print("COMPRADOS")
+    print(ProductoHijoCompra.objects.filter(boleta_compra__valido=True).values('producto_padre__nombre','producto_padre__unidad').annotate(Sum('cantidad')))
+    print("VENDIDOS")
+    productos_vendidos=PlatoHijoVenta.objects.raw("""SELECT
+                                                    producto_padre.nombre,
+                                                    producto_padre.unidad,
+                                                    SUM(plato_hijo_venta.cantidad * producto_plato.cantidad) as cantidad
+                                                    FROM plato_hijo_venta 
+                                                    INNER JOIN plato_padre ON plato_hijo_venta.id_plato_padre=plato_padre.id
+                                                    INNER JOIN producto_plato ON producto_plato.id_plato_padre = plato_padre.id
+                                                    INNER JOIN producto_padre ON producto_padre.id = producto_plato.id_producto_padre
+                                                    INNER JOIN boleta_venta_restaurante ON boleta_venta_restaurante.id = plato_hijo_venta.id_boleta_venta_restaurante
+                                                    WHERE boleta_venta_restaurante.valido = True
+                                                    GROUP BY producto_padre.nombre,producto_padre.unidad;"""
+                                                    )
+    print(productos_vendidos)
     return render(request, 'dashboard/reporte_economico.html', locals())
 
 # ---------------------------Fin Dashboard-------------------------
