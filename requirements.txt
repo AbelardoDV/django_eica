@@ -28,3 +28,7 @@ sudo apt-get install postgresql-11 pgadmin4
 https://itsfoss.com/flameshot/
 
 # Pgmodeler
+
+
+# Switch inside Datatable
+https://www.gyrocode.com/articles/jquery-datatables-why-click-event-handler-does-not-work/

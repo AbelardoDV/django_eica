@@ -185,7 +185,7 @@ def compras_productos_view(request):
     #Aquí se recoje toda la información a insertar
     if request.method == 'POST':
         
-        #Obtener información de la boleta   
+        #Obtener información de la boleta
         fecha= datetime.datetime.strptime(request.POST.get('fecha_compra'), "%d/%m/%Y")
         id_proveedor=int(request.POST.get('id_proveedor')) #El proveedor es el mismo para todos
         id_boleta_compra = int(request.POST.get('id_boleta_compra'))
@@ -194,7 +194,6 @@ def compras_productos_view(request):
                
        #Si se envia el parámetro "nuevo_proveedor" significa que se debe crear un nuevo_proveedor:
         nombre_proveedor = request.POST.get('nuevo_proveedor')
-        print(nombre_proveedor)
         ruc=int(request.POST.get('ruc').replace(" ","").replace("_","").replace("-",""))
         celular=int(request.POST.get('celular').replace(" ","").replace("_","").replace("-",""))
         correo=request.POST.get('correo')

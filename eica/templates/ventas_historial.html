@@ -76,7 +76,7 @@
                                         {{boleta.nro_productos}}
                                     </td>
                                     <td>
-                                        S/. {{boleta.precio_total}}
+                                        {{boleta.precio_total}}
                                     </td>
                                     <td>
                                         {{boleta.boleta_venta_restaurante.fecha_venta | date:"d/m/yy"}}
@@ -107,7 +107,7 @@
                                 {% endif %}
                                 {% endfor %}
                             </tbody>
-                            <tfoot>
+                            {% comment %} <tfoot>
                                 <tr>
                                     <th>Boleta</th>
                                     <th>Comentarios</th>
@@ -116,7 +116,7 @@
                                     <th>Número de platos</th>
                                     <th>Total (S/.)</th>
                                 </tr>
-                            </tfoot>
+                            </tfoot> {% endcomment %}
                         </table>
                     </div>
                     <!-- /.card-body -->
