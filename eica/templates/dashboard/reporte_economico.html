@@ -178,7 +178,7 @@
                                             S/.
                                         </span>
                                     </div>
-                                    <input type="number" class="form-control float-right" value="1" readonly />
+                                    <input type="number" class="form-control float-right" value="1" readonly id="importe_compras"/>
                                 </div>
                             </div>
                         </div>
@@ -286,18 +286,19 @@
             $("#loader_bg").show();
             $.ajax({
                 type: 'POST',
-                url: '../compras/importe_compra_fecha_rango/',
+                url: '../compras/reporte_economico_ajax/',
                 data: {
                     startDate :startDate,
                     endDate: endDate,
+                    reporte: "importe_compra_fecha_rango",
                     csrfmiddlewaretoken: '{{ csrf_token }}',
                     action: 'post'
                 },
                 success: function (json) {
                     $("#loader_bg").hide();
-                    console.log(json.cantidad_boletas);
+                    console.log(json.importe_compras);
                     console.log("Hola mundo");
-
+                    $("#importe_compras").val(json.importe_compras);
                     toastr.success('Se obtuvo satisfactoriamente el importe');
                 },
                 error: function (xhr, errmsg, err) {

@@ -19,6 +19,7 @@ from django.utils.timezone import get_current_timezone
 import datetime
 ##########################################################
 from django.db.models import Count
+from django.db.models import Sum
 
 # -------------------------Inicio Dashboard-------------------------
 
@@ -242,17 +243,15 @@ def actualizar_boletaCompra_valido_ajax(request):
 
 #Aquí se procesa AJAX para Importe BoletaCompra
 @login_required(login_url='/accounts/login')
-def importe_compra_fecha_rango_ajax(request):
+def reporte_economico_ajax(request):
     response_data={}
     if request.method == 'POST':
-        print(request.POST.get('startDate'))
-        print(request.POST.get('endDate'))
-        startDate= datetime.datetime.strptime(request.POST.get('startDate'), "%Y-%m-%d")
-        endDate= datetime.datetime.strptime(request.POST.get('endDate'), "%Y-%m-%d")
-        print(startDate)
-        print(endDate)
-        boletas=BoletaCompra.objects.filter(fecha_compra__range=[startDate,endDate])
-        response_data['cantidad_boletas']=boletas.count()
+        if request.POST.get('reporte') =='importe_compra_fecha_rango':
+            startDate= datetime.datetime.strptime(request.POST.get('startDate'), "%Y-%m-%d")
+            endDate= datetime.datetime.strptime(request.POST.get('endDate'), "%Y-%m-%d")
+            boletas=BoletaCompra.objects.filter(fecha_compra__range=[startDate,endDate],valido=True)
+            query=ProductoHijoCompra.objects.filter(boleta_compra__valido=True,boleta_compra__fecha_compra__range=[startDate,endDate]).aggregate(Sum('precio'))     
+            response_data['importe_compras']=query['precio__sum']
     return JsonResponse(response_data)
 # ---------------------------------Fin Seccion Productos---------------------------------
 
