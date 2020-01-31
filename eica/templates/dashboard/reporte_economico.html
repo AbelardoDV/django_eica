@@ -57,61 +57,70 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for producto in saldo_restante_productos%}
                                 <tr>
-                                    <td>Pollo</td>
-                                    <td>Pollo</td>
-                                    <td>100</td>
-                                    <td>90</td>
-                                    <td>10</td>
+                                    <td>{{producto.nombre |default_if_none:"---"}}</td>
+                                    <td>{{producto.unidad |default_if_none:"---" }}</td>
+                                    <td>{{producto.cantidad_comprada|default_if_none:"---"}}</td>
+                                    <td>{{producto.cantidad_vendida|default_if_none:"---"}}</td>
+                                    <td>{{producto.saldo_restante|default_if_none:"---"}}</td>
                                     <td>
-                                        <div class="progress progress-xs">
-                                            <div class="progress-bar progress-bar-danger" style="width: 90%">
+
+                                        {% if producto.porcentaje_consumo < 25 %}
+                                        <div class="progress">
+                                            <div class="progress-bar bg-success" role="progressbar"
+                                                style="width: {{producto.porcentaje_consumo|default_if_none:"0"}}%;"
+                                                aria-valuenow="{{producto.porcentaje_consumo}}" aria-valuemin="0"
+                                                aria-valuemax="100">{{producto.porcentaje_consumo|default_if_none:"0"}}%
                                             </div>
                                         </div>
-                                    </td>
-                                    <td><span class="badge bg-danger">90%</span></td>
-                                </tr>
-                                <tr>
+                                        {% elif producto.porcentaje_consumo < 50 %}
+                                        <div class="progress">
+                                            <div class="progress-bar bg-info" role="progressbar"
+                                                style="width: {{producto.porcentaje_consumo|default_if_none:"0"}}%;"
+                                                aria-valuenow="{{producto.porcentaje_consumo}}" aria-valuemin="0"
+                                                aria-valuemax="100">{{producto.porcentaje_consumo|default_if_none:"0"}}%
+                                            </div>
+                                        </div>
+                                        {% elif producto.porcentaje_consumo < 75 %}
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning" role="progressbar"
+                                                style="width: {{producto.porcentaje_consumo|default_if_none:"0"}}%;"
+                                                aria-valuenow="{{producto.porcentaje_consumo}}" aria-valuemin="0"
+                                                aria-valuemax="100">{{producto.porcentaje_consumo|default_if_none:"0"}}%
+                                            </div>
+                                        </div>
+                                        {% else %}
+                                        <div class="progress">
+                                            <div class="progress-bar bg-danger" role="progressbar"
+                                                style="width: {{producto.porcentaje_consumo|default_if_none:"0"}}%;"
+                                                aria-valuenow="{{producto.porcentaje_consumo}}" aria-valuemin="0"
+                                                aria-valuemax="100">{{producto.porcentaje_consumo|default_if_none:"0"}}%
+                                            </div>
+                                        </div>
 
-                                    <td>Arroz</td>
-                                    <td>Kg</td>
-                                    <td>200</td>
-                                    <td>50</td>
-                                    <td>150</td>
-                                    <td>
-                                        <div class="progress progress-xs">
-                                            <div class="progress-bar bg-warning" style="width: 70%"></div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge bg-warning">25%</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Papa</td>
-                                    <td>Kg</td>
-                                    <td>200</td>
-                                    <td>50</td>
-                                    <td>150</td>
-                                    <td>
-                                        <div class="progress progress-xs progress-striped active">
-                                            <div class="progress-bar bg-primary" style="width: 30%"></div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge bg-primary">30%</span></td>
-                                </tr>
-                                <tr>
+                                        {% endif%}
 
-                                    <td>Lomo Fino</td>
-                                    <td>Kg</td>
-                                    <td>200</td>
-                                    <td>50</td>
-                                    <td>150</td>
-                                    <td>
-                                        <div class="progress progress-xs progress-striped active">
-                                            <div class="progress-bar bg-success" style="width: 90%"></div>
-                                        </div>
+
+
                                     </td>
-                                    <td><span class="badge bg-success">90%</span></td>
+                                    <td>
+                                        {% if producto.porcentaje_consumo < 25 or producto.porcentaje_consumo is None  %}
+                                        <span
+                                            class="badge bg-success">{{producto.porcentaje_consumo|default_if_none:"---"}}</span>
+                                        {% elif producto.porcentaje_consumo < 50 %}
+                                        <span
+                                            class="badge bg-info">{{producto.porcentaje_consumo|default_if_none:"---"}}</span>
+                                        {% elif producto.porcentaje_consumo < 75 %}
+                                        <span
+                                            class="badge bg-warning">{{producto.porcentaje_consumo|default_if_none:"---"}}</span>
+                                        {% else%}
+                                        <span
+                                            class="badge bg-danger">{{producto.porcentaje_consumo|default_if_none:"---"}}</span>
+                                        {% endif%}
+                                    </td>
                                 </tr>
+                                {% endfor%}
                             </tbody>
                         </table>
 
