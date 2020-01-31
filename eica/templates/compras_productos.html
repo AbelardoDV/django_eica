@@ -13,7 +13,8 @@
         display: block;
         transform: translate(0, -50%);
         top: 50%;
-        pointer-events: none;
+        https: //www.linkedin.com/jobs/search/?f_TPR=a1580278458-&geoId=102927786&keywords=mecatronica&location=Per%C3%BA
+            pointer-events: none;
         width: 25px;
         text-align: center;
         font-style: normal;
@@ -439,9 +440,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
                                         {% for boleta in tablaBoletas %}
-                                      
                                         <tr>
                                             <td>
                                                 <a href="#">N° {{boleta.boleta_compra}}</a>
@@ -490,7 +489,7 @@
                                             </td>
 
                                         </tr>
-                                      
+
                                         {% endfor %}
                                     </tbody>
                                 </table>
@@ -576,7 +575,7 @@
     integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
 <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js">
-    </script>
+</script>
 <!-- InputMask -->
 <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
 <script src="{% static 'plugins/inputmask/min/jquery.inputmask.bundle.min.js' %}"></script>
@@ -846,6 +845,12 @@
             });
 
         });
+
+        $('#btnGuardar').on('click blclick', function () {
+            this.style.visibility = 'hidden';
+            $("#loader_bg").show();
+        });
+
 
     });
 </script>

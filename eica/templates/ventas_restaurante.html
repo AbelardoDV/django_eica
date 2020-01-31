@@ -31,10 +31,10 @@
 
 <!-- Loader -->
 <div id="loader_bg" style="display: none;">
-    <div class="box_layer yellow"></div>
-    <div class="box_layer yellowDark"></div>
-    <div class="box_layer orange"></div>
-    <div class="box_layer orangeDark"></div>
+  <div class="box_layer yellow"></div>
+  <div class="box_layer yellowDark"></div>
+  <div class="box_layer orange"></div>
+  <div class="box_layer orangeDark"></div>
 </div>
 
 <!-- Fin Loaders-->
@@ -131,7 +131,7 @@
                           <strong>Tipo:</strong>
                         </label>
                         <div class="col-9 col-sm-10">
-                          <select class="form-control" style="width: 100%;">
+                          <select class="form-control" style="width: 100%;" name="tipo">
                             <option>Al contado</option>
                             <option>Pensión empresarial</option>
                             <option>Personal</option>
@@ -317,9 +317,9 @@
                       <i class="far fa-credit-card"></i> Guardar <strong>venta</strong>
                     </button>
                     <!--       <button type="button" class="btn btn-primary float-right"
-                                          style="margin-right: 5px;">
-                                          <i class="fas fa-download"></i> Generar <strong>PDF</strong>
-                                      </button> -->
+                              style="margin-right: 5px;">
+                              <i class="fas fa-download"></i> Generar <strong>PDF</strong>
+                              </button> -->
                   </div>
                 </div>
               </div>
@@ -377,7 +377,7 @@
                   </thead>
                   <tbody>
                     {% for boleta in tablaBoletasVenta %}
-                  
+
                     <tr>
                       <td>
                         <a href="#">N° {{boleta.boleta_venta_restaurante}}</a>
@@ -411,19 +411,17 @@
                         <input class="switch" type="checkbox" name="my-checkbox" checked data-bootstrap-switch
                           data-on-text="SI" data-off-text="NO" data-off-color="danger" data-on-color="success"
                           id="switch_{{boleta.boleta_venta_restaurante.id}}"
-                          value="{{boleta.boleta_venta_restaurante.id}}" data-backdrop="static"
-                          data-keyboard="false">
+                          value="{{boleta.boleta_venta_restaurante.id}}" data-backdrop="static" data-keyboard="false">
                         {% else %}
                         <input class="switch" type="checkbox" name="my-checkbox" data-bootstrap-switch data-on-text="SI"
                           data-off-text="NO" data-off-color="danger" data-on-color="success"
                           id="switch_{{boleta.boleta_venta_restaurante.id}}"
-                          value="{{boleta.boleta_venta_restaurante.id}}" data-backdrop="static"
-                          data-keyboard="false">
+                          value="{{boleta.boleta_venta_restaurante.id}}" data-backdrop="static" data-keyboard="false">
                         {% endif %}
                       </td>
 
                     </tr>
-           
+
                     {% endfor %}
                   </tbody>
                 </table>
@@ -565,13 +563,6 @@
   function cargar_plato(selectedValue, name) {
     // Nada
   };
-
-  $(function () {
-    $("#btnGuardar").on("click", function () {
-      //falta
-    })
-  });
-
 
   // Add event trigger to inputs with class auto-calc
   $(document).on("keyup change paste", "td > input.auto-calc", function () {
@@ -721,6 +712,11 @@
         }
       });
 
+    });
+
+    $('#btnGuardar').on('click blclick', function () {
+      this.style.visibility = 'hidden';
+      $("#loader_bg").show();
     });
 
   });

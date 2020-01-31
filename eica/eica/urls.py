@@ -28,7 +28,6 @@ from eica.views import compras_historial_view
 from eica.views import actualizar_boletaCompra_valido_ajax
 from eica.views import importe_compra_fecha_rango_ajax
 
-from eica.views import agregar_plato_view
 from eica.views import editar_plato_view
 
 from eica.views import error_404_view
@@ -71,10 +70,6 @@ urlpatterns = [
 
     # -----------------Inicio seccion agregar plato-----------------
     path('editar_platos/', editar_plato_view, name='editar_platos'),
-    # -----------------Fin seccion agregar plato-----------------
-
-    # -----------------Inicio seccion agregar plato-----------------
-    path('agregar_plato/', agregar_plato_view, name='agregar_plato'),
     # -----------------Fin seccion agregar plato-----------------
 
 

@@ -78,7 +78,8 @@ def ventas_restaurante_view(request):
         fecha= datetime.datetime.strptime(request.POST.get('fecha_venta'), "%d/%m/%Y")
         comentarios =str(request.POST.get('comentarios'))
         cliente =request.POST.get('cliente')
-        BoletaVentaRestaurante.objects.create(fecha_venta=fecha,comentario=comentarios,cliente=cliente)
+        tipo=request.POST.get('tipo')
+        BoletaVentaRestaurante.objects.create(fecha_venta=fecha,comentario=comentarios,cliente=cliente,tipo=tipo)
         
         id_boleta_venta_restaurante = int(request.POST.get('id_boleta_venta_restaurante'))
 
@@ -278,19 +279,6 @@ def editar_plato_view(request):
     return render(request, 'editar_platos.html', locals())
 
 # ---------------------------------Fin Editar---------------------------------
-
-
-
-# ------------------------------Inicio Seccion Agregar---------------------------------
-@login_required(login_url='/accounts/login')
-def agregar_plato_view(request):
-
-    nombre_vista = 'Agregar plato'
-    ruta_vista = ['Agregar plato']
-
-    return render(request, 'agregar_plato.html', locals())
-
-# ------------------------------Fin Seccion Agregar---------------------------------
 
 
 # ---------------------------Inicio Páginas 404 y 500---------------------------
