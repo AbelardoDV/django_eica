@@ -80,7 +80,12 @@ def ventas_restaurante_view(request):
         comentarios =str(request.POST.get('comentarios'))
         cliente =request.POST.get('cliente')
         tipo=request.POST.get('tipo')
-        BoletaVentaRestaurante.objects.create(fecha_venta=fecha,comentario=comentarios,cliente=cliente,tipo=tipo)
+        nro_boleta_factura=request.POST.get('nro_boleta_factura')
+        BoletaVentaRestaurante.objects.create(fecha_venta=fecha,
+                                                comentario=comentarios,
+                                                cliente=cliente,
+                                                tipo=tipo,
+                                                nro_boleta_factura=nro_boleta_factura)
         
         id_boleta_venta_restaurante = int(request.POST.get('id_boleta_venta_restaurante'))
 
