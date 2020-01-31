@@ -694,12 +694,6 @@
         }
     }
 
-
-    $('#btnGuardar').on('click blclick', function () {
-        this.style.visibility = 'hidden';
-        $("#loader_bg").show();
-    });
-
     objetos_globales.numero_switch = 0;
 
     //------------------------------------------INDISE DOCUMENT.READY---------------------------------------
@@ -863,6 +857,12 @@
             });
 
         });
+
+        $('#btnGuardar').on('click blclick', function () {
+            this.style.visibility = 'hidden';
+            $("#loader_bg").show();
+        });
+
 
     });
 </script>

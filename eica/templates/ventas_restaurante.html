@@ -564,11 +564,6 @@
     // Nada
   };
 
-  $('#btnGuardar').on('click blclick', function () {
-    this.style.visibility = 'hidden';
-    $("#loader_bg").show();
-  });
-
   // Add event trigger to inputs with class auto-calc
   $(document).on("keyup change paste", "td > input.auto-calc", function () {
 
@@ -717,6 +712,11 @@
         }
       });
 
+    });
+
+    $('#btnGuardar').on('click blclick', function () {
+      this.style.visibility = 'hidden';
+      $("#loader_bg").show();
     });
 
   });

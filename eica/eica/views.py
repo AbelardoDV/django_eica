@@ -281,19 +281,6 @@ def editar_plato_view(request):
 # ---------------------------------Fin Editar---------------------------------
 
 
-
-# ------------------------------Inicio Seccion Agregar---------------------------------
-@login_required(login_url='/accounts/login')
-def agregar_plato_view(request):
-
-    nombre_vista = 'Agregar plato'
-    ruta_vista = ['Agregar plato']
-
-    return render(request, 'agregar_plato.html', locals())
-
-# ------------------------------Fin Seccion Agregar---------------------------------
-
-
 # ---------------------------Inicio Páginas 404 y 500---------------------------
 
 def error_404_view(request, exception):
