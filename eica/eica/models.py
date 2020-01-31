@@ -92,6 +92,7 @@ class BoletaCompra(models.Model):
 
 class BoletaVentaRestaurante(models.Model):
     comentario = models.CharField(max_length=500, blank=True, null=True)
+    numero= models.BigIntegerField(blank=True, null=True)
     cliente=models.CharField(max_length=200, blank=True, null=True)
     valido = models.BooleanField(default=True,blank=False, null=False)
     tipo=models.CharField(max_length=100, blank=True, null=True)
