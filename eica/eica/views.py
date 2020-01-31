@@ -250,8 +250,8 @@ def importe_compra_fecha_rango_ajax(request):
         endDate= datetime.datetime.strptime(request.POST.get('endDate'), "%Y-%m-%d")
         print(startDate)
         print(endDate)
-        boletas=BoletaCompra.objects.filter(valido=True,fecha_compra__range=[startDate,endDate]).annotate(cantidad=Count('id'))
-        response_data['cantidad_boletas']=boletas[0].cantidad
+        boletas=BoletaCompra.objects.filter(fecha_compra__range=[startDate,endDate])
+        response_data['cantidad_boletas']=boletas.count()
     return JsonResponse(response_data)
 # ---------------------------------Fin Seccion Productos---------------------------------
 

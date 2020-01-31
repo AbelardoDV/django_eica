@@ -22,6 +22,12 @@
   <link rel="stylesheet" href=" {% static 'dist/css/adminlte.min.css' %}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- Full page loader style https://codepen.io/tasawarmahmood/pen/EQoMPg-->
+  <link rel="stylesheet" href="/AdminLte3/custom/loader_full_page.css" />
+
+  <!-- Toastr -->
+  <link rel="stylesheet" href="/AdminLte3/plugins/toastr/toastr.min.css">
+
 
   {% block cabecera %}
 
@@ -31,6 +37,13 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
+<!-- Loader -->
+<div id="loader_bg" style="display: none;">
+    <div class="box_layer yellow"></div>
+    <div class="box_layer yellowDark"></div>
+    <div class="box_layer orange"></div>
+    <div class="box_layer orangeDark"></div>
+</div>
   <!-- Site wrapper -->
   <div class="wrapper">
     <!-- Navbar -->
@@ -293,7 +306,7 @@
                         <i class="far fa-circle nav-icon"></i>
                         <p>Ingresar <br>ventas de bodega</p>
                       </a>
-                  </li> 
+                  </li>
                   <li class="nav-item">
                     {% if nombre_vista == 'Historial de Ventas'  %}
                     <a href="/ventas_historial" class="nav-link active">
@@ -456,7 +469,8 @@
   <script src=" {% static 'dist/js/adminlte.min.js' %}"></script>
   <!-- AdminLTE for demo purposes -->
   <script src=" {% static 'dist/js/demo.js' %}"></script>
-
+  <!-- Toastr -->
+  <script src=" {% static 'plugins/toastr/toastr.min.js' %}"></script>
 
   {% block pie %}
 
