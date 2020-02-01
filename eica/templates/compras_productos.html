@@ -3,7 +3,6 @@
 
 {% block cabecera %}
 
-
 <!-- Select2 -->
 <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}" />
 <link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}" />
@@ -24,9 +23,6 @@
 
 {% block contenido %}
 
-
-
-<!-- Fin Loaders-->
 
 <!-- Fin Loader -->
 <section class="content">
@@ -272,7 +268,7 @@
                                                         <input readonly="readonly" type="text" class="form-control"
                                                             id="Unidad_1">
                                                     </td>
-                                                    <td class="input-icon">  <input type="number" step="00.01"
+                                                    <td class="input-icon"> <input type="number" step="00.01"
                                                             placeholder='00.00' value='00.0' min="0"
                                                             class="form-control precio" name="Precio_1">
                                                     </td>
@@ -365,7 +361,6 @@
                 </div>
                 <!-- /.card -->
                 <hr style="width: 100%; color: red; height: 1px; background-color:red;" />
-
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -452,11 +447,8 @@
                                                     value="{{boleta.boleta_compra.id}}" data-backdrop="static"
                                                     data-keyboard="false">
                                                 {% endif %}
-
                                             </td>
-
                                         </tr>
-
                                         {% endfor %}
                                     </tbody>
                                 </table>
@@ -727,9 +719,6 @@
             };
         });
 
-
-
-
         /*Hallar el monto total de la boleta*/
         $('.precio').on('keyup change paste', function () {
 
@@ -810,17 +799,13 @@
                         objetos_globales.numero_switch);
                 }
             });
-
         });
-
         $('#btnGuardar').on('click blclick', function () {
             this.style.visibility = 'hidden';
             $("#loader_bg").show();
         });
-
-
     });
-</script>
 
+</script>
 
 {% endblock pie %}

@@ -24,7 +24,7 @@
                         <h3 class="card-title"><strong>Historial de boletas de compra</strong></h3>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body">
+                    <div class="card-body table-responsive p-0">
                         <table id="tablaHistorial" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -35,6 +35,9 @@
                                     <th>Total (S/.)</th>
                                     <th>Comentarios</th>
                                     <th>Fecha compra (D/M/Y)</th>
+                                    <th>Fecha creado (D/M/Y)</th>
+                                    <th>Fecha modificado (D/M/Y)</th>
+                                    <th>Válido</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,7 +45,7 @@
                                 {% if  forloop.counter <= 1000 %}
                                 <tr>
                                     <td>
-                                        <a href="#">N° {{boleta.boleta_compra}}</a>
+                                        <a href="#">{{boleta.boleta_compra}}</a>
                                     </td>
                                     <td>
                                         {{boleta.boleta_compra.responsable}}
@@ -54,7 +57,7 @@
                                         {{boleta.nro_productos}}
                                     </td>
                                     <td>
-                                        S/. {{boleta.precio_total}}
+                                        {{boleta.precio_total}}
                                     </td>
                                     <td>
                                         {{boleta.boleta_compra.comentario |default_if_none:"- - - -"}}
@@ -62,31 +65,32 @@
                                     <td>
                                         {{boleta.boleta_compra.fecha_compra | date:"d/m/yy"}}
                                     </td>
-                                    {% comment %}
-                                    <td>{{producto.id_boleta_compra.fecha_compra}}</td>
-                                    {% endcomment %}
-                                    {% comment %}
-                                    <td class="project-actions text-right">
-                                        <a class="btn btn-primary btn-sm" href="">
-                                            <i class="fas fa-folder"> </i>
-                                            View
-                                        </a>
-                                        <a class="btn btn-info btn-sm" href="">
-                                            <i class="fas fa-pencil-alt"> </i>
-                                            Edit
-                                        </a>
-                                        <a class="btn btn-danger btn-sm" href="">
-                                            <i class="fas fa-trash"> </i>
-                                            Delete
-                                        </a>
+                                    <td>
+                                        {{boleta.boleta_compra.fecha_creado | date:"d/m/yy"}}
                                     </td>
-                                    {% endcomment %}
-
+                                    <td>
+                                        {{boleta.boleta_compra.fecha_modificado | date:"d/m/yy - H:i"}} Hrs
+                                    </td>
+                                    <td>
+                                        {% if boleta.boleta_compra.valido == True %}
+                                        <input class="switch" type="checkbox" name="my-checkbox" checked
+                                            data-bootstrap-switch data-on-text="SI" data-off-text="NO"
+                                            data-off-color="danger" data-on-color="success"
+                                            id="switch_{{boleta.boleta_compra.id}}" value="{{boleta.boleta_compra.id}}"
+                                            data-backdrop="static" data-keyboard="false">
+                                        {% else %}
+                                        <input class="switch" type="checkbox" name="my-checkbox" data-bootstrap-switch
+                                            data-on-text="SI" data-off-text="NO" data-off-color="danger"
+                                            data-on-color="success" id="switch_{{boleta.boleta_compra.id}}"
+                                            value="{{boleta.boleta_compra.id}}" data-backdrop="static"
+                                            data-keyboard="false">
+                                        {% endif %}
+                                    </td>
                                 </tr>
                                 {% endif %}
                                 {% endfor %}
                             </tbody>
-                            <tfoot>
+                            {% comment %} <tfoot>
                                 <tr>
                                     <th>Boleta</th>
                                     <th>Comentarios</th>
@@ -95,7 +99,7 @@
                                     <th>Nro. de productos</th>
                                     <th>Total (S/.)</th>
                                 </tr>
-                            </tfoot>
+                            </tfoot> {% endcomment %}
                         </table>
                     </div>
                     <!-- /.card-body -->
@@ -107,6 +111,33 @@
     </div>
     </div>
 </section>
+
+<!-- ADD MODALS HERE-->
+
+<!-- Modal para confirmación de BoletaCompra.Valido-->
+<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Confirmación</h4>
+            </div>
+            <div class="modal-body">
+                ¿Está seguro que desea cambiar la validez de la boleta?<br>
+                Esto afectará al libro contable y balance económico.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+
+<!-- /.MODALS-->
 {% endblock contenido %}
 
 
@@ -117,13 +148,20 @@
 <!-- DataTables -->
 <script src="{% static 'plugins/datatables/jquery.dataTables.js' %}"></script>
 <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>
+<!-- Bootstrap Switch -->
+<script src="{% static 'plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}"></script>
+<!-- Toastr -->
+<script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
 
 <!-- Add here more js -->
 
 
 <!-- Page script -->
-<script>
-    $(function () {
+<script type="text/javascript">
+    var objetos_globales = {};
+
+    $(document).ready(function () {
+
         //Initialize Select2 Elements
         $('.select2').select2()
 
@@ -131,6 +169,12 @@
         $('.select2bs4').select2({
             theme: 'bootstrap4'
         })
+
+        //Initialize switch
+        $("input[data-bootstrap-switch]").each(function () {
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        });
+
         // Tabla Historial Datatable
         $('#tablaHistorial').DataTable({
             "oLanguage": {
@@ -162,8 +206,48 @@
                 },
             },
         });
-        // Add here more scripts
-    })
+
+        //AJAX para actualizar si la boleta es válida
+
+        $('.switch').on('switchChange.bootstrapSwitch', function (e, data) {
+            objetos_globales.numero_switch = e.target.value;
+            $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch('state', !data, true);
+            $('#showModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        });
+
+        $(".modal-footer .btn-primary").on('click', function () {
+            $('#showModal').modal('hide');
+            $("#loader_bg").show();
+            $.ajax({
+                type: 'POST',
+                url: '../compras/actualizar_valido/',
+                data: {
+                    id_boleta_compra: objetos_globales.numero_switch,
+                    csrfmiddlewaretoken: '{{csrf_token}}',
+                    action: 'post'
+                },
+                success: function (json) {
+                    $("#loader_bg").hide();
+                    $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch(
+                        'toggleState', true, true);
+                    toastr.success('Se cambio la validez de la boleta #' +
+                        objetos_globales.numero_switch);
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log(xhr.status + ": " + xhr
+                        .responseText
+                    ); // provide a bit more info about the error to the console
+                    $("#loader_bg").hide();
+                    toastr.error('No se pudo cambiar la validez de la boleta #' +
+                        objetos_globales.numero_switch);
+                }
+            });
+        });
+
+    });
 </script>
 
 {% endblock pie %}
