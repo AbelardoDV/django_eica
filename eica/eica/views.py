@@ -185,7 +185,7 @@ def compras_productos_view(request):
     #Aquí se recoje toda la información a insertar
     if request.method == 'POST':
         
-        #Obtener información de la boleta
+        #Obtener información de la boleta   
         fecha= datetime.datetime.strptime(request.POST.get('fecha_compra'), "%d/%m/%Y")
         id_proveedor=int(request.POST.get('id_proveedor')) #El proveedor es el mismo para todos
         id_boleta_compra = int(request.POST.get('id_boleta_compra'))
@@ -194,6 +194,7 @@ def compras_productos_view(request):
                
        #Si se envia el parámetro "nuevo_proveedor" significa que se debe crear un nuevo_proveedor:
         nombre_proveedor = request.POST.get('nuevo_proveedor')
+        print(nombre_proveedor)
         ruc=int(request.POST.get('ruc').replace(" ","").replace("_","").replace("-",""))
         celular=int(request.POST.get('celular').replace(" ","").replace("_","").replace("-",""))
         correo=request.POST.get('correo')
@@ -240,15 +241,23 @@ def compras_productos_view(request):
 
 
 @login_required(login_url='/accounts/login')
-def compras_historial_view(request):
+def compras_historial_boletas_view(request):
 
-    nombre_vista = 'Compras Historial'
-    ruta_vista = ['Compras Historial']
+    nombre_vista = 'Compras Historial Boletas'
+    ruta_vista = ['Compras Historial Boletas']
 
     tablaBoletas = ProductoHijoCompra.objects.raw('SELECT MIN(id) AS id,MAX(id_boleta_compra) AS id_boleta_compra, SUM(precio) AS precio_total, COUNT(*) AS nro_productos FROM producto_hijo_compra GROUP BY id_boleta_compra ORDER BY id_boleta_compra DESC;')
 
-    return render(request, 'compras_historial.html', locals())
+    return render(request, 'compras_historial_boletas.html', locals())
 
+
+@login_required(login_url='/accounts/login')
+def compras_historial_productos_view(request):
+
+    nombre_vista = 'Compras Historial Productos'
+    ruta_vista = ['Compras Historial Productos']
+    productosHijoCompra =ProductoHijoCompra.objects.all()[:10]
+    return render(request, 'compras_historial_productos.html', locals())
 
 #Aquí se procesa AJAX para BoletaCompra.valido
 @login_required(login_url='/accounts/login')
