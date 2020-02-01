@@ -89,6 +89,16 @@ class ProductoHijoVentaAdmin(admin.ModelAdmin):
 admin.site.register(ProductoHijoVenta, ProductoHijoVentaAdmin)
 
 
+class ProductoHijoTransaccionAdmin(admin.ModelAdmin):
+    list_display=('id',
+                  'cantidad',
+                  'fecha_transaccion',
+                  'fecha_creado',
+                  'fecha_modificado')
+    
+    
+admin.site.register(ProductoHijoTransaccion,ProductoHijoTransaccionAdmin)
+
 class ProductoPadreAdmin(admin.ModelAdmin):
     list_display = ('id',
                     'nombre',

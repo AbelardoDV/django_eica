@@ -214,7 +214,7 @@ class ProductoPadre(models.Model):
     def __str__(self):
         return '{}'.format(self.nombre)
     
-class ProductoHijoTransaccion(models.Model):
+class ProductoHijoTransaccion(models.Model): #Este modelo es para definir cuanta cantidad de producto se movio del almacén a la cocina
     cantidad = models.FloatField(blank=True, null=True)
     fecha_transaccion = models.DateTimeField(blank=True, null=True)
     fecha_creado = models.DateTimeField(blank=True, null=True)

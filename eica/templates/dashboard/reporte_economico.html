@@ -45,10 +45,14 @@
                                         <th>Producto</th>
                                         <th>Unidad</th>
                                         <th>Comprado</th>
-                                        <th>Usado</th>
-                                        <th>Saldo</th>
+                                        <th>Usado**</th>
+                                        <th>Saldo**</th>
                                         <th>Porcentaje de consumo</th>
-                                        <th>Label</th>
+                                        <th>Enviar a cocina</th>
+                                        <th>Ultimo envio</th>
+                                        <th>Historial</th>
+                                        <th>En bodega</th>
+                                        <th>Déficit</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,7 +60,7 @@
                                     <tr>
                                         <td>{{producto.nombre |default_if_none:"---"}}</td>
                                         <td>{{producto.unidad |default_if_none:"---" }}</td>
-                                        <td>{{producto.cantidad_comprada|default_if_none:"---"}}</td>
+                                        <td><strong>{{producto.cantidad_comprada|default_if_none:"---"}}</strong></td>
                                         <td>{{producto.cantidad_vendida|default_if_none:"---"}}</td>
                                         <td>{{producto.saldo_restante|default_if_none:"---"}}</td>
                                         <td>
@@ -102,25 +106,34 @@
 
 
                                         </td>
+
                                         <td>
-                                            {% if producto.porcentaje_consumo < 25 or producto.porcentaje_consumo is None  %}
-                                            <span
-                                                class="badge bg-success">{{producto.porcentaje_consumo|default_if_none:"---"}}</span>
-                                            {% elif producto.porcentaje_consumo < 50 %}
-                                            <span
-                                                class="badge bg-info">{{producto.porcentaje_consumo|default_if_none:"---"}}</span>
-                                            {% elif producto.porcentaje_consumo < 75 %}
-                                            <span
-                                                class="badge bg-warning">{{producto.porcentaje_consumo|default_if_none:"---"}}</span>
-                                            {% else%}
-                                            <span
-                                                class="badge bg-danger">{{producto.porcentaje_consumo|default_if_none:"---"}}</span>
-                                            {% endif%}
+
+                                            <div class="input-group input-group-sm mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"
+                                                        id="inputGroup-sizing-sm">Enviar</span>
+                                                </div>
+                                                <input type="text" class="form-control" aria-label="Small"
+                                                    aria-describedby="inputGroup-sizing-sm">
+                                            </div>
+
+                                        </td>
+                                        <td>10 unidad | 18/01/2020</td>
+                                        <td>
+                                            <a href="">Ver Historial</a>
+                                        </td>
+                                        <td>
+                                            2 
+                                        </td>
+                                        <td>
+                                            10 
                                         </td>
                                     </tr>
                                     {% endfor%}
                                 </tbody>
                             </table>
+                            **Significa Teórico
                         </div>
                     </div>
                     <!-- ./card-body -->
