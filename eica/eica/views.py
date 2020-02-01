@@ -186,21 +186,21 @@ def compras_productos_view(request):
     if request.method == 'POST':
         
         #Obtener información de la boleta   
-        fecha= datetime.datetime.strptime(request.POST.get('fecha_compra'), "%d/%m/%Y")
-        id_proveedor=int(request.POST.get('id_proveedor')) #El proveedor es el mismo para todos
+        fecha = datetime.datetime.strptime(request.POST.get('fecha_compra'), "%d/%m/%Y")
+        id_proveedor = int(request.POST.get('id_proveedor')) #El proveedor es el mismo para todos
         id_boleta_compra = int(request.POST.get('id_boleta_compra'))
-        comentario=str(request.POST.get('comentarios'))
-        responsable= request.POST.get('responsable')
+        comentario = str(request.POST.get('comentarios'))
+        responsable = request.POST.get('responsable')
                
        #Si se envia el parámetro "nuevo_proveedor" significa que se debe crear un nuevo_proveedor:
         nombre_proveedor = request.POST.get('nuevo_proveedor')
         print(nombre_proveedor)
-        ruc=int(request.POST.get('ruc').replace(" ","").replace("_","").replace("-",""))
-        celular=int(request.POST.get('celular').replace(" ","").replace("_","").replace("-",""))
-        correo=request.POST.get('correo')
+        ruc = int(request.POST.get('ruc').replace(" ","").replace("_","").replace("-",""))
+        celular = int(request.POST.get('celular').replace(" ","").replace("_","").replace("-",""))
+        correo = request.POST.get('correo')
         
         if not(nombre_proveedor == None or nombre_proveedor == ''):
-            Proveedor.objects.create(nombre=nombre_proveedor,ruc=ruc,celular=celular,correo=correo,fecha_creado=fecha,fecha_modificado=fecha)       
+            Proveedor.objects.create(nombre= nombre_proveedor,ruc= ruc,celular= celular,correo= correo,fecha_creado= fecha,fecha_modificado=fecha)       
             id_proveedor=Proveedor.objects.get(nombre=nombre_proveedor).pk
 
         BoletaCompra.objects.create(fecha_compra=fecha,fecha_creado=datetime.datetime.now(tz=get_current_timezone()),fecha_modificado=datetime.datetime.now(tz=get_current_timezone()),comentario=comentario,proveedor=Proveedor.objects.get(pk=id_proveedor),responsable=responsable)
@@ -216,7 +216,7 @@ def compras_productos_view(request):
                 ProductoHijoCompra.objects.create(boleta_compra=BoletaCompra.objects.get(pk=id_boleta_compra),
                                                     producto_padre=ProductoPadre.objects.get(pk=id_producto_padre),
                                                     precio=precio,
-                                                    cantidad=cantidad)
+                                                    cantidad_enviada=cantidad)
 
     else:
         0
@@ -256,9 +256,18 @@ def compras_historial_productos_view(request):
 
     nombre_vista = 'Compras Historial Productos'
     ruta_vista = ['Compras Historial Productos']
-    productosHijoCompra =ProductoHijoCompra.objects.order_by('-boleta_compra')
+    productosHijoCompra =ProductoHijoCompra.objects.order_by('-boleta_compra').annotate(deficit=F('cantidad') - F('cantidad_enviada'))[:5]
     print(productosHijoCompra.query)
     return render(request, 'compras_historial_productos.html', locals())
+
+@login_required(login_url='/accounts/login')
+def compra_producto_cantidad_real(request):
+    if request.method == 'POST':
+        id_producto = int(request.POST.get('id_producto'))
+        cantidad_real = float(request.POST.get('cantidad_real'))
+        ProductoHijoCompra.objects.filter(pk=id_producto).update(cantidad=cantidad_real)
+    return HttpResponse(status=200)
+
 
 #Aquí se procesa AJAX para BoletaCompra.valido
 @login_required(login_url='/accounts/login')

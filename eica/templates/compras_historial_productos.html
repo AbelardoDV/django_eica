@@ -61,32 +61,53 @@
                                         {{producto.producto_padre.unidad}}
                                     </td>
                                     <td>
-                                        {{producto.cantidad}}
+                                        <p id="cantidad_enviada_{{producto.id}}">{{producto.cantidad_enviada}}</p>
                                     </td>
                                     <td>
-                                   
-                                            <div class="input-group input-group-sm">
 
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"
-                                                        id="inputGroup-sizing">Reportar</span>
-                                                </div>
-                                                <input type="number" class="form-control" aria-label="Small"
-                                                    aria-describedby="inputGroup-sizing-sm">
+                                        <div class="input-group input-group-sm">
 
+                                            <div class="input-group-prepend">
+                                                <span type="number" class="input-group-text bg-dark"
+                                                    onclick="reportar({{producto.id}});return false;"
+                                                    id="inputGroup-sizing">&nbsp;&nbsp;&nbsp;Reportar</span>
                                             </div>
-                                            <div class="input-group input-group-sm">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"
-                                                        id="inputGroup-sizing-sm">Reportado</span>
-                                                </div>
-                                                <input type="number" class="form-control" aria-label="Small" readonly
-                                                    aria-describedby="inputGroup-sizing-sm">
+                                            <input type="number" class="form-control" aria-label="Small"
+                                                aria-describedby="inputGroup-sizing-sm" id="producto_{{producto.id}}">
+
+                                        </div>
+                                        <div class="input-group input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"
+                                                    id="inputGroup-sizing-sm">Reportado</span>
                                             </div>
-                                   
+
+                                            {% if producto.deficit >= 0 %}
+                                            <input type="number" class="form-control is-valid"
+                                                id="reportado_{{producto.id}}" aria-label="Small" readonly
+                                                aria-describedby="inputGroup-sizing-sm" value="{{producto.cantidad}}">
+                                            {% elif producto.deficit is None %}
+                                            <input type="number" class="form-control is-warning"
+                                                id="reportado_{{producto.id}}" aria-label="Small" readonly
+                                                aria-describedby="inputGroup-sizing-sm" value="{{producto.cantidad}}">
+
+                                            {% else%}
+                                            <input type="number" class="form-control is-invalid"
+                                                id="reportado_{{producto.id}}" aria-label="Small" readonly
+                                                aria-describedby="inputGroup-sizing-sm" value="{{producto.cantidad}}">
+                                            {% endif%}
+                                        </div>
+
                                     </td>
                                     <td>
-                                        Enviado-Reportado
+                                        {% if producto.deficit < 0%}
+                                        <p class="text-danger" id="deficit_{{producto.id}}"> {{producto.deficit}}</p>
+                                        {% elif producto.deficit is None%}
+                                        Pendiente
+                                        {% else%}
+                                        <p class="text-sucess" id="deficit_{{producto.id}}"> {{producto.deficit}}</p>
+                                        {%endif%}
+
                                     </td>
                                     <td>
                                         {{producto.boleta_compra.responsable}}
@@ -140,6 +161,52 @@
 
 <!-- Page script -->
 <script>
+    $(document).ready(function () {
+
+
+    });
+
+
+    function reportar(producto_id) {
+        $('#showModal').modal('hide');
+        $("#loader_bg").show();
+        $.ajax({
+            type: 'POST',
+            url: '../compras_historial_productos/actualizar_cantidad_real/',
+            data: {
+                id_producto: producto_id,
+                cantidad_real: $("#producto_" + producto_id).val(),
+                csrfmiddlewaretoken: '{{csrf_token}}',
+                action: 'post'
+            },
+            success: function (json) {
+                $("#loader_bg").hide();
+                toastr.success('Se actualizó la cantidad real');
+                cantidad_enviada = parseFloat($("#cantidad_enviada_" + producto_id).text());
+                cantidad_real = parseFloat($("#producto_" + producto_id).val());
+                nuevo_deficit = cantidad_real - cantidad_enviada;
+                $("#deficit_" + producto_id).text(String(nuevo_deficit));
+                $("#reportado_" + producto_id).val(cantidad_real);
+                if (nuevo_deficit < 0) {
+                    $('#deficit_' + producto_id).attr("class", "text-danger");
+                    $("#reportado_" + producto_id).attr("class","form-control is-invalid");
+                } else {
+                    $('#deficit_' + producto_id).attr("class", "text-sucess");
+                    $("#reportado_" + producto_id).attr("class","form-control is-valid");
+                }
+
+
+            },
+            error: function (xhr, errmsg, err) {
+                console.log(xhr.status + ": " + xhr
+                    .responseText
+                ); // provide a bit more info about the error to the console
+                $("#loader_bg").hide();
+                toastr.error('No se pudo actualizar la cantidad real');
+            }
+        });
+
+    };
     $(function () {
         //Initialize Select2 Elements
         $('.select2').select2()

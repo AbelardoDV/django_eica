@@ -26,6 +26,7 @@ from eica.views import actualizar_boletaVentaRestaurante_valido
 from eica.views import compras_productos_view
 from eica.views import compras_historial_boletas_view
 from eica.views import compras_historial_productos_view
+from eica.views import compra_producto_cantidad_real
 from eica.views import actualizar_boletaCompra_valido_ajax
 from eica.views import reporte_economico_ajax
 
@@ -66,6 +67,7 @@ urlpatterns = [
     path('compras_productos/', compras_productos_view, name='compras_productos'),
     path('compras_historial_boletas/', compras_historial_boletas_view, name='compras_historial_boletas'),
     path('compras_historial_productos/', compras_historial_productos_view, name='compras_historial_productos'),
+    path('compras_historial_productos/actualizar_cantidad_real/', compra_producto_cantidad_real, name='compras_productos_cantidad_real'),
     path('compras/actualizar_valido/', actualizar_boletaCompra_valido_ajax, name='actualizar_valido'),
     path('compras/reporte_economico_ajax/', reporte_economico_ajax, name='importe_compra_fecha_rango'),
     # -----------------Fin seccion de Compra-----------------
