@@ -800,6 +800,19 @@
           '</table>'
         ))
     });
+
+    // Eventos para segunda página en adelante
+    $('#tablaHistorial').on('switchChange.bootstrapSwitch', function (e, data) {
+      objetos_globales.numero_switch = e.target.value;
+      $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch('state', !data,
+        true);
+      $('#showModal').modal({
+        backdrop: 'static',
+        keyboard: false
+      });
+    });
+
+    // Agregar más eventos en segundas páginas
   });
 </script>
 
