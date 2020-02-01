@@ -323,12 +323,12 @@
             <!-- Fin Ventas-->
 
             <!--Inicio Compras-->
-            {% if nombre_vista == 'Compras de Productos' or nombre_vista == 'Compras Historial'  %}
+            {% if nombre_vista == 'Compras de Productos' or nombre_vista == 'Compras Historial Boletas'  or nombre_vista == 'Compras Historial Productos' %}
             <li class="nav-item has-treeview menu-open">
               {% else %}
             <li class="nav-item has-treeview">
               {% endif %}
-              {% if nombre_vista == 'Compras de Productos' or nombre_vista == 'Compras Historial' %}
+              {% if nombre_vista == 'Compras de Productos' or nombre_vista == 'Compras Historial Boletas'  or nombre_vista == 'Compras Historial Productos' %}
               <a href="#" class="nav-link active">
                 {% else %}
                 <a href="#" class="nav-link">

@@ -380,7 +380,7 @@
                 </div>
               </div>
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
+              <div class="card-body table-responsive">
                 <table class="table table-hover">
                   <thead>
                     <tr>
@@ -400,14 +400,14 @@
                   </thead>
                   <tbody>
                     {% for boleta in tablaBoletasVenta %}
-                    <tr>
+                    <tr data-toggle="modal" data-target="#ModalTabla" data-id='{{forloop.counter}}'>
                       <td>
                         <a href="#">N° {{boleta.boleta_venta_restaurante}}</a>
                       </td>
                       <td>
                         {{boleta.boleta_venta_restaurante.numero}}
                       </td>
-                       <td>
+                      <td>
                         {{boleta.boleta_venta_restaurante.vendedor}}
                       </td>
                       <td>
@@ -449,19 +449,22 @@
                       </td>
                     </tr>
                     {% endfor %}
-
-                    < </tbody> </table> </div> <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
+                  </tbody>
+                </table>
+              </div> <!-- /.card-body -->
             </div>
+            <!-- /.card -->
           </div>
         </div>
       </div>
     </div>
+  </div>
 </section>
 
 <!-- ADD MODALS HERE-->
 
+
+<!-- Modal importar/exportar-->
 <div class="modal fade" id="modal-success">
   <div class="modal-dialog">
     <div class="modal-content bg-success">
@@ -495,7 +498,7 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
-
+<!-- /.modal -->
 
 <!-- Modal para confirmación de BoletaCompra.Valido-->
 <div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -520,6 +523,24 @@
 </div>
 <!-- /.modal -->
 
+
+<!-- Modal para mostrar datos de tabla-->
+<div id="ModalTabla" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Ver venta</h4>
+      </div>
+      <div class="modal-body" id="contenidoModalTabla">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.modal -->
 
 <!-- /.MODALS-->
 
@@ -743,6 +764,42 @@
       $("#loader_bg").show();
     });
 
+
+
+  });
+
+
+  $(function () {
+    $('#ModalTabla').on('show.bs.modal', function (event) {
+      var getColumn1 = $(event.relatedTarget).find('td:nth-child(1)').text();
+      var getColumn2 = $(event.relatedTarget).find('td:nth-child(2)').text();
+      var getColumn3 = $(event.relatedTarget).find('td:nth-child(3)').text();
+      var getColumn4 = $(event.relatedTarget).find('td:nth-child(4)').text();
+      var getColumn5 = $(event.relatedTarget).find('td:nth-child(5)').text();
+      var getColumn6 = $(event.relatedTarget).find('td:nth-child(6)').text();
+      var getColumn7 = $(event.relatedTarget).find('td:nth-child(7)').text();
+      var getColumn8 = $(event.relatedTarget).find('td:nth-child(8)').text();
+      var getColumn9 = $(event.relatedTarget).find('td:nth-child(9)').text();
+      var getColumn10 = $(event.relatedTarget).find('td:nth-child(10)').text();
+      var getColumn11 = $(event.relatedTarget).find('td:nth-child(11)').text();
+
+
+      $(this).find('#contenidoModalTabla').html(
+        $('<table class="table table-striped">' +
+          '<tr>' + '<td>Código:</td>' + '<td>' + getColumn1 + '</td>' + '</tr>' +
+          '<tr>' + '<td>#Boleta - # Factura</td>' + '<td>' + getColumn2 + '</td>' + '</tr>' +
+          '<tr>' + '<td>Vendedor:</td>' + '<td>' + getColumn3 + '</td>' + '</tr>' +
+          '<tr>' + '<td>Cliente:</td>' + '<td>' + getColumn4 + '</td>' + '</tr>' +
+          '<tr>' + '<td>Comentarios:</td>' + '<td>' + getColumn5 + '</td>' + '</tr>' +
+          '<tr>' + '<td>Tipo:</td>' + '<td>' + getColumn6 + '</td>' + '</tr>' +
+          '<tr>' + '<td>Número de platos:</td>' + '<td>' + getColumn7 + '</td>' + '</tr>' +
+          '<tr>' + '<td>Total (S/.):</td>' + '<td>' + getColumn8 + '</td>' + '</tr>' +
+          '<tr>' + '<td>Fecha compra (D/M/Y):</td>' + '<td>' + getColumn9 + '</td>' + '</tr>' +
+          '<tr>' + '<td>Fecha creado (D/M/Y):</td>' + '<td>' + getColumn10 + '</td>' + '</tr>' +
+          '<tr>' + '<td>Fecha modificado (D/M/Y):</td>' + '<td>' + getColumn11 + '</td>' + '</tr>' +
+          '</table>'
+        ))
+    });
   });
 </script>
 
