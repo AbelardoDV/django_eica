@@ -177,7 +177,8 @@ class PlatoHijoVenta(models.Model):
 
 class ProductoHijoCompra(models.Model):
     precio = models.FloatField()
-    cantidad = models.FloatField(blank=True, null=True)
+    cantidad = models.FloatField(blank=True, null=True) #Cantidad real recibida en la laguna
+    cantidad_enviada = models.FloatField(blank=True, null=True) #Cantidad que se envia a la laguna
     boleta_compra = models.ForeignKey(BoletaCompra, models.DO_NOTHING, db_column='id_boleta_compra', blank=True, null=True)
     producto_padre = models.ForeignKey('ProductoPadre', models.DO_NOTHING, db_column='id_producto_padre', blank=True, null=True)
 
