@@ -256,7 +256,7 @@ def compras_historial_productos_view(request):
 
     nombre_vista = 'Compras Historial Productos'
     ruta_vista = ['Compras Historial Productos']
-    productosHijoCompra =ProductoHijoCompra.objects.order_by('-boleta_compra').annotate(deficit=F('cantidad') - F('cantidad_enviada'))[:5]
+    productosHijoCompra =ProductoHijoCompra.objects.order_by('-boleta_compra').annotate(deficit=F('cantidad') - F('cantidad_enviada'))[:11]
     print(productosHijoCompra.query)
     return render(request, 'compras_historial_productos.html', locals())
 

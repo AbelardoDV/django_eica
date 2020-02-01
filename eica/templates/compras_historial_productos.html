@@ -11,6 +11,15 @@
 <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.css' %}">
 
 
+<!-- Para que la tabla no sea muy grande-->
+<style> 
+.table td, .table th{
+
+    padding:0.3rem;
+    vertical-align: middle;
+  }
+  </style>
+
 {% endblock cabecera %}
 
 
@@ -183,12 +192,12 @@
                 $("#loader_bg").hide();
                 toastr.success('Se actualizó la cantidad real');
                 cantidad_enviada = parseFloat($("#cantidad_enviada_" + producto_id).text());
-                cantidad_real = parseFloat($("#producto_" + producto_id).val());
+                cantidad_real = $("#producto_" + producto_id).val();
                 nuevo_deficit = cantidad_real - cantidad_enviada;
                 $("#deficit_" + producto_id).text(String(nuevo_deficit));
                 $("#reportado_" + producto_id).val(cantidad_real);
                 if (nuevo_deficit < 0) {
-                    $('#deficit_' + producto_id).attr("class", "text-danger");
+                    $('#deficit_' + producto_id).attr("class", "text-danger");                    
                     $("#reportado_" + producto_id).attr("class","form-control is-invalid");
                 } else {
                     $('#deficit_' + producto_id).attr("class", "text-sucess");
