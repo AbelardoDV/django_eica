@@ -352,13 +352,24 @@
                 </ul>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    {% if nombre_vista == 'Compras Historial'  %}
-                    <a href="/compras_historial" class="nav-link active">
+                    {% if nombre_vista == 'Compras Historial Boletas'  %}
+                    <a href="/compras_historial_boletas" class="nav-link active">
                       {% else %}
-                      <a href="/compras_historial" class="nav-link">
+                      <a href="/compras_historial_boletas" class="nav-link">
                         {% endif %}
                         <i class="far fa-circle nav-icon"></i>
                         <p>Historial de Boletas</p>
+                      </a>
+                </ul>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    {% if nombre_vista == 'Compras Historial Productos'  %}
+                    <a href="/compras_historial_productos" class="nav-link active">
+                      {% else %}
+                      <a href="/compras_historial_productos" class="nav-link">
+                        {% endif %}
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Historial de Productos</p>
                       </a>
                 </ul>
             </li>

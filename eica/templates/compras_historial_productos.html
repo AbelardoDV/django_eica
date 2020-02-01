@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block cabecera %}
+<!-- Select2 -->
+<link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
+<!-- DataTables -->
+<link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.css' %}">
+
+{% endblock cabecera %}
+
+
+{% block contenido %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"><strong>Historial de boletas de compra</strong></h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="tablaHistorial" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Boleta</th>
+                                    <th>Responsable</th>
+                                    <th>Proveedor</th>
+                                    <th>Nro. de productos</th>
+                                    <th>Total (S/.)</th>
+                                    <th>Comentarios</th>
+                                    <th>Fecha compra (D/M/Y)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for producto in productosHijoCompra %}
+                                <tr>
+                                    <td>
+                                        <a href="#">N° {{producto.boleta_compra.id}}</a>
+                                    </td>
+                                    <td>
+                                        {{producto.producto_padre.nombre}}
+                                    </td>
+                                    <td>
+                                        {{producto.boleta_compra.responsable}}
+                                    </td>
+                                    <td>
+                                        {{producto.boleta_compra.proveedor.nombre}}
+                                    </td>
+                                   
+                                    <td>
+                                        S/. {{boleta.precio_total}}
+                                    </td>
+                                    <td>
+                                        {{boleta.boleta_compra.comentario |default_if_none:"- - - -"}}
+                                    </td>
+                                    <td>
+                                        {{boleta.boleta_compra.fecha_compra | date:"d/m/yy"}}
+                                    </td>
+                               
+
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Boleta</th>
+                                    <th>Comentarios</th>
+                                    <th>Fecha compra (D/M/Y)</th>
+                                    <th>Proveedor</th>
+                                    <th>Nro. de productos</th>
+                                    <th>Total (S/.)</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
+{% endblock contenido %}
+
+
+{% block pie %}
+
+<!-- Select2 -->
+<script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
+<!-- DataTables -->
+<script src="{% static 'plugins/datatables/jquery.dataTables.js' %}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>
+
+<!-- Add here more js -->
+
+
+<!-- Page script -->
+<script>
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
+        // Tabla Historial Datatable
+        $('#tablaHistorial').DataTable({
+            "oLanguage": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla =(",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                "buttons": {
+                    "copy": "Copiar",
+                    "colvis": "Visibilidad"
+                },
+            },
+        });
+        // Add here more scripts
+    })
+</script>
+
+{% endblock pie %}
