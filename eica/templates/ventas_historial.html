@@ -229,7 +229,8 @@
 
         $('.switch').on('switchChange.bootstrapSwitch', function (e, data) {
             objetos_globales.numero_switch = e.target.value;
-            $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch('state', !data, true);
+            $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch('state', !data,
+                true);
             $('#showModal').modal({
                 backdrop: 'static',
                 keyboard: false
@@ -249,8 +250,9 @@
                 },
                 success: function (json) {
                     $("#loader_bg").hide();
-                    $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch(
-                        'toggleState', true, true);
+                    $('#switch_' + objetos_globales.numero_switch)
+                        .bootstrapSwitch(
+                            'toggleState', true, true);
                     toastr.success('Se cambio la validez de la boleta #' +
                         objetos_globales.numero_switch);
                 },
@@ -259,15 +261,29 @@
                         .responseText
                     ); // provide a bit more info about the error to the console
                     $("#loader_bg").hide();
-                    toastr.error('No se pudo cambiar la validez de la boleta #' +
+                    toastr.error(
+                        'No se pudo cambiar la validez de la boleta #' +
                         objetos_globales.numero_switch);
                 }
             });
-
         });
-
         // Add here more scripts
     })
+
+    $(function () {
+        // Eventos para segunda página en adelante
+        $('#tablaHistorial').on('switchChange.bootstrapSwitch', function (e, data) {
+            objetos_globales.numero_switch = e.target.value;
+            $('#switch_' + objetos_globales.numero_switch).bootstrapSwitch('state', !data,
+                true);
+            $('#showModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        });
+        
+        // Agregar más eventos en segundas páginas
+    });
 </script>
 
 {% endblock pie %}
