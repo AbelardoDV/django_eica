@@ -10,6 +10,7 @@
 <!-- DataTables -->
 <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.css' %}">
 
+
 {% endblock cabecera %}
 
 
@@ -28,12 +29,15 @@
                         <table id="tablaHistorial" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Boleta</th>
+                                    <th>N° Boleta</th>
+                                    <th>Boleta Valida </th>
+                                    <th>Producto</th>
+                                    <th>Unidad</th>
+                                    <th>Cantidad Enviada</th>
+                                    <th>Cantidad Real </th>
+                                    <th>Déficit</th>
                                     <th>Responsable</th>
                                     <th>Proveedor</th>
-                                    <th>Nro. de productos</th>
-                                    <th>Total (S/.)</th>
-                                    <th>Comentarios</th>
                                     <th>Fecha compra (D/M/Y)</th>
                                 </tr>
                             </thead>
@@ -41,33 +45,65 @@
                                 {% for producto in productosHijoCompra %}
                                 <tr>
                                     <td>
-                                        <a href="#">N° {{producto.boleta_compra.id}}</a>
+                                        <a href="#">{{producto.boleta_compra.id}}</a>
+                                    </td>
+                                    <td>
+                                        {% if producto.boleta_compra.valido is True %}
+                                        <p class="text-success"> Valido </p>
+                                        {% else %}
+                                        <p class="text-danger"> Anulado</p>
+                                        {%endif%}
                                     </td>
                                     <td>
                                         {{producto.producto_padre.nombre}}
                                     </td>
                                     <td>
+                                        {{producto.producto_padre.unidad}}
+                                    </td>
+                                    <td>
+                                        {{producto.cantidad}}
+                                    </td>
+                                    <td>
+                                   
+                                            <div class="input-group input-group-sm">
+
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"
+                                                        id="inputGroup-sizing">Reportar</span>
+                                                </div>
+                                                <input type="number" class="form-control" aria-label="Small"
+                                                    aria-describedby="inputGroup-sizing-sm">
+
+                                            </div>
+                                            <div class="input-group input-group-sm">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"
+                                                        id="inputGroup-sizing-sm">Reportado</span>
+                                                </div>
+                                                <input type="number" class="form-control" aria-label="Small" readonly
+                                                    aria-describedby="inputGroup-sizing-sm">
+                                            </div>
+                                   
+                                    </td>
+                                    <td>
+                                        Enviado-Reportado
+                                    </td>
+                                    <td>
                                         {{producto.boleta_compra.responsable}}
                                     </td>
                                     <td>
-                                        {{producto.boleta_compra.proveedor.nombre}}
-                                    </td>
-                                   
-                                    <td>
-                                        S/. {{boleta.precio_total}}
+                                        {{producto.boleta_compra.proveedor}}
                                     </td>
                                     <td>
-                                        {{boleta.boleta_compra.comentario |default_if_none:"- - - -"}}
+                                        {{producto.boleta_compra.fecha_compra | date:"d/m/yy"}}
                                     </td>
-                                    <td>
-                                        {{boleta.boleta_compra.fecha_compra | date:"d/m/yy"}}
-                                    </td>
-                               
+
+
 
                                 </tr>
                                 {% endfor %}
                             </tbody>
-                            <tfoot>
+                            {% comment %} <tfoot>
                                 <tr>
                                     <th>Boleta</th>
                                     <th>Comentarios</th>
@@ -76,7 +112,7 @@
                                     <th>Nro. de productos</th>
                                     <th>Total (S/.)</th>
                                 </tr>
-                            </tfoot>
+                            </tfoot> {% endcomment %}
                         </table>
                     </div>
                     <!-- /.card-body -->
@@ -114,6 +150,9 @@
         })
         // Tabla Historial Datatable
         $('#tablaHistorial').DataTable({
+            "order": [
+                [0, "desc"]
+            ],
             "oLanguage": {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",

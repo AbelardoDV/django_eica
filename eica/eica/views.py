@@ -256,7 +256,8 @@ def compras_historial_productos_view(request):
 
     nombre_vista = 'Compras Historial Productos'
     ruta_vista = ['Compras Historial Productos']
-    productosHijoCompra =ProductoHijoCompra.objects.all()[:10] 
+    productosHijoCompra =ProductoHijoCompra.objects.order_by('-boleta_compra')
+    print(productosHijoCompra.query)
     return render(request, 'compras_historial_productos.html', locals())
 
 #Aquí se procesa AJAX para BoletaCompra.valido
