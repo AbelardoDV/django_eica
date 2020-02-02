@@ -32,6 +32,8 @@ from eica.views import reporte_economico_ajax
 
 from eica.views import editar_plato_view
 
+from eica.views import enviar_cocina
+
 from eica.views import error_404_view
 from eica.views import error_500_view
 
@@ -69,8 +71,13 @@ urlpatterns = [
     path('compras_historial_productos/', compras_historial_productos_view, name='compras_historial_productos'),
     path('compras_historial_productos/actualizar_cantidad_real/', compra_producto_cantidad_real, name='compras_productos_cantidad_real'),
     path('compras/actualizar_valido/', actualizar_boletaCompra_valido_ajax, name='actualizar_valido'),
-    path('compras/reporte_economico_ajax/', reporte_economico_ajax, name='importe_compra_fecha_rango'),
     # -----------------Fin seccion de Compra-----------------
+    
+    #----------------------------Reporte Económico ------------------------
+    path('dashboard/reporte_economico/reporte_economico_ajax/', reporte_economico_ajax, name='importe_fecha_rango'),
+    path('dashboard/reporte_economico/enviar_cocina/', enviar_cocina, name='enviar_cocina'),
+    #----------------------------Fin Reporte Económico----------------------
+    
 
     # -----------------Inicio seccion agregar plato-----------------
     path('editar_platos/', editar_plato_view, name='editar_platos'),

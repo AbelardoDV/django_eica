@@ -49,7 +49,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <div class="col-12 table-responsive">
-                            <table class="table table-striped">
+                            <table class="table table-striped" id="myTable">
                                 <thead>
                                     <tr>
                                         <th>Producto</th>
@@ -117,18 +117,19 @@
 
                                         </td>
                                         <td style="text-align: center;">
-                                            2
+                                            {{producto.cantidad_almacen}}
                                         </td>
                                         <td>
 
                                             <div class="input-group input-group-sm">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="inputGroup-sizing-sm"
+                                                    <span class="input-group-text enviar" id="inputGroup-sizing-sm"
                                                         onclick="enviar_cocina({{producto.id}});return false;">Enviar</span>
                                                 </div>
                                                 <input type="number" class="form-control" aria-label="Small"
                                                     id="cantidad_enviar_{{producto.id}}"
-                                                    aria-describedby="inputGroup-sizing-sm">
+                                                    aria-describedby="inputGroup-sizing-sm"
+                                                    onlick=enviar_cocina({{producto.id}})>
                                             </div>
                                             <div class="input-group input-group-sm">
                                                 <div class="input-group-prepend">
@@ -136,8 +137,9 @@
                                                         id="inputGroup-sizing-sm">Último</span>
                                                 </div>
                                                 <input readonly type="number" class="form-control" aria-label="Small"
-                                                    id="cantidad_enviar_{{producto.id}}"
-                                                    aria-describedby="inputGroup-sizing-sm">
+                                                    id="cantidad_ultimo_{{producto.id}}"
+                                                    aria-describedby="inputGroup-sizing-sm"
+                                                    value="{{producto.ultima_cantidad}}">
                                             </div>
 
                                         </td>
@@ -146,7 +148,7 @@
                                         </td>
 
                                         <td>
-                                            10
+                                            {{producto.deficit}}
                                         </td>
                                     </tr>
                                     {% endfor%}
@@ -313,27 +315,11 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-
-        // Añadir buscador por cada columna
-        $('#example thead tr').clone(true).appendTo('#example thead');
-        $('#example thead tr:eq(1) th').each(function (i) {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-
-            $('input', this).on('keyup change', function () {
-                if (table.column(i).search() !== this.value) {
-                    table
-                        .column(i)
-                        .search(this.value)
-                        .draw();
-                }
-            });
+        $(".enviar").css({
+            "cursor": "pointer"
         });
 
-        var table = $('#example').DataTable({
-            orderCellsTop: true,
-            fixedHeader: true
-        });
+
         //Date range picker
         $('#rango_fecha_compras').daterangepicker();
         $('#rango_fecha_compras').on('apply.daterangepicker', function (ev, picker) {
@@ -342,7 +328,7 @@
             $("#loader_bg").show();
             $.ajax({
                 type: 'POST',
-                url: '../compras/reporte_economico_ajax/',
+                url: '../dashboard/reporte_economico/reporte_economico_ajax/',
                 data: {
                     startDate: startDate,
                     endDate: endDate,
@@ -373,7 +359,7 @@
             $("#loader_bg").show();
             $.ajax({
                 type: 'POST',
-                url: '../compras/reporte_economico_ajax/',
+                url: '../dashboard/reporte_economico/reporte_economico_ajax/',
                 data: {
                     startDate: startDate,
                     endDate: endDate,
@@ -404,7 +390,7 @@
             $("#loader_bg").show();
             $.ajax({
                 type: 'POST',
-                url: '../compras/reporte_economico_ajax/',
+                url: '../dashboard/reporte_economico/reporte_economico_ajax/',
                 data: {
                     startDate: startDate,
                     endDate: endDate,
@@ -429,6 +415,33 @@
             });
         })
     });
+
+    function enviar_cocina(producto_id) {
+        $("#loader_bg").show();
+        $.ajax({
+            type: 'POST',
+            url: '../dashboard/reporte_economico/enviar_cocina/',
+            data: {
+                cantidad_enviar: $("#cantidad_enviar_" + producto_id).val(),
+                id_producto_padre: producto_id,
+                csrfmiddlewaretoken: '{{csrf_token}}',
+                action: 'post'
+            },
+            success: function (json) {
+                $("#loader_bg").hide();
+                toastr.success('Se actualizó la cantidad real');
+            },
+            error: function (xhr, errmsg, err) {
+                console.log(xhr.status + ": " + xhr
+                    .responseText
+                ); // provide a bit more info about the error to the console
+                $("#loader_bg").hide();
+                toastr.error('No se pudo actualizar la cantidad real');
+            }
+        });
+
+
+    };
 </script>
 
 

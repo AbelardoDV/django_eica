@@ -14,6 +14,7 @@ from .models import ProductoPlato
 from .models import PlatoPadre
 from .models import PlatoHijoVenta
 from .models import BoletaVentaRestaurante
+from .models import ProductoHijoTransaccion
 ###########################################################
 from django.utils.timezone import get_current_timezone
 import datetime
@@ -61,21 +62,44 @@ def dashboard_reporte_economico_view(request):
 
     nombre_vista = 'Dashboard | Reporte económico'
     ruta_vista = ['Dashboard', 'Reporte económico']
-    saldo_restante_productos=ProductoPadre.objects.raw("""SELECT
+    saldo_restante_productos=ProductoPadre.objects.raw("""SELECT  
                             productos_comprados.id,
                             productos_comprados.nombre,
                             productos_comprados.unidad,
                             productos_comprados.cantidad__sum as cantidad_comprada,
                             coalesce(productos_vendidos.cantidad,0) as cantidad_vendida,
                             productos_comprados.cantidad__sum - coalesce(productos_vendidos.cantidad,0) as saldo_restante,
-                            ROUND((100*productos_vendidos.cantidad/productos_comprados.cantidad__sum) ::numeric,2) as porcentaje_consumo
-                            FROM productos_comprados 
-                            LEFT JOIN productos_vendidos 
-                                ON productos_vendidos.id = productos_comprados.id""")
-
+                            coalesce(ROUND((100*productos_vendidos.cantidad/productos_comprados.cantidad__sum) ::numeric,2),0) as porcentaje_consumo,
+                            productos_comprados.cantidad__sum-coalesce(transacciones_reporte.suma_transaccion,0) as cantidad_almacen,
+                            transacciones_reporte.ultima_cantidad,
+                            transacciones_reporte.fecha_transaccion,
+                            productos_comprados.cantidad__sum - coalesce(productos_vendidos.cantidad,0)  - (productos_comprados.cantidad__sum-coalesce(transacciones_reporte.suma_transaccion,0)) as deficit
+                        FROM productos_comprados 
+                        LEFT JOIN productos_vendidos 
+                            ON productos_vendidos.id = productos_comprados.id
+                        LEFT JOIN transacciones_reporte
+                            ON transacciones_reporte.id_producto_padre = productos_comprados.id
+                        GROUP BY productos_comprados.id,
+                        productos_comprados.nombre,
+                        productos_comprados.unidad,
+                        cantidad_comprada,
+                        cantidad_vendida,
+                        saldo_restante,
+                        porcentaje_consumo,
+                        cantidad_almacen,
+                        transacciones_reporte.ultima_cantidad,
+                        transacciones_reporte.fecha_transaccion,
+                        deficit""")
 
     return render(request, 'dashboard/reporte_economico.html', locals())
 
+@login_required(login_url='/accounts/login')
+def enviar_cocina(request):
+    if request.method == 'POST':
+        cantidad_enviar_cocina = float(request.POST.get('cantidad_enviar'))
+        id_producto_padre = int(request.POST.get('id_producto_padre'))
+        ProductoHijoTransaccion.objects.create(producto_padre=ProductoPadre.objects.get(pk=id_producto_padre),fecha_creado=datetime.datetime.now(tz=get_current_timezone()),fecha_modificado=datetime.datetime.now(tz=get_current_timezone()),fecha_transaccion=datetime.datetime.now(tz=get_current_timezone()),cantidad=cantidad_enviar_cocina)
+    return HttpResponse(status=200)
 # ---------------------------Fin Dashboard-------------------------
 
 

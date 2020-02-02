@@ -12,13 +12,14 @@
 
 
 <!-- Para que la tabla no sea muy grande-->
-<style> 
-.table td, .table th{
+<style>
+    .table td,
+    .table th {
 
-    padding:0.3rem;
-    vertical-align: middle;
-  }
-  </style>
+        padding: 0.3rem;
+        vertical-align: middle;
+    }
+</style>
 
 {% endblock cabecera %}
 
@@ -170,8 +171,62 @@
 
 <!-- Page script -->
 <script>
+    var table;
     $(document).ready(function () {
 
+        // Setup - add a text input to each footer cell
+        $('#tablaHistorial thead tr').clone().appendTo('#tablaHistorial thead');
+        $('#tablaHistorial thead tr:eq(1) th').each(function (i) {
+            var title = $(this).text();
+            $(this).html('<input type="text" style="width:100px" placeholder="Buscar"/>');
+
+            $('input', this).on('keyup change', function () {
+                if (table.column(i).search() !== this.value) {
+                    table
+                        .column(i)
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+        // Tabla Historial Datatable
+        table = $('#tablaHistorial').DataTable({
+            orderCellsTop: true,
+            fixedHeader: true,
+
+            "order": [
+                [0, "desc"]
+            ],
+            "oLanguage": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla =(",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                "buttons": {
+                    "copy": "Copiar",
+                    "colvis": "Visibilidad"
+                },
+            },
+        });
 
     });
 
@@ -197,11 +252,11 @@
                 $("#deficit_" + producto_id).text(String(nuevo_deficit));
                 $("#reportado_" + producto_id).val(cantidad_real);
                 if (nuevo_deficit < 0) {
-                    $('#deficit_' + producto_id).attr("class", "text-danger");                    
-                    $("#reportado_" + producto_id).attr("class","form-control is-invalid");
+                    $('#deficit_' + producto_id).attr("class", "text-danger");
+                    $("#reportado_" + producto_id).attr("class", "form-control is-invalid");
                 } else {
                     $('#deficit_' + producto_id).attr("class", "text-sucess");
-                    $("#reportado_" + producto_id).attr("class","form-control is-valid");
+                    $("#reportado_" + producto_id).attr("class", "form-control is-valid");
                 }
 
 
@@ -224,44 +279,9 @@
         $('.select2bs4').select2({
             theme: 'bootstrap4'
         })
-        // Tabla Historial Datatable
-        $('#tablaHistorial').DataTable({
-            "order": [
-                [0, "desc"]
-            ],
-            "oLanguage": {
-                "sProcessing": "Procesando...",
-                "sLengthMenu": "Mostrar _MENU_ registros",
-                "sZeroRecords": "No se encontraron resultados",
-                "sEmptyTable": "Ningún dato disponible en esta tabla =(",
-                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix": "",
-                "sSearch": "Buscar:",
-                "sUrl": "",
-                "sInfoThousands": ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast": "Último",
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "oAria": {
-                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                },
-                "buttons": {
-                    "copy": "Copiar",
-                    "colvis": "Visibilidad"
-                },
-            },
-        });
+
         // Add here more scripts
     })
-
-    
 </script>
 
 {% endblock pie %}
