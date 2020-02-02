@@ -90,7 +90,14 @@ def dashboard_reporte_economico_view(request):
                         transacciones_reporte.ultima_cantidad,
                         transacciones_reporte.fecha_transaccion,
                         deficit""")
-
+    
+    base = datetime.datetime.today()
+    date_list = [base - datetime.timedelta(days=x) for x in range(10)]#Solo para obtener las fechas
+    lista_dias = ['a','a','a','a','a','a','a','a','a','a']
+    i=0
+    for x in date_list:
+        lista_dias[9-i]=x.strftime("%d-%m-%Y")
+        i=i+1
     return render(request, 'dashboard/reporte_economico.html', locals())
 
 @login_required(login_url='/accounts/login')

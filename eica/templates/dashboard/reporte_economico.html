@@ -8,6 +8,8 @@
 <!-- daterange picker -->
 <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+
 <!-- Para que la tabla no sea muy grande-->
 <style>
     .table td,
@@ -55,14 +57,14 @@
                                         <th>Producto</th>
                                         <th>Unidad</th>
                                         <th>Comprado</th>
-                                        <th style="width: 100px;">En almacén</th>
+                                        <th style="width: 100px;">En almacén (Hoy)</th>
                                         <th style="width: 200px;">Enviar a cocina</th>
                                         <th>Usado**</th>
-                                        <th>Saldo**</th>
+                                        <th>Saldo** (Hoy)</th>
                                         <th>Porcentaje de consumo**</th>
 
                                         <th>Historial</th>
-                                        <th>Déficit</th>
+                                        <th>Déficit (Hoy)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -193,7 +195,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-
+                        <canvas id="myChart" style="width=400px,height=225px;"></canvas>
                     </div>
                     <!-- ./card-body -->
                     <div class="card-footer">
@@ -480,6 +482,71 @@
 
 
     };
+
+
+    //Graficar Historial
+
+    // Our labels along the x-axis
+    var dias = {{lista_dias | safe}};
+    // For drawing the lines
+    var compra_diaria = [, 10, 10, 10, 10, 10, 10, 10, 10, 10];
+    var enviado_a_cocina = [ , 6, 8, 20, 11, 3, 8, 9, 10, 10];
+    var almacen = [, 5, 9, 11, 1, 0, 7, 11, 12, 13, 14];
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: dias,
+            datasets: [{
+                    stack: 'Stack 0',
+                    steppedLine: true,
+                    data: almacen,
+                    label: "almacen (-1dia)",
+                    borderColor: "#3e95cd",
+                    backgroundColor: "#3e95cd",
+                    fill: false
+                },
+                {
+                    stack: 'Stack 1',
+                    steppedLine: true,
+                    data: enviado_a_cocina,
+                    label: "enviado_a_cocina",
+                    backgroundColor: "#8e5ea2",
+                    borderColor: "#8e5ea2",
+                    fill: false
+                },
+                {
+                    stack: 'Stack 0',
+                    steppedLine: true,
+                    data: compra_diaria,
+                    label: "compra_diaria",
+                    backgroundColor: "#3cba9f",
+                    borderColor: "#3cba9f",
+                    fill: false
+                }
+            ]
+        },
+
+        options: {
+            title: {
+                display: true,
+                text: 'Chart.js Bar Chart - Stacked'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false
+            },
+            responsive: true,
+            scales: {
+                xAxes: [{
+                    stacked: true,
+                }],
+                yAxes: [{
+                    stacked: true
+                }]
+            }
+        }
+    });
 </script>
 
 
