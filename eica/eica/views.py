@@ -329,6 +329,30 @@ def reporte_economico_ajax(request):
 # ---------------------------------Fin Seccion Productos---------------------------------
 
 
+# --------------------------------- Inicio Inventario ---------------------------------
+
+@login_required(login_url='/accounts/login')
+def inventario_productos_view(request):
+
+    nombre_vista = 'Inventario - Productos'
+    ruta_vista = ['Inventario - Productos']
+    
+    # platoPadre = PlatoPadre.objects.all() # PlatoPadre has many Producto Plato
+    # productoPlato = ProductoPlato.objects.all() #ProductoPadre has many has many ProductoPlato
+    # productoPadre = ProductoPadre.objects.all()
+
+    
+    # json_platoPadre = serializers.serialize("json", platoPadre)  
+    # json_productoPlato= serializers.serialize("json", productoPlato)  
+    # json_productoPadre= serializers.serialize("json", productoPadre) 
+
+ 
+  
+    return render(request, 'inventario/inventario_productos.html', locals())
+
+# --------------------------------- Fin Inventario ---------------------------------
+
+
 # ---------------------------------Inicio Editar---------------------------------
 
 @login_required(login_url='/accounts/login')

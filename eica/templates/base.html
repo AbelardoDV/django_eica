@@ -37,13 +37,13 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
-<!-- Loader -->
-<div id="loader_bg" style="display: none;">
+  <!-- Loader -->
+  <div id="loader_bg" style="display: none;">
     <div class="box_layer yellow"></div>
     <div class="box_layer yellowDark"></div>
     <div class="box_layer orange"></div>
     <div class="box_layer orangeDark"></div>
-</div>
+  </div>
   <!-- Site wrapper -->
   <div class="wrapper">
     <!-- Navbar -->
@@ -184,7 +184,7 @@
             </li>
             <!-- Menu Footer-->
             <li class="user-footer">
-              <a href="../accounts/logout" class="btn btn-default btn-flat float-right">Cerrar Sesion</a>
+              <a href="{% url 'logout' %}" class="btn btn-default btn-flat float-right">Cerrar Sesion</a>
             </li>
           </ul>
         </li>
@@ -223,8 +223,7 @@
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-child-indent" data-widget="treeview"
             role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+            <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
             <!-- Resumen general -->
             {% if nombre_vista == 'Dashboard' or nombre_vista == 'Dashboard | Reporte económico' %}
@@ -247,9 +246,9 @@
                   <!-- Submenu -->
                   <li class="nav-item">
                     {% if nombre_vista == 'Dashboard'  %}
-                    <a href="../dashboard/" class="nav-link active">
+                    <a href="{% url 'dashboard' %}" class="nav-link active">
                       {% else  %}
-                      <a href="../dashboard/" class="nav-link">
+                      <a href="{% url 'dashboard' %}" class="nav-link">
                         {% endif  %}
                         <i class="far fa-circle nav-icon"></i>
                         <p>Resumen general</p>
@@ -258,9 +257,9 @@
                   <!-- Submenu -->
                   <li class="nav-item">
                     {% if nombre_vista == 'Dashboard | Reporte económico'  %}
-                    <a href="../dashboard/reporte_economico" class="nav-link active">
+                    <a href="{% url 'reporte_economico' %}" class="nav-link active">
                       {% else  %}
-                      <a href="../dashboard/reporte_economico" class="nav-link">
+                      <a href="{% url 'reporte_economico' %}" class="nav-link">
                         {% endif  %}
                         <i class="far fa-circle nav-icon"></i>
                         <p>Reporte económico</p>
@@ -289,9 +288,9 @@
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
                     {% if nombre_vista == 'Ventas de Restaurante'  %}
-                    <a href="/ventas_restaurante" class="nav-link active">
+                    <a href="{% url 'ventas_restaurante' %}" class="nav-link active">
                       {% else %}
-                      <a href="/ventas_restaurante" class="nav-link">
+                      <a href="{% url 'ventas_restaurante' %}"class="nav-link">
                         {% endif %}
                         <i class="far fa-circle nav-icon"></i>
                         <p>Ingresar <br> venta restaurante</p>
@@ -299,9 +298,9 @@
                   </li>
                   <li class="nav-item">
                     {% if nombre_vista == 'Ventas de Bodega'  %}
-                    <a href="/ventas_bodega" class="nav-link active">
+                    <a href="{% url 'ventas_bodega' %}" class="nav-link active">
                       {% else %}
-                      <a href="/ventas_bodega" class="nav-link">
+                      <a href="{% url 'ventas_bodega' %}"class="nav-link">
                         {% endif %}
                         <i class="far fa-circle nav-icon"></i>
                         <p>Ingresar <br>ventas de bodega</p>
@@ -309,9 +308,9 @@
                   </li>
                   <li class="nav-item">
                     {% if nombre_vista == 'Historial de Ventas'  %}
-                    <a href="/ventas_historial" class="nav-link active">
+                    <a href="{% url 'ventas_historial' %}"class="nav-link active">
                       {% else %}
-                      <a href="/ventas_historial" class="nav-link">
+                      <a href="{% url 'ventas_historial' %}" class="nav-link">
                         {% endif %}
                         <i class="far fa-circle nav-icon"></i>
                         <p>Historial de Ventas</p>
@@ -342,9 +341,9 @@
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
                     {% if nombre_vista == 'Compras de Productos'  %}
-                    <a href="/compras_productos" class="nav-link active">
+                    <a href="{% url 'compras_productos' %}" class="nav-link active">
                       {% else %}
-                      <a href="/compras_productos" class="nav-link">
+                      <a href="{% url 'compras_productos' %}"class="nav-link">
                         {% endif %}
                         <i class="far fa-circle nav-icon"></i>
                         <p>Ingresar <br>Compra de Productos</p>
@@ -353,9 +352,9 @@
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
                     {% if nombre_vista == 'Compras Historial Boletas'  %}
-                    <a href="/compras_historial_boletas" class="nav-link active">
+                    <a href="{% url 'compras_historial_boletas' %}" class="nav-link active">
                       {% else %}
-                      <a href="/compras_historial_boletas" class="nav-link">
+                      <a href="{% url 'compras_historial_boletas' %}" class="nav-link">
                         {% endif %}
                         <i class="far fa-circle nav-icon"></i>
                         <p>Historial de Boletas</p>
@@ -364,9 +363,9 @@
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
                     {% if nombre_vista == 'Compras Historial Productos'  %}
-                    <a href="/compras_historial_productos" class="nav-link active">
+                    <a href="{% url 'compras_historial_productos' %}" class="nav-link active">
                       {% else %}
-                      <a href="/compras_historial_productos" class="nav-link">
+                      <a href="{% url 'compras_historial_productos' %}"class="nav-link">
                         {% endif %}
                         <i class="far fa-circle nav-icon"></i>
                         <p>Historial de Productos</p>
@@ -376,6 +375,41 @@
 
             <!-- Fin Compras-->
 
+
+            <!--Inicio Inventario -->
+            {% if nombre_vista == 'Inventario - Productos' %}
+            <li class="nav-item has-treeview menu-open">
+              {% else %}
+            <li class="nav-item has-treeview">
+              {% endif %}
+              {% if nombre_vista == 'Inventario - Productos' %}
+              <a href="#" class="nav-link active">
+                {% else %}
+                <a href="#" class="nav-link">
+                  {% endif %}
+                  <i class="fas fa-boxes"></i>
+                  <p>
+                    Inventario
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <!-- Primer submenú-->
+                  <li class="nav-item">
+                    {% if nombre_vista == 'Inventario - Productos'  %}
+                    <a href="{% url 'inventario_productos' %}" class="nav-link active">
+                      {% else %}
+                      <a href="{% url 'inventario_productos' %}" class="nav-link">
+                        {% endif %}
+                        <i class="fas fa-people-carry"></i>
+                        <p>Gestionar productos</p>
+                      </a>
+                  </li>
+                  <!--/. Primer submenú-->
+                </ul>
+            </li>
+
+            <!-- Fin Inventario -->
 
             <!--Inicio Editar-->
             {% if nombre_vista == 'Editar platos' or nombre_vista == ''  %}
@@ -396,9 +430,9 @@
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
                     {% if nombre_vista == 'Editar platos'  %}
-                    <a href="/editar_platos" class="nav-link active">
+                    <a href="{% url 'editar_platos' %}" class="nav-link active">
                       {% else %}
-                      <a href="/editar_platos" class="nav-link">
+                      <a href="{% url 'editar_platos' %}" class="nav-link">
                         {% endif %}
                         <i class="far fa-circle nav-icon"></i>
                         <p>Editar platos</p>
