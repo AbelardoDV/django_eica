@@ -55,11 +55,12 @@
                                         <th>Producto</th>
                                         <th>Unidad</th>
                                         <th>Comprado</th>
+                                        <th style="width: 100px;">En almacén</th>
+                                        <th style="width: 200px;">Enviar a cocina</th>
                                         <th>Usado**</th>
                                         <th>Saldo**</th>
                                         <th>Porcentaje de consumo**</th>
-                                        <th style="width: 100px;">En almacén</th>
-                                        <th style="width: 200px;">Enviar a cocina</th>
+
                                         <th>Historial</th>
                                         <th>Déficit</th>
                                     </tr>
@@ -70,6 +71,34 @@
                                         <td>{{producto.nombre |default_if_none:"---"}}</td>
                                         <td>{{producto.unidad |default_if_none:"---" }}</td>
                                         <td><strong>{{producto.cantidad_comprada|default_if_none:"---"}}</strong></td>
+                                        <td style="text-align: center;">
+                                            {{producto.cantidad_almacen}}
+                                        </td>
+                                        <td>
+
+                                            <div class="input-group input-group-sm">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text enviar" id="inputGroup-sizing-sm"
+                                                        onclick="enviar_cocina({{producto.id}});return false;">Enviar</span>
+                                                </div>
+                                                <input type="number" class="form-control" aria-label="Small"
+                                                    id="cantidad_enviar_{{producto.id}}"
+                                                    aria-describedby="inputGroup-sizing-sm"
+                                                    onlick=enviar_cocina({{producto.id}})>
+                                            </div>
+                                            <div class="input-group input-group-sm">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"
+                                                        id="inputGroup-sizing-sm">Último</span>
+                                                </div>
+                                                <input readonly type="number" class="form-control" aria-label="Small"
+                                                    id="cantidad_ultimo_{{producto.id}}"
+                                                    aria-describedby="inputGroup-sizing-sm"
+                                                    value="{{producto.ultima_cantidad}}">
+                                            </div>
+
+                                        </td>
+
                                         <td>{{producto.cantidad_vendida|default_if_none:"---"}}</td>
                                         <td>{{producto.saldo_restante|default_if_none:"---"}}</td>
 
@@ -116,33 +145,8 @@
 
 
                                         </td>
-                                        <td style="text-align: center;">
-                                            {{producto.cantidad_almacen}}
-                                        </td>
-                                        <td>
 
-                                            <div class="input-group input-group-sm">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text enviar" id="inputGroup-sizing-sm"
-                                                        onclick="enviar_cocina({{producto.id}});return false;">Enviar</span>
-                                                </div>
-                                                <input type="number" class="form-control" aria-label="Small"
-                                                    id="cantidad_enviar_{{producto.id}}"
-                                                    aria-describedby="inputGroup-sizing-sm"
-                                                    onlick=enviar_cocina({{producto.id}})>
-                                            </div>
-                                            <div class="input-group input-group-sm">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"
-                                                        id="inputGroup-sizing-sm">Último</span>
-                                                </div>
-                                                <input readonly type="number" class="form-control" aria-label="Small"
-                                                    id="cantidad_ultimo_{{producto.id}}"
-                                                    aria-describedby="inputGroup-sizing-sm"
-                                                    value="{{producto.ultima_cantidad}}">
-                                            </div>
 
-                                        </td>
                                         <td>
                                             <a href="">Ver</a>
                                         </td>
@@ -156,6 +160,40 @@
                             </table>
                             **Significa Teórico
                         </div>
+                    </div>
+                    <!-- ./card-body -->
+                    <div class="card-footer">
+                        <!-- /.Vacio -->
+                    </div>
+                    <!-- /.card-footer -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Historial de Producto</h5>
+                        <div class="card-tools">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fas fa-wrench"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <a href="#" class="dropdown-item">Falta agregar acciones</a>
+                                    <a class="dropdown-divider"></a> <!-- Es un divisor-->
+                                </div>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+
                     </div>
                     <!-- ./card-body -->
                     <div class="card-footer">

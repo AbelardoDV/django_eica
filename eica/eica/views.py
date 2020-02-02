@@ -122,7 +122,7 @@ def ventas_restaurante_view(request):
                                                 comentario=comentarios,
                                                 cliente=cliente,
                                                 tipo=tipo,
-                                                nro_boleta_factura=nro_boleta_factura,
+                                                numero=nro_boleta_factura,
                                                 vendedor=vendedor)
         
         id_boleta_venta_restaurante = int(request.POST.get('id_boleta_venta_restaurante'))

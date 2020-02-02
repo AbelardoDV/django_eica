@@ -10,7 +10,7 @@ WITH vendidos AS (
 		INNER JOIN producto_plato ON producto_plato.id_plato_padre = plato_padre.id
 		INNER JOIN producto_padre ON producto_padre.id = producto_plato.id_producto_padre
 			WHERE boleta_venta_restaurante.valido = True AND
-				  boleta_venta_restaurante.fecha_venta <  '2012-01-01 00:00:00'
+				  boleta_venta_restaurante.fecha_venta <  (SELECT CURRENT_DATE - INTERVAL'0 DAY')
 	GROUP BY producto_padre.nombre,producto_padre.unidad,producto_padre.id
 	
 ), comprados AS(
@@ -23,7 +23,7 @@ SELECT
 		INNER JOIN "boleta_compra" ON ("producto_hijo_compra"."id_boleta_compra" = "boleta_compra"."id") 
 		LEFT OUTER JOIN "producto_padre" ON ("producto_hijo_compra"."id_producto_padre" = "producto_padre"."id") 
 			WHERE 
-				"boleta_compra"."valido" = True AND boleta_compra.fecha_compra	<  '2021-01-01 00:00:00'
+				"boleta_compra"."valido" = True AND boleta_compra.fecha_compra	<  (SELECT CURRENT_DATE - INTERVAL'0 DAY')
 		GROUP BY "producto_padre"."nombre", "producto_padre"."unidad","producto_padre"."id"
 ),transacciones as (
 
@@ -34,7 +34,7 @@ WITH acumulado AS (
 		id_producto_padre,
 		SUM(cantidad) as suma_transaccion 
 	FROM producto_hijo_transaccion 
-	WHERE fecha_transaccion <  '2001-01-01 00:00:00'
+	WHERE fecha_transaccion <  (SELECT CURRENT_DATE - INTERVAL'0 DAY')
 		GROUP BY id_producto_padre
 
 ) SELECT 
@@ -45,7 +45,7 @@ producto_hijo_transaccion.cantidad as ultima_cantidad
 FROM acumulado
 	INNER JOIN producto_hijo_transaccion 
 	ON producto_hijo_transaccion.id_producto_padre = acumulado.id_producto_padre
-		WHERE producto_hijo_transaccion.fecha_transaccion <  '2001-01-01 00:00:00'
+		WHERE producto_hijo_transaccion.fecha_transaccion <  (SELECT CURRENT_DATE - INTERVAL'0 DAY')
 		GROUP BY 
 			acumulado.id_producto_padre , 
 			acumulado.suma_transaccion,
