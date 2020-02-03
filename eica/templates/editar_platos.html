@@ -57,7 +57,8 @@
 
                     <div class="card-body">
                         <!-- form start -->
-                        <form id="myForm" action="#" method="POST">
+                        <form id="myForm" action="" method="POST">
+                         {% csrf_token %}
                             <!-- Grupo 1 formulario -->
                             <div class="invoice p-3 mb-3">
 
@@ -79,7 +80,7 @@
                                                             </span>
                                                         </div>
                                                         <div class="input-group-prepend ">
-                                                            <select class="form-control select2bs4" style="width: 100%;"
+                                                            <select class="form-control select2bs4" style="width: 100%;" name="id_plato_padre"
                                                                 onchange="cargar_plato(this.value)">
                                                                 {% for plato in platoPadre %}
                                                                 {% if forloop.last %}
@@ -178,8 +179,8 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <input type="number" step="00.01" placeholder='00.00'
-                                                            value='00.00' min="0" class="form-control"
+                                                        <input type="number" step="00.001" placeholder='00.000'
+                                                            value='00.000' min="0" class="form-control"
                                                             name="Cantidad_1">
                                                     </td>
                                                     <td>
@@ -217,7 +218,7 @@
                                     <div class="col-12">
                                         <!--   <a href="#" target="_blank" class="btn btn-default"><i
                             class="fas fa-print"></i> Imprimir ahora</a> -->
-                                        <button id="btnGuardar" type="button" class="btn btn-success float-right">
+                                        <button id="btnGuardar" type="submit" class="btn btn-success float-right">
                                             <i class="far fa-credit-card"></i>
                                             Guardar <strong>plato</strong>
                                         </button>

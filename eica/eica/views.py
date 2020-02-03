@@ -23,6 +23,8 @@ from django.db.models import Count
 from django.db.models import Sum
 from django.db.models import F
 
+import re
+
 # -------------------------Inicio Dashboard-------------------------
 
 @login_required(login_url='/accounts/login')
@@ -369,10 +371,23 @@ def editar_plato_view(request):
     ruta_vista = ['Editar platos']
     
     platoPadre = PlatoPadre.objects.all() # PlatoPadre has many Producto Plato
-    productoPlato = ProductoPlato.objects.all() #ProductoPadre has many has many ProductoPlato
+    productoPlato = ProductoPlato.objects.all() #ProductoPadre has many ProductoPlato
     productoPadre = ProductoPadre.objects.all()
+   
+    if request.method == 'POST':
+        id_plato_padre = int(request.POST.get('id_plato_padre'))            
+        print(id_plato_padre)
+        print(request.POST.get('Cantidad_1'))
+        print(request.POST.get('id_producto_padre_1'))
+        for key, value in request.POST.items():
+            if  re.match('id_producto_padre_[0-9]', key):   
+                id_producto_padre = int(value)
+                print(id_producto_padre)
+            if re.match('Cantidad_[0-9]', key):
+                cantidad = float(value)
+                print(cantidad)
+                ProductoPlato.objects.create(cantidad=cantidad,producto_padre=ProductoPadre.objects.get(pk=id_producto_padre),plato_padre=PlatoPadre.objects.get(pk=id_plato_padre))
 
-    
     json_platoPadre = serializers.serialize("json", platoPadre)  
     json_productoPlato= serializers.serialize("json", productoPlato)  
     json_productoPadre= serializers.serialize("json", productoPadre) 

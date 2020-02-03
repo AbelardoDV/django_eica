@@ -1,4 +1,4 @@
-
+CREATE VIEW transacciones_reporte AS
 WITH acumulado AS (
 
 	SELECT id_producto_padre,SUM(cantidad) as suma_transaccion FROM producto_hijo_transaccion GROUP BY id_producto_padre

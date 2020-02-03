@@ -153,7 +153,7 @@ class DjangoSession(models.Model):
 
 
 class PlatoPadre(models.Model):
-    nombre = models.CharField(max_length=500)
+    nombre = models.CharField(max_length=500,unique=True)
 
     class Meta:
         managed = True
@@ -204,7 +204,7 @@ class ProductoHijoVenta(models.Model):
         return '{}'.format(self.id)
 
 class ProductoPadre(models.Model):
-    nombre = models.CharField(max_length=500, blank=True, null=True)
+    nombre = models.CharField(max_length=500, blank=True, null=True,unique=True)
     descripcion = models.CharField(max_length=500, blank=True, null=True)
     unidad = models.CharField(max_length=20, blank=True, null=True)
 
@@ -237,6 +237,7 @@ class ProductoPlato(models.Model):
     class Meta:
         managed = True
         db_table = 'producto_plato'
+        unique_together = ('producto_padre', 'plato_padre',)
 
     def __str__(self):
         return '{}'.format(self.id)
