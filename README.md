@@ -1,9 +1,9 @@
 Was intended to restaurant manager.<br>
 
-Techonologies:
--Django
--Python
--Javascript
+Techonologies:<br>
+-Django<br>
+-Python<br>
+-Javascript<br>
 
 
 Para genrar models.py e insertar tablas de authenticacion djangos
